@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Konfetti Polonaise</title>
     <script type="text/javascript" src="js/phaser.js"></script>
+    <script type="text/javascript" src="js/konfetti-polonaise.js"></script>
 </head>
 <body>
+    <div id="game">
+
+    </div>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            var game = new KonfettiPolonaise();
+            game.get_nextId();
+        };
+    </script>
 </body>
 </html>
