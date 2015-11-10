@@ -476,7 +476,6 @@ Polygon.prototype.slice = function(cutEdges){
  * @method isSimple
  * @param  {Array} path An array of vertices e.g. [[0,0],[0,1],...]
  * @return {Boolean}
- * @todo Should it check all segments with all others?
  */
 Polygon.prototype.isSimple = function(){
     var path = this.vertices;
@@ -1380,7 +1379,6 @@ var bodiesOverlap_shapePositionB = vec2.create();
  * @param  {Body} bodyA
  * @param  {Body} bodyB
  * @return {Boolean}
- * @todo shape world transforms are wrong
  */
 Narrowphase.prototype.bodiesOverlap = function(bodyA, bodyB){
     var shapePositionA = bodiesOverlap_shapePositionA;
@@ -1565,7 +1563,6 @@ Narrowphase.prototype.createFrictionFromAverage = function(numContacts){
  * @param  {Array}      lineOffset
  * @param  {Number}     lineAngle
  * @param {boolean}     justTest
- * @todo Implement me!
  */
 Narrowphase.prototype[Shape.LINE | Shape.CONVEX] =
 Narrowphase.prototype.convexLine = function(
@@ -1579,7 +1576,6 @@ Narrowphase.prototype.convexLine = function(
     lineAngle,
     justTest
 ){
-    // TODO
     if(justTest){
         return false;
     } else {
@@ -1599,7 +1595,6 @@ Narrowphase.prototype.convexLine = function(
  * @param  {Array}      boxOffset
  * @param  {Number}     boxAngle
  * @param  {Boolean}    justTest
- * @todo Implement me!
  */
 Narrowphase.prototype[Shape.LINE | Shape.BOX] =
 Narrowphase.prototype.lineBox = function(
@@ -1613,7 +1608,6 @@ Narrowphase.prototype.lineBox = function(
     boxAngle,
     justTest
 ){
-    // TODO
     if(justTest){
         return false;
     } else {
@@ -1693,7 +1687,6 @@ Narrowphase.prototype.convexCapsule = function(
  * @param  {Capsule}    capsuleShape
  * @param  {Array}      capsulePosition
  * @param  {Number}     capsuleAngle
- * @todo Implement me!
  */
 Narrowphase.prototype[Shape.CAPSULE | Shape.LINE] =
 Narrowphase.prototype.lineCapsule = function(
@@ -1707,7 +1700,6 @@ Narrowphase.prototype.lineCapsule = function(
     capsuleAngle,
     justTest
 ){
-    // TODO
     if(justTest){
         return false;
     } else {
@@ -1835,7 +1827,6 @@ Narrowphase.prototype.capsuleCapsule = function(bi,si,xi,ai, bj,sj,xj,aj, justTe
  * @param  {Line}       shapeB
  * @param  {Array}      positionB
  * @param  {Number}     angleB
- * @todo Implement me!
  */
 Narrowphase.prototype[Shape.LINE | Shape.LINE] =
 Narrowphase.prototype.lineLine = function(
@@ -1849,7 +1840,6 @@ Narrowphase.prototype.lineLine = function(
     angleB,
     justTest
 ){
-    // TODO
     if(justTest){
         return false;
     } else {
@@ -2354,7 +2344,6 @@ function pointInConvex(worldPoint,convexShape,convexOffset,convexAngle){
             v1 = verts[(i+1)%verts.length];
 
         // Transform vertices to world
-        // @todo The point should be transformed to local coordinates in the convex, no need to transform each vertex
         vec2.rotate(worldVertex0, v0, convexAngle);
         vec2.rotate(worldVertex1, v1, convexAngle);
         add(worldVertex0, worldVertex0, convexOffset);
@@ -2389,8 +2378,6 @@ function pointInConvex(worldPoint,convexShape,convexOffset,convexAngle){
  * @param  {Array} convexOffset
  * @param  {Number} convexAngle
  * @param {Boolean} justTest
- * @todo use pointInConvex and code more similar to circleConvex
- * @todo don't transform each vertex, but transform the particle position to convex-local instead
  */
 Narrowphase.prototype[Shape.PARTICLE | Shape.CONVEX] =
 Narrowphase.prototype[Shape.PARTICLE | Shape.BOX] =
@@ -3081,7 +3068,6 @@ Narrowphase.prototype.convexConvex = function(  bi,si,xi,ai, bj,sj,xj,aj, justTe
 
                 this.contactEquations.push(c);
 
-                // Todo reduce to 1 friction equation if we have 2 contact points
                 if(!this.enableFrictionReduction){
                     if(this.enableFriction){
                         this.frictionEquations.push(this.createFrictionFromContact(c));
@@ -3432,7 +3418,6 @@ Narrowphase.prototype.circleHeightfield = function( circleBody,circleShape,circl
     /*
     if(circlePos[1]+radius < min){
         // Below the minimum point... We can just guess.
-        // TODO
     }
     */
 
@@ -3606,7 +3591,6 @@ Narrowphase.prototype.convexHeightfield = function( convexBody,convexShape,conve
     var numContacts = 0;
 
     // Loop over all edges
-    // TODO: If possible, construct a convex from several data points (need o check if the points make a convex shape)
     for(var i=idxA; i<idxB; i++){
 
         // Get points
@@ -3616,7 +3600,7 @@ Narrowphase.prototype.convexHeightfield = function( convexBody,convexShape,conve
         vec2.add(v1,v1,hfPos);
 
         // Construct a convex
-        var tileHeight = 100; // todo
+        var tileHeight = 100;
         vec2.set(tilePos, (v1[0] + v0[0])*0.5, (v1[1] + v0[1] - tileHeight)*0.5);
 
         vec2.sub(tileConvex.vertices[0], v1, tilePos);
@@ -4957,7 +4941,6 @@ module.exports = PrismaticConstraint;
  * @param {Boolean} [options.disableRotationalLock]   If set to true, bodyB will be free to rotate around its anchor point.
  * @param {Number}  [options.upperLimit]
  * @param {Number}  [options.lowerLimit]
- * @todo Ability to create using only a point and a worldAxis
  */
 function PrismaticConstraint(bodyA, bodyB, options){
     options = options || {};
@@ -5535,7 +5518,6 @@ RevoluteConstraint.prototype.update = function(){
     vec2.rotate(worldPivotA, pivotA, bodyA.angle);
     vec2.rotate(worldPivotB, pivotB, bodyB.angle);
 
-    // todo: these are a bit sparse. We could save some computations on making custom eq.computeGW functions, etc
 
     x.G[0] = -1;
     x.G[1] =  0;
@@ -6165,7 +6147,6 @@ function FrictionEquation(bodyA, bodyB, slipForce){
      * The shape in body i that triggered this friction.
      * @property shapeA
      * @type {Shape}
-     * @todo Needed? The shape can be looked up via contactEquation.shapeA...
      */
     this.shapeA = null;
 
@@ -6173,7 +6154,6 @@ function FrictionEquation(bodyA, bodyB, slipForce){
      * The shape in body j that triggered this friction.
      * @property shapeB
      * @type {Shape}
-     * @todo Needed? The shape can be looked up via contactEquation.shapeB...
      */
     this.shapeB = null;
 
@@ -7474,7 +7454,6 @@ vec2.normalize = function(out, a) {
         y = a[1];
     var len = x*x + y*y;
     if (len > 0) {
-        //TODO: evaluate use of glm_invsqrt here?
         len = 1 / Math.sqrt(len);
         out[0] = a[0] * len;
         out[1] = a[1] * len;
@@ -9533,7 +9512,6 @@ Capsule.prototype.constructor = Capsule;
  * @method conputeMomentOfInertia
  * @param  {Number} mass
  * @return {Number}
- * @todo
  */
 Capsule.prototype.computeMomentOfInertia = function(mass){
     // Approximate with rectangle
@@ -10252,7 +10230,6 @@ module.exports = Heightfield;
  *     heightfieldBody.addShape(heightfieldShape);
  *     world.addBody(heightfieldBody);
  *
- * @todo Should use a scale property with X and Y direction instead of just elementWidth
  */
 function Heightfield(options){
     if(Array.isArray(arguments[0])){
@@ -10558,7 +10535,7 @@ Line.prototype.raycast = function(result, ray, position, angle){
     var fraction = vec2.getLineSegmentsIntersectionFraction(l0, l1, from, to);
     if(fraction >= 0){
         var normal = raycast_normal;
-        vec2.rotate(normal, raycast_unit_y, angle); // todo: this should depend on which side the ray comes from
+        vec2.rotate(normal, raycast_unit_y, angle);
         ray.reportIntersection(result, fraction, normal, -1);
     }
 };
@@ -12796,7 +12773,6 @@ World.prototype.removeContactMaterial = function(cm){
  * @param {Material} materialA
  * @param {Material} materialB
  * @return {ContactMaterial} The matching ContactMaterial, or false on fail.
- * @todo Use faster hash map to lookup from material id's
  */
 World.prototype.getContactMaterial = function(materialA,materialB){
     var cmats = this.contactMaterials;
@@ -13348,7 +13324,6 @@ World.prototype.removeSpring = function(spring){
  *     var world = new World(),
  *         body = new Body();
  *     world.addBody(body);
- * @todo What if this is done during step?
  */
 World.prototype.addBody = function(body){
     if(this.bodies.indexOf(body) === -1){
@@ -13478,8 +13453,6 @@ var hitTest_tmp1 = vec2.create(),
  * @param  {Array}  bodies      A list of objects to check for intersection
  * @param  {Number} precision   Used for matching against particles and lines. Adds some margin to these infinitesimal objects.
  * @return {Array}              Array of bodies that overlap the point
- * @todo Should use an api similar to the raycast function
- * @todo Should probably implement a .containsPoint method for all shapes. Would be more efficient
  */
 World.prototype.hitTest = function(worldPoint,bodies,precision){
     precision = precision || 0;
@@ -14109,7 +14082,6 @@ Object.defineProperty(PIXI.DisplayObject.prototype, 'filters', {
                 }
             }
 
-            // TODO change this as it is legacy
             this._filterBlock = { target: this, filterPasses: passes };
         }
 
@@ -14454,7 +14426,6 @@ PIXI.DisplayObject.prototype._destroyCachedSprite = function()
 
     this._cachedSprite.texture.destroy(true);
 
-    // TODO could be object pooled!
     this._cachedSprite = null;
 };
 
@@ -14838,7 +14809,6 @@ PIXI.DisplayObjectContainer.prototype.getBounds = function()
 {
     if(this.children.length === 0)return PIXI.EmptyRectangle;
 
-    // TODO the bounds have already been calculated this render session so return what we have
 
     var minX = Infinity;
     var minY = Infinity;
@@ -14882,7 +14852,6 @@ PIXI.DisplayObjectContainer.prototype.getBounds = function()
     bounds.width = maxX - minX;
     bounds.height = maxY - minY;
 
-    // TODO: store a reference so that if this function gets called again in the render cycle we do not have to recalculate
     //this._currentBounds = bounds;
    
     return bounds;
@@ -15587,7 +15556,6 @@ PIXI.SpriteBatch.prototype.constructor = PIXI.SpriteBatch;
  */
 PIXI.SpriteBatch.prototype.initWebGL = function(gl)
 {
-    // TODO only one needed for the whole engine really?
     this.fastSpriteBatch = new PIXI.WebGLFastSpriteBatch(gl);
 
     this.ready = true;
@@ -15601,7 +15569,6 @@ PIXI.SpriteBatch.prototype.initWebGL = function(gl)
  */
 PIXI.SpriteBatch.prototype.updateTransform = function()
 {
-    // TODO don't need to!
     this.displayObjectUpdateTransform();
     //  PIXI.DisplayObjectContainer.prototype.updateTransform.call( this );
 };
@@ -17723,8 +17690,7 @@ PIXI.WebGLStencilManager.prototype.pushStencil = function(graphics, webGLData, r
 };
 
 /**
- * TODO this does not belong here!
- * 
+ *
  * @method bindGraphics
  * @param graphics {Graphics}
  * @param webGLData {Array}
@@ -18458,7 +18424,6 @@ PIXI.WebGLSpriteBatch.prototype.renderTilingSprite = function(sprite)
     var width = sprite.width;
     var height = sprite.height;
 
-    // TODO trim??
     var aX = sprite.anchor.x;
     var aY = sprite.anchor.y;
     var w0 = width * (1-aX);
@@ -18644,7 +18609,6 @@ PIXI.WebGLSpriteBatch.prototype.flush = function()
                 var projection = this.renderSession.projection;
                 gl.uniform2f(shader.projectionVector, projection.x, projection.y);
 
-                // TODO - this is temporary!
                 var offsetVector = this.renderSession.offset;
                 gl.uniform2f(shader.offsetVector, offsetVector.x, offsetVector.y);
 
@@ -18948,7 +18912,6 @@ PIXI.WebGLFastSpriteBatch.prototype.renderSprite = function(sprite)
     //sprite = children[i];
     if(!sprite.visible)return;
     
-    // TODO trim??
     if(sprite.texture.baseTexture !== this.currentBaseTexture && !sprite.texture.baseTexture.skipRender)
     {
         this.flush();
@@ -19410,7 +19373,6 @@ PIXI.WebGLFilterManager.prototype.popFilter = function()
         buffer =  currentFilter._glFilterTexture.frameBuffer;
     }
 
-    // TODO need to remove these global elements..
     projection.x = sizeX/2;
     projection.y = -sizeY/2;
 
@@ -19480,7 +19442,6 @@ PIXI.WebGLFilterManager.prototype.popFilter = function()
 * 
 * @method applyFilterPass
 * @param filter {AbstractFilter} the filter that needs to be applied
-* @param filterArea {Texture} TODO - might need an update
 * @param width {Number} the horizontal range of the filter
 * @param height {Number} the vertical range of the filter
 */
@@ -21443,7 +21404,6 @@ PIXI.AbstractFilter.prototype.syncUniforms = function()
 /*
 PIXI.AbstractFilter.prototype.apply = function(frameBuffer)
 {
-    // TODO :)
 };
 */
 /**
@@ -21540,7 +21500,6 @@ PIXI.Strip.prototype._renderWebGL = function(renderSession)
 
     renderSession.spriteBatch.start();
 
-    //TODO check culling
 };
 
 PIXI.Strip.prototype._initWebGL = function(renderSession)
@@ -21823,8 +21782,6 @@ PIXI.Strip.prototype.renderStripFlat = function(strip)
 /*
 PIXI.Strip.prototype.setTexture = function(texture)
 {
-    //TODO SET THE TEXTURES
-    //TODO VISIBILITY
 
     // stop current texture
     this.texture = texture;
@@ -51710,7 +51667,6 @@ PIXI.WebGLGraphics.buildCircle = function(graphicsData, webGLData)
     var width;
     var height;
     
-    // TODO - bit hacky??
     if(graphicsData.type === PIXI.Graphics.CIRC)
     {
         width = circleData.radius;
@@ -51786,7 +51742,6 @@ PIXI.WebGLGraphics.buildCircle = function(graphicsData, webGLData)
  */
 PIXI.WebGLGraphics.buildLine = function(graphicsData, webGLData)
 {
-    // TODO OPTIMISE!
     var i = 0;
     var points = graphicsData.points;
     if(points.length === 0)return;
@@ -51998,7 +51953,6 @@ PIXI.WebGLGraphics.buildLine = function(graphicsData, webGLData)
  */
 PIXI.WebGLGraphics.buildComplexPoly = function(graphicsData, webGLData)
 {
-    //TODO - no need to copy this as it gets turned into a FLoat32Array anyways..
     var points = graphicsData.points.slice();
     if(points.length < 6)return;
 
@@ -52040,7 +51994,6 @@ PIXI.WebGLGraphics.buildComplexPoly = function(graphicsData, webGLData)
 
     // push a quad onto the end.. 
     
-    //TODO - this aint needed!
     var length = points.length / 2;
     for (i = 0; i < length; i++)
     {
@@ -52113,7 +52066,6 @@ PIXI.WebGLGraphicsData = function(gl)
 {
     this.gl = gl;
 
-    //TODO does this need to be split before uploding??
     this.color = [0,0,0]; // color split!
     this.points = [];
     this.indices = [];
@@ -52253,7 +52205,6 @@ PIXI.CanvasGraphics.renderGraphics = function(graphics, context)
         }
         else if (data.type === PIXI.Graphics.CIRC)
         {
-            // TODO - need to be Undefined!
             context.beginPath();
             context.arc(shape.x, shape.y, shape.radius,0,2*Math.PI);
             context.closePath();
@@ -52406,7 +52357,6 @@ PIXI.CanvasGraphics.renderGraphicsMask = function(graphics, context)
         }
         else if (data.type === PIXI.Graphics.CIRC)
         {
-            // TODO - need to be Undefined!
             context.arc(shape.x, shape.y, shape.radius, 0, 2 * Math.PI);
             context.closePath();
         }
@@ -54160,7 +54110,6 @@ Phaser.Text.prototype.determineFontProperties = function (fontStyle) {
         }
 
         properties.descent = i - baseline;
-        //TODO might need a tweak. kind of a temp fix!
         properties.descent += 6;
         properties.fontSize = properties.ascent + properties.descent;
 
@@ -57255,7 +57204,6 @@ Phaser.Device._initialize = function () {
             device.getUserMedia = false;
         }
 
-        // TODO: replace canvasBitBltShift detection with actual feature check
 
         // Excludes iOS versions as they generally wrap UIWebView (eg. Safari WebKit) and it
         // is safer to not try and use the fast copy-over method.
@@ -64522,7 +64470,6 @@ Phaser.AnimationManager.prototype = {
     */
     refreshFrame: function () {
 
-        //  TODO
         this.sprite.setTexture(PIXI.TextureCache[this.currentFrame.uuid]);
 
     },
@@ -68965,7 +68912,6 @@ Phaser.Loader.prototype = {
     * @method Phaser.Loader#pack
     * @param {string} key - Unique asset key of this resource pack.
     * @param {string} [url] - URL of the Asset Pack JSON file. If you wish to pass a json object instead set this to null and pass the object as the data parameter.
-    * @param {object} [data] - The Asset Pack JSON data. Use this to pass in a json data object rather than loading it from a URL. TODO
     * @param {object} [callbackContext=(loader)] - Some Loader operations, like Binary and Script require a context for their callbacks. Pass the context here.
     * @return {Phaser.Loader} This Loader instance.
     */
@@ -74110,7 +74056,6 @@ Phaser.ScaleManager = function (game, width, height) {
     * This is signaled from `preUpdate` (or `pauseUpdate`) _even when_ the game is paused.
     *
     * @property {Phaser.Signal} onSizeChange
-    * @todo Formalize the arguments, if any, supplied to this signal.
     */
     this.onSizeChange = new Phaser.Signal();
 
@@ -74631,7 +74576,6 @@ Phaser.ScaleManager.prototype = {
     * @param {number} minHeight - The minimum height the game is allowed to scale down to.
     * @param {number} [maxWidth] - The maximum width the game is allowed to scale up to; only changed if specified.
     * @param {number} [maxHeight] - The maximum height the game is allowed to scale up to; only changed if specified.
-    * @todo These values are only sometimes honored.
     */
     setMinMax: function (minWidth, minHeight, maxWidth, maxHeight) {
 
