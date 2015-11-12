@@ -6,7 +6,8 @@ var Snake = (function () {
         this.constructor.super.call(this);
 
         // private
-        var speed;
+        var speed,
+            buffList = [];
 
         // public (this instance only)
         this.getSpeed = function () {
@@ -15,6 +16,19 @@ var Snake = (function () {
 
         this.setSpeed = function (_speed) {
             speed = _speed;
+        };
+        this.addToBuffList = function(buff) {
+            buffList.push(buff);
+        };
+        this.xxx = function () {
+            var i = buffList.length;
+            while(i--) {
+                // bufftimer runterzählen
+                // & ggf entfernen
+            }
+        };
+        this.move = function() {
+
         };
     };
 
