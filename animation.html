@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Konfetti Polonaise</title>
+    <script type="text/javascript" src="js/phaser.js"></script>
+</head>
+<body>
+<div id="game">
+
+</div>
+
+<script type="text/javascript">
+    window.onload = function() {
+        var heads = [];
+        var bodys = [];
+        var legs = [];
+
+        var test = [];
+
+        function headFiles() {
+            return [
+                'dude-kopf-blond',
+                'dude-kopf-braun',
+                'dude-kopf-rot',
+                'dude-kopf-white'
+            ];
+        }
+
+        function bodyFiles() {
+            return [
+                'dude-oberteil-blau',
+                'dude-oberteil-gelb',
+                'dude-oberteil-lila',
+                'dude-oberteil-rot',
+                'dude-oberteil-schwarz'
+            ];
+        }
+
+        function legFiles() {
+            return [
+                'dude-beine-gradeaus-blau',
+                'dude-beine-gradeaus-gruen',
+                'dude-beine-gradeaus-rot'
+            ];
+        }
+
+        function preloadSpritsheets(sprites) {
+            var path = 'assets/img/';
+            var png = '.png';
+            var sprite;
+            var arr = [];
+
+            var i = sprites.length;
+            while(i--) {
+                sprite = sprites[i];
+
+                phaser.load.spritesheet(sprite, path + sprite + png, 32, 32);
+                arr.push(sprite);
+            }
+
+            return arr;
+        }
+
+        function random(min, max) {
+            return Math.floor((Math.random() * max) + min);
+        }
+
+        function createDude() {
+            var bounds = phaser.world.bounds;
+            var x = random(bounds.x, bounds.width);
+            var y = random(bounds.y, bounds.height);
+
+            var group = phaser.add.group();
+            group.x = x;
+            group.y = y;
+            group.pivot.x = x;
+            group.pivot.y = y;
+
+            var leg = group.create(x, y, legs[random(0, legs.length)]);
+            leg.pivot.x = leg.width / 2;
+            leg.pivot.y = leg.height / 2;
+            leg.frame = 0;
+
+            var body = group.create(x, y, bodys[random(0, bodys.length)]);
+            body.pivot.x = body.width / 2;
+            body.pivot.y = body.height / 2;
+            body.frame = 0;
+
+            var head = group.create(x, y, heads[random(0, heads.length)]);
+            head.pivot.x = head.width / 2;
+            head.pivot.y = head.height / 2;
+            head.frame = 0;
+
+            return group;
+        }
+
+        var phaser = new Phaser.Game(
+                800,
+                600,
+                Phaser.AUTO,
+                'game',
+                {
+                    preload: preload,
+                    create: create,
+                    render: render,
+                    update: update
+                }
+        );
+
+        function preload() {
+            heads = preloadSpritsheets(headFiles());
+            bodys = preloadSpritsheets(bodyFiles());
+            legs = preloadSpritsheets(legFiles());
+        }
+
+        function create() {
+            var x = 200;
+            var rotations = [0, 90, 180, 270];
+            var dude;
+
+            while(x--) {
+                dude = createDude();
+                dude.angle = rotations[random(0, rotations.length)];
+                test.push(dude);
+            }
+        }
+
+        function render() {
+
+        }
+
+        function update() {
+
+        }
+    };
+</script>
+</body>
+</html>
