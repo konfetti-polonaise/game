@@ -25,7 +25,7 @@ var DisplayElement = (function () {
             y = _y;
         };
         this.setRotation = function (_direction) {
-            direction = _direction;
+            rotation = _direction;
         };
     };
 
