@@ -10,7 +10,7 @@ var Powerup = (function () {
 
         };
         this.decreaseTimer = function() {
-            time--;
+            time --;
         };
         this.isTimeout = function() {
             return time <= 0;

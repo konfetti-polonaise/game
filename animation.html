@@ -66,6 +66,15 @@
             return Math.floor((Math.random() * max) + min);
         }
 
+        function createBodyPart(group, sprite) {
+            var part = group.create(group.x, group.y, sprite);
+            part.pivot.x = part.width / 2;
+            part.pivot.y = part.height / 2;
+            part.frame = 0;
+
+            return part;
+        }
+
         function createDude() {
             var bounds = phaser.world.bounds;
             var x = random(bounds.x, bounds.width);
@@ -77,20 +86,10 @@
             group.pivot.x = x;
             group.pivot.y = y;
 
-            var leg = group.create(x, y, legs[random(0, legs.length)]);
-            leg.pivot.x = leg.width / 2;
-            leg.pivot.y = leg.height / 2;
-            leg.frame = 0;
 
-            var body = group.create(x, y, bodys[random(0, bodys.length)]);
-            body.pivot.x = body.width / 2;
-            body.pivot.y = body.height / 2;
-            body.frame = 0;
-
-            var head = group.create(x, y, heads[random(0, heads.length)]);
-            head.pivot.x = head.width / 2;
-            head.pivot.y = head.height / 2;
-            head.frame = 0;
+            createBodyPart(group, legs[random(0, legs.length)]);
+            createBodyPart(group, bodys[random(0, bodys.length)]);
+            createBodyPart(group, heads[random(0, heads.length)]);
 
             return group;
         }
@@ -115,11 +114,11 @@
         }
 
         function create() {
-            var x = 200;
+            var z = 200;
             var rotations = [0, 90, 180, 270];
             var dude;
 
-            while(x--) {
+            while(z--) {
                 dude = createDude();
                 dude.angle = rotations[random(0, rotations.length)];
                 test.push(dude);

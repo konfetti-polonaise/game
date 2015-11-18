@@ -5,6 +5,9 @@ var Dancer = (function () {
         // to the constructor would go after "this" in call(…)).
         this.constructor.super.call(this);
 
+
+
+
         // public (this instance only)
         this.action = function () {
             return null; // TODO: ausprogrammieren..
