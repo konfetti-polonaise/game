@@ -6,7 +6,7 @@ var KonfettiPolonaise = (function () {
 
         var phaser = new Phaser.Game(
             800,
-            600,
+            512,
             Phaser.AUTO,
             'game',
             {

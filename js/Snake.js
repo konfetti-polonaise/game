@@ -7,7 +7,9 @@ var Snake = (function () {
 
         // private
         var speed,
-            buffList = [];
+            buffList = [],
+            head,
+            followers = [];
 
         // public (this instance only)
         this.getSpeed = function () {
@@ -30,6 +32,8 @@ var Snake = (function () {
         this.move = function() {
 
         };
+
+        // function deleteFromBuffList()
     };
 
     inherit(cls, DisplayElement); // <-- important!

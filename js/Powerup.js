@@ -17,7 +17,7 @@ var Powerup = (function () {
         };
     };
 
-    inherit(cls, Touchable); // <-- important!
+    inherit(cls, DisplayElement); // <-- important!
 
     return cls;
 })();
