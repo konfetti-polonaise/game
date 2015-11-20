@@ -1,40 +1,22 @@
 var KonfettiPolonaise = (function () {
+    // private static
+    var phaser = new Phaser.Game(
+        800,
+        512,
+        Phaser.AUTO,
+        'game'
+    );
+
+    phaser.state.add('Game', Game);
+    phaser.state.start('Game');
 
     // constructor
     var cls = function () {
-        var snake;
 
-        var phaser = new Phaser.Game(
-            800,
-            512,
-            Phaser.AUTO,
-            'game',
-            {
-                preload: preload,
-                create: create,
-                render: render,
-                update: update
-            }
-        );
+    };
 
-        function preload() {
-
-        }
-        function create() {
-            snake = new Snake();
-        }
-        function render() {
-
-        }
-        function update() {
-
-        }
-
-        // public (this instance only)
-        this.getPhaser = function () {
-            return phaser;
-        };
-
+    cls.getPhaser = function() {
+        return phaser;
     };
 
     return cls;

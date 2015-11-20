@@ -1,15 +1,11 @@
 var Snake = (function () {
     // constructor
     var cls = function () {
-        // Call super constructor on this instance (any arguments
-        // to the constructor would go after "this" in call(…)).
-        this.constructor.super.call(this);
-
         // private
-        var speed,
-            buffList = [],
-            head,
-            followers = [];
+        var speed;
+        var buffList = [];
+        var head = new Head(16, 16);
+        var followers = [];
 
         // public (this instance only)
         this.getSpeed = function () {
@@ -32,11 +28,15 @@ var Snake = (function () {
         this.move = function() {
 
         };
+        this.getX = function() {
+            return head.getX();
+        };
+        this.getY = function() {
+            return head.getY();
+        };
 
         // function deleteFromBuffList()
     };
-
-    inherit(cls, DisplayElement); // <-- important!
 
     return cls;
 })();
