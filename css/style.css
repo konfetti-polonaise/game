@@ -1,5 +1,5 @@
 body{
-    background:url("../img/city.jpg") no-repeat center center fixed;
+    background:url("../assets/img/city.jpg") no-repeat center center fixed;
 }
 canvas{
     position: absolute;

@@ -24,8 +24,8 @@ var DisplayElement = (function () {
         this.setY = function (_y) {
             y = _y;
         };
-        this.setRotation = function (_direction) {
-            rotation = _direction;
+        this.setRotation = function (_rotation) {
+            rotation = _rotation;
         };
     };
 
