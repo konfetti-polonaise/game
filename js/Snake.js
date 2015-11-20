@@ -2,9 +2,10 @@ var Snake = (function () {
     // constructor
     var cls = function () {
         // private
-        var speed;
+        var speed = 1;
         var buffList = [];
         var head = new Head(16, 16);
+        var direction = {x:speed, y:0};
         var followers = [];
 
         // public (this instance only)
@@ -25,8 +26,38 @@ var Snake = (function () {
                 // & ggf entfernen
             }
         };
-        this.move = function() {
 
+        this.changeDirection = function(_direction) {
+            switch (_direction) {
+                case 'R':
+                    if(direction.x != -1) {
+                        direction.x = 1;
+                        direction.y = 0;
+                    }
+                    break;
+                case 'L':
+                    if(direction.x != 1) {
+                        direction.x = -1;
+                        direction.y = 0;
+                    }
+                    break;
+                case 'D':
+                    if(direction.y != -1) {
+                        direction.y = 1;
+                        direction.x = 0;
+                    }
+                    break;
+                case 'U':
+                    if(direction.y != 1) {
+                        direction.y = -1;
+                        direction.x = 0;
+                    }
+                    break;
+            }
+        };
+        this.move = function() {
+            head.setX(head.getX() + direction.x);
+            head.setY(head.getY() + direction.y);
         };
         this.getX = function() {
             return head.getX();

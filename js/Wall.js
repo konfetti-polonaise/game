@@ -1,5 +1,7 @@
+// unsichtbare Wand zur Hitdetection.
+// aussehen der Wände wird durch das hintergrundbild.png festegelegt
 var Wall = (function () {
-    var spriteName = 'wall';
+    var spriteName = 'wall';    // wird noch ein durchsichtiges Bild. sichtbar zum testen.
 
     // constructor
     var cls = function (_x, _y) {
