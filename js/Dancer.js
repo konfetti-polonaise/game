@@ -22,7 +22,8 @@ var Dancer = (function () {
 
     // constructor
     var cls = function (_x, _y) {
-        var spriteName = 'dude-oberteil-lila';
+        var spriteName = 'wall';
+        var direction = new Direction();
 
         // Call super constructor on this instance (any arguments
         // to the constructor would go after "this" in call(…)).
@@ -37,8 +38,6 @@ var Dancer = (function () {
             // Wartend auf Einsammlug
             if(isPickedUp == false) {
                 isPickedUp = true;
-                //TODO
-                console.log('aufgesammelt');
                 Game.removeFromHitList(this);
             }
             // An Schlange hängen
@@ -46,6 +45,14 @@ var Dancer = (function () {
                 //TODO
                 console.log('collision Schlange');
             }
+        };
+
+        this.getDirection = function() {
+            return direction;
+        };
+
+        this.setDirection = function(_direction) {
+            direction = _direction;
         };
     };
 

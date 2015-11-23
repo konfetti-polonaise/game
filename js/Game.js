@@ -19,6 +19,7 @@ var Game = (function () {
 
     cls.prototype.create = function() {
         snake = new Snake();
+
         wall = new Wall(128 + 16, 16);
         cursor = KonfettiPolonaise.getPhaser().input.keyboard.createCursorKeys();
 
@@ -33,6 +34,7 @@ var Game = (function () {
         while(i--) {
             handleDirectionChange();
             snake.move();
+
             testCollisions();
 
             //console.log(cls.hitTest(snake, wall));
@@ -101,7 +103,11 @@ var Game = (function () {
     };
 
     var isSnakeInGrid = function() {
-        return (snake.getX() + gridSize / 2) % gridSize == 0 && (snake.getY() + gridSize / 2) % gridSize == 0;
+        return cls.isInGrid(snake);
+    };
+
+    cls.isInGrid = function(del) {
+        return (del.getX() + gridSize / 2) % gridSize == 0 && (del.getY() + gridSize / 2) % gridSize == 0;
     };
 
     cls.getGridSize = function() {
@@ -122,7 +128,6 @@ var Game = (function () {
     var testCollisions = function() {
         var i = hitList.length;
         while(i--) {
-            console.log(Game.hitTest(snake, hitList[i]));
             if(Game.hitTest(snake, hitList[i])) {
                 hitList[i].action();
             }

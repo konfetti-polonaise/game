@@ -28,7 +28,7 @@ var DisplayElement = (function () {
             return sprite.y;
         };
         this.getRotation = function () {
-            return sprite.rotation;
+            return sprite.angle;
         };
         this.getHitboxHeight = function() {
             return hitboxHeight;
@@ -44,7 +44,7 @@ var DisplayElement = (function () {
             sprite.y = _y;
         };
         this.setRotation = function (_rotation) {
-            sprite.rotation = _rotation;
+            sprite.angle = _rotation;
         };
         this.getSpriteName = function() {
             return sprite.name;

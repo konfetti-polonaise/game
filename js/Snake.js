@@ -4,9 +4,8 @@ var Snake = (function () {
         // private
         var speed = 1;
         var buffList = [];
-        var head = new Head(16, 16);
-        var direction = {x:speed, y:0};
-        var followers = [];
+        var head = new Head(16 + 32 + 32, 16 + 32);
+        var followers = [new Dancer(16 + 32, 16 + 32), new Dancer(16, 16 + 32)];
 
         // public (this instance only)
         this.getSpeed = function () {
@@ -36,42 +35,49 @@ var Snake = (function () {
         };
 
         this.changeDirection = function(_direction) {
-            switch (_direction) {
-                case 'R':
-                    if(direction.x != -1) {
-                        direction.x = 1;
-                        direction.y = 0;
+            head.changeDirection(_direction);
+        };
+
+        this.move = function() {
+            var follower;
+            var i;
+
+            head.setX(head.getX() + head.getDirection().getXDistance());
+            head.setY(head.getY() + head.getDirection().getYDistance());
+
+            for(i = 0; i < followers.length; i++) {
+                follower = followers[i];
+
+                follower.setX(follower.getX() + follower.getDirection().getXDistance());
+                follower.setY(follower.getY() + follower.getDirection().getYDistance());
+            }
+
+            if(Game.isInGrid(head)) {
+                var tempDirection;
+                var nextDirection = head.getDirection();
+
+                for(i = 0; i < followers.length; i++) {
+                    follower = followers[i];
+
+                    tempDirection = follower.getDirection();
+                    if(!nextDirection.equals(tempDirection)) {
+                        follower.setDirection(nextDirection);
+                        nextDirection = tempDirection;
                     }
-                    break;
-                case 'L':
-                    if(direction.x != 1) {
-                        direction.x = -1;
-                        direction.y = 0;
-                    }
-                    break;
-                case 'D':
-                    if(direction.y != -1) {
-                        direction.y = 1;
-                        direction.x = 0;
-                    }
-                    break;
-                case 'U':
-                    if(direction.y != 1) {
-                        direction.y = -1;
-                        direction.x = 0;
-                    }
-                    break;
+                }
             }
         };
-        this.move = function() {
-            head.setX(head.getX() + direction.x);
-            head.setY(head.getY() + direction.y);
-        };
+
         this.getX = function() {
             return head.getX();
         };
+
         this.getY = function() {
             return head.getY();
+        };
+
+        this.addFollower = function(dancer) {
+            followers.push(dancer);
         };
 
         // function deleteFromBuffList()
