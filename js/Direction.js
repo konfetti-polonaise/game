@@ -41,16 +41,16 @@ var Direction = (function () {
         };
         this.getRotation = function() {
             if(this.isRight()) {
-                return 0;
-            }
-            else if(this.isLeft()) {
                 return 180;
             }
+            else if(this.isLeft()) {
+                return 0;
+            }
             else if(this.isDown()) {
-                return 90;
+                return 270;
             }
             else if(this.isUp()) {
-                return 270;
+                return 90;
             }
         };
         this.equals = function(_direction) {

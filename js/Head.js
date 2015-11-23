@@ -6,10 +6,13 @@ var Head = (function () {
         // Call super constructor on this instance (any arguments
         // to the constructor would go after "this" in call(�)).
         this.constructor.super.call(this, _x, _y, spriteName);
+
+        // Animationen
         this.addAnimation('walk', [0, 1], 10, true);
         this.playAnimation('walk');
 
         var direction = new Direction();
+        this.setRotation(direction.getRotation());
 
         this.changeDirection = function(_direction) {
             var changed = false;

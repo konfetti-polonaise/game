@@ -48,15 +48,21 @@ var Dancer = (function () {
             return group;
         };
 
-        //var group = randomizeDancer(_x, _y);
+        var group = randomizeDancer(_x, _y);
+
+        group.addAnimation = function(_name, _frames, _fps, _loop) {};
+        group.playAnimation = function(_name) {};
 
         // Call super constructor on this instance (any arguments
         // to the constructor would go after "this" in call(…)).
-        this.constructor.super.call(this, _x, _y, 'wall', true);
+        this.constructor.super.call(this, _x, _y, group, true);
+
+        // Rotation
+        this.setRotation(direction.getRotation());
+
 
         Game.addToHitList(this);
 
-        // public (this instance only)
         var isPickedUp = false;
 
         this.action = function() {

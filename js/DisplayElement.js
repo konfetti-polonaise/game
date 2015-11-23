@@ -1,11 +1,17 @@
 var DisplayElement = (function () {
 
     // constructor
-    var cls = function (_x, _y, _spritesheet, fadeIn) {
+    var cls = function (_x, _y, _sprite, fadeIn) {
         // private
-        var sprite = KonfettiPolonaise.getPhaser().add.sprite(_x, _y, _spritesheet);
-        sprite.pivot.x = sprite.width / 2;
-        sprite.pivot.y = sprite.height / 2;
+        var sprite;
+
+        if(_sprite instanceof Object) {
+            sprite = _sprite;
+        } else {
+            sprite = KonfettiPolonaise.getPhaser().add.sprite(_x, _y, _sprite);
+            sprite.pivot.x = sprite.width / 2;
+            sprite.pivot.y = sprite.height / 2;
+        }
 
         var hitboxHeight = Game.getGridSize();
         var hitboxWidth = hitboxHeight;
