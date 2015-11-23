@@ -9,6 +9,10 @@ var Wall = (function () {
         // to the constructor would go after "this" in call(…)).
         this.constructor.super.call(this, _x, _y, spriteName);
         Game.addToHitList(this);
+
+        this.action = function() {
+            // dummy
+        };
     };
 
     cls.getSpritesheets = function() {
