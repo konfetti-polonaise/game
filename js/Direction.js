@@ -58,6 +58,7 @@ var Direction = (function () {
                 && yDistance == _direction.getYDistance();
         };
 
+        // Wenn Richtung nicht schon gesetzt wurde
         if(xDistance == 0 && yDistance == 0) {
             this.setRight();
         }
