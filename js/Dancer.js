@@ -43,7 +43,7 @@ var Dancer = (function () {
             // An Schlange hängen
             else {
                 //TODO
-                console.log('collision Schlange');
+                console.log('collision Schlange mit Schlange');
             }
         };
 

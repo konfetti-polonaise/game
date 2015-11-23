@@ -5,7 +5,13 @@ var Snake = (function () {
         var speed = 1;
         var buffList = [];
         var head = new Head(16 + 32 + 32, 16 + 32);
-        var followers = [new Dancer(16 + 32, 16 + 32), new Dancer(16, 16 + 32)];
+
+        var dritter = new Dancer(16, 16+32+32);             // Noch vercrackter ?!
+        var neueRichtung = new Direction();
+        neueRichtung.setUp();
+        dritter.setDirection(neueRichtung);
+
+        var followers = [new Dancer(16 + 32, 16 + 32), new Dancer(16, 16 + 32), dritter ];
 
         // public (this instance only)
         this.getSpeed = function () {
@@ -66,6 +72,8 @@ var Snake = (function () {
                     }
                 }
             }
+
+
         };
 
         this.getX = function() {
