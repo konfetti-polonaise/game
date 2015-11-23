@@ -8,6 +8,7 @@ var Wall = (function () {
         // Call super constructor on this instance (any arguments
         // to the constructor would go after "this" in call(…)).
         this.constructor.super.call(this, _x, _y, spriteName);
+        Game.addToHitList(this);
     };
 
     cls.getSpritesheets = function() {
