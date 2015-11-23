@@ -22,15 +22,30 @@ var Dancer = (function () {
 
     // constructor
     var cls = function (_x, _y) {
-        var spriteName = 'dude-gradeaus';
+        var spriteName = 'dude-oberteil-lila';
 
         // Call super constructor on this instance (any arguments
         // to the constructor would go after "this" in call(…)).
-        this.constructor.super.call(this, _x, _y, spriteName);
+        this.constructor.super.call(this, _x, _y, spriteName, true);
+
+        Game.addToHitList(this);
 
         // public (this instance only)
-        this.action = function () {
-            return null; // TODO: ausprogrammieren..
+        var isPickedUp = false;
+
+        this.action = function() {
+            // Wartend auf Einsammlug
+            if(isPickedUp == false) {
+                isPickedUp = true;
+                //TODO
+                console.log('aufgesammelt');
+                Game.removeFromHitList(this);
+            }
+            // An Schlange hängen
+            else {
+                //TODO
+                console.log('collision Schlange');
+            }
         };
     };
 

@@ -4,6 +4,7 @@ var Game = (function () {
     var cursor;
     var nextDirection;
     var gridSize = 32;
+    var hitList = [];
 
     // constructor
     var cls = function () {
@@ -20,15 +21,25 @@ var Game = (function () {
         snake = new Snake();
         wall = new Wall(128 + 16, 16);
         cursor = KonfettiPolonaise.getPhaser().input.keyboard.createCursorKeys();
+
+        new Dancer(128 + 16, 128 + 16);
     };
 
     cls.prototype.update = function() {
         // @TODO: auslagern
+
+
         var i = snake.getSpeed();
         while(i--) {
             handleDirectionChange();
             snake.move();
+            testCollisions();
+
+            //console.log(cls.hitTest(snake, wall));
         }
+
+
+
 
         // @TODO: Hitdetection Snake mit sich selber.
         // @TODO: action() von Wall und Dancer programmieren.
@@ -38,11 +49,22 @@ var Game = (function () {
 
     };
 
-    cls.hitTest = function(_obj1, _obj2) {
+    /*cls.hitTest = function(_obj1, _obj2) {
         var dx = _obj1.getX() - _obj2.getX();
         var dy = _obj1.getY() - _obj2.getY();
 
-        return Math.sqrt((dx * dx) + (dy * dy)) < gridSize; // TODO: An Spritegröße anpassen
+        return Math.sqrt((dx * dx) + (dy * dy)) < gridSize; // TODO: An Hitbox anpassen
+    };*/
+
+    cls.hitTest = function(_obj1, _obj2) {
+        var dx = Math.abs(_obj1.getX() - _obj2.getX());
+        var dy = Math.abs(_obj1.getY() - _obj2.getY());
+
+        if(dx > dy) {
+            return dx < (_obj1.getHitboxWidth() / 2 + _obj2.getHitboxWidth() / 2);
+        } else {
+            return dy < (_obj1.getHitboxHeight() / 2 + _obj2.getHitboxHeight() / 2);
+        }
     };
 
     cls.loadSpritesheets = function(_cls) {
@@ -73,13 +95,38 @@ var Game = (function () {
 
     var handleDirectionChange = function() {
         nextDirection = checkInput();
-        if(isSnakeinGrid()) {
+        if(isSnakeInGrid()) {
             snake.changeDirection(nextDirection);
         }
     };
 
-    var isSnakeinGrid = function() {
+    var isSnakeInGrid = function() {
         return (snake.getX() + gridSize / 2) % gridSize == 0 && (snake.getY() + gridSize / 2) % gridSize == 0;
+    };
+
+    cls.getGridSize = function() {
+        return gridSize;
+    };
+
+    cls.addToHitList = function(del) {
+        hitList.push(del);
+    };
+    cls.removeFromHitList = function(del) {
+        var i = hitList.length;
+        while(i--) {
+            if(hitList[i] === del) {
+                hitList.splice(i, 1);
+            }
+        }
+    };
+    var testCollisions = function() {
+        var i = hitList.length;
+        while(i--) {
+            console.log(Game.hitTest(snake, hitList[i]));
+            if(Game.hitTest(snake, hitList[i])) {
+                hitList[i].action();
+            }
+        }
     };
 
     return cls;

@@ -19,6 +19,14 @@ var Snake = (function () {
         this.addToBuffList = function(buff) {
             buffList.push(buff);
         };
+
+        this.getHitboxHeight = function() {
+            return head.getHitboxHeight();
+        };
+        this.getHitboxWidth = function() {
+            return head.getHitboxWidth();
+        };
+
         this.xxx = function () {
             var i = buffList.length;
             while(i--) {
