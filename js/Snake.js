@@ -35,36 +35,33 @@ var Snake = (function () {
         };
 
         this.changeDirection = function(_direction) {
+            var tempDirection, follower;
+            var nextDirection = head.getDirection();
+
+            for(var i = 0; i < followers.length; i++) {
+                follower = followers[i];
+
+                tempDirection = follower.getDirection();
+                if(!nextDirection.equals(tempDirection)) {
+                    follower.setDirection(nextDirection);
+                    nextDirection = tempDirection;
+                }
+            }
+
             head.changeDirection(_direction);
         };
 
         this.move = function() {
             var follower;
-            var i;
 
             head.setX(head.getX() + head.getDirection().getXDistance());
             head.setY(head.getY() + head.getDirection().getYDistance());
 
-            for(i = 0; i < followers.length; i++) {
+            for(var i = 0; i < followers.length; i++) {
                 follower = followers[i];
 
                 follower.setX(follower.getX() + follower.getDirection().getXDistance());
                 follower.setY(follower.getY() + follower.getDirection().getYDistance());
-            }
-
-            if(Game.isInGrid(head)) {
-                var tempDirection;
-                var nextDirection = head.getDirection();
-
-                for(i = 0; i < followers.length; i++) {
-                    follower = followers[i];
-
-                    tempDirection = follower.getDirection();
-                    if(!nextDirection.equals(tempDirection)) {
-                        follower.setDirection(nextDirection);
-                        nextDirection = tempDirection;
-                    }
-                }
             }
         };
 

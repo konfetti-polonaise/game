@@ -22,7 +22,7 @@ var Dancer = (function () {
 
     // constructor
     var cls = function (_x, _y) {
-        var spriteName = 'wall';
+        var spriteName = 'dude-oberteil-blau';
         var direction = new Direction();
 
         // Call super constructor on this instance (any arguments
@@ -52,7 +52,7 @@ var Dancer = (function () {
         };
 
         this.setDirection = function(_direction) {
-            direction = _direction;
+            direction = new Direction(_direction.getXDistance(), _direction.getYDistance());
         };
     };
 

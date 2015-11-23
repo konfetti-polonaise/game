@@ -1,9 +1,9 @@
 var Direction = (function () {
 
     // constructor
-    var cls = function () {
-        var xDistance;
-        var yDistance;
+    var cls = function (_x, _y) {
+        var xDistance = _x || 0;
+        var yDistance = _y || 0;
 
         this.isRight = function() {
             return xDistance == 1;
@@ -40,12 +40,14 @@ var Direction = (function () {
             return yDistance;
         };
         this.equals = function(_direction) {
-            return this.getXDistance() == _direction.getXDistance()
-                && this.getYDistance() == _direction.getYDistance();
+            return xDistance == _direction.getXDistance()
+                && yDistance == _direction.getYDistance();
         };
 
-        // :(
-        this.setRight();
+        if(xDistance == 0 && yDistance == 0) {
+            this.setRight();
+        }
+
     };
 
     return cls;
