@@ -16,8 +16,12 @@ var Snake = (function () {
         neuD2.setUp();
         neu2.setDirection(neuD2);
 
-        var followers = [new Dancer(16 + 32 + 32+32, 16 + 32), new Dancer(16 + 32+32, 16 + 32), new Dancer(16+32, 16 + 32),
-            neu1, neu2
+        var followers = [
+            new Dancer(16 + 32 + 32 + 32, 16 + 32),
+            new Dancer(16 + 32 + 32, 16 + 32),
+            new Dancer(16 + 32, 16 + 32),
+            neu1,
+            neu2
         ];
 
         // public (this instance only)
@@ -60,8 +64,9 @@ var Snake = (function () {
                     nextDirection = tempDirection;
                 }
             }
-
-            head.changeDirection(_direction);
+            if(_direction instanceof Direction) {
+                head.changeDirection(_direction);
+            }
         };
 
         this.move = function() {

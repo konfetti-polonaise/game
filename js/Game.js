@@ -28,15 +28,12 @@ var Game = (function () {
 
     cls.prototype.update = function() {
         // @TODO: auslagern
-
-
         var i = snake.getSpeed();
         while(i--) {
-            handleDirectionChange();
             snake.move();
+            handleDirectionChange();
 
             testCollisions();
-
             //console.log(cls.hitTest(snake, wall));
         }
 
@@ -97,7 +94,7 @@ var Game = (function () {
 
     var handleDirectionChange = function() {
         nextDirection = checkInput();
-        if(isSnakeInGrid() && nextDirection != undefined) {
+        if(isSnakeInGrid()) {
             snake.changeDirection(nextDirection);
         }
     };
