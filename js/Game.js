@@ -80,16 +80,16 @@ var Game = (function () {
 
     var checkInput = function () {
         if (cursor.right.isDown) {
-            return 'R';
+            return new Direction(1, 0);
 
         } else if (cursor.left.isDown) {
-            return 'L';
+            return new Direction(-1, 0);
 
         } else if (cursor.up.isDown) {
-            return 'U';
+            return new Direction(0, -1);
 
         } else if (cursor.down.isDown) {
-            return 'D';
+            return new Direction(0, 1);
         }
 
         return nextDirection;
@@ -97,7 +97,7 @@ var Game = (function () {
 
     var handleDirectionChange = function() {
         nextDirection = checkInput();
-        if(isSnakeInGrid()) {
+        if(isSnakeInGrid() && nextDirection != undefined) {
             snake.changeDirection(nextDirection);
         }
     };
@@ -132,6 +132,9 @@ var Game = (function () {
                 hitList[i].action();
             }
         }
+    };
+    cls.random = function(min, max) {
+        return Math.floor((Math.random() * max) + min);
     };
 
     return cls;

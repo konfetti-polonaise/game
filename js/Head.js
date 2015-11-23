@@ -4,7 +4,7 @@ var Head = (function () {
     // constructor
     var cls = function (_x, _y) {
         // Call super constructor on this instance (any arguments
-        // to the constructor would go after "this" in call(…)).
+        // to the constructor would go after "this" in call(ï¿½)).
         this.constructor.super.call(this, _x, _y, spriteName);
         this.addAnimation('walk', [0, 1], 10, true);
         this.playAnimation('walk');
@@ -12,31 +12,27 @@ var Head = (function () {
         var direction = new Direction();
 
         this.changeDirection = function(_direction) {
-            switch (_direction) {
-                case 'R':
-                    if(!direction.isLeft()) {
-                        direction.setRight();
-                        this.setRotation(0);
-                    }
-                    break;
-                case 'L':
-                    if(!direction.isRight()) {
-                        direction.setLeft();
-                        this.setRotation(180);
-                    }
-                    break;
-                case 'D':
-                    if(!direction.isUp()) {
-                        direction.setDown();
-                        this.setRotation(90);
-                    }
-                    break;
-                case 'U':
-                    if(!direction.isDown()) {
-                        direction.setUp();
-                        this.setRotation(270);
-                    }
-                    break;
+            var changed = false;
+
+            if(_direction.isRight() && !direction.isLeft()) {
+                direction.setRight();
+                changed = true;
+            }
+            else if(_direction.isLeft() && !direction.isRight()) {
+                direction.setLeft();
+                changed = true;
+            }
+            else if(_direction.isDown() && !direction.isUp()) {
+                direction.setDown();
+                changed = true;
+            }
+            else if(_direction.isUp() && !direction.isDown()) {
+                direction.setUp();
+                changed = true;
+            }
+
+            if(changed) {
+                this.setRotation(direction.getRotation());
             }
         };
 

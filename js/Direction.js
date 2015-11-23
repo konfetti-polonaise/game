@@ -39,6 +39,20 @@ var Direction = (function () {
         this.getYDistance = function() {
             return yDistance;
         };
+        this.getRotation = function() {
+            if(this.isRight()) {
+                return 0;
+            }
+            else if(this.isLeft()) {
+                return 180;
+            }
+            else if(this.isDown()) {
+                return 90;
+            }
+            else if(this.isUp()) {
+                return 270;
+            }
+        };
         this.equals = function(_direction) {
             return xDistance == _direction.getXDistance()
                 && yDistance == _direction.getYDistance();

@@ -47,10 +47,10 @@ var DisplayElement = (function () {
             sprite.angle = _rotation;
         };
         this.getSpriteName = function() {
-            return sprite.name;
+            return sprite.key;
         };
         this.addAnimation = function(_name, _frames, _fps, _loop) {
-           sprite.animations.add(_name, _frames, _fps, _loop);
+            sprite.animations.add(_name, _frames, _fps, _loop);
         };
         this.playAnimation = function(_name) {
             sprite.animations.play(_name);
