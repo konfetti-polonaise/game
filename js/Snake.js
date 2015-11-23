@@ -4,8 +4,21 @@ var Snake = (function () {
         // private
         var speed = 1;
         var buffList = [];
-        var head = new Head(16 + 32 + 32 + 32, 16 + 32);
-        var followers = [new Dancer(16 + 32 + 32, 16 + 32), new Dancer(16 + 32, 16 + 32), new Dancer(16, 16 + 32)];
+        var head = new Head(16 + 32 + 32 + 32 +32, 16 + 32);
+
+        var neu1 = new Dancer(16+32,16+32+32);
+        var neuD1 = new Direction();
+        neuD1.setUp();
+        neu1.setDirection(neuD1);
+
+        var neu2 = new Dancer(16+32,16+32+32+32);
+        var neuD2 = new Direction();
+        neuD2.setUp();
+        neu2.setDirection(neuD2);
+
+        var followers = [new Dancer(16 + 32 + 32+32, 16 + 32), new Dancer(16 + 32+32, 16 + 32), new Dancer(16+32, 16 + 32),
+            neu1, neu2
+        ];
 
         // public (this instance only)
         this.getSpeed = function () {
