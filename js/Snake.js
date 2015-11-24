@@ -9,22 +9,10 @@ var Snake = (function () {
         // Richtung in die sich die Richtung des Heads ändern wird, sobald Schlange im Grid ist.
         var nextDirection;
 
-        var neu1 = new Dancer(16+32,16+32+32);
-        var neuD1 = new Direction();
-        neuD1.setUp();
-        neu1.setDirection(neuD1);
-
-        var neu2 = new Dancer(16+32,16+32+32+32);
-        var neuD2 = new Direction();
-        neuD2.setUp();
-        neu2.setDirection(neuD2);
-
         var followers = [
-            new Dancer(16 + 32 + 32 + 32, 16 + 32),
-            new Dancer(16 + 32 + 32, 16 + 32),
-            new Dancer(16 + 32, 16 + 32),
-            neu1,
-            neu2
+            //new Dancer(16 + 32 + 32 + 32, 16 + 32),
+            //new Dancer(16 + 32 + 32, 16 + 32),
+            //new Dancer(16 + 32, 16 + 32)
         ];
 
 
@@ -84,8 +72,34 @@ var Snake = (function () {
             return head.getY();
         };
 
+        /** PUBLIC. Dreht ein element und fügt es der Schlange hinzu
+         */
         this.addFollower = function(dancer) {
+            var direction = head.getDirection();
+            if(followers.length > 0) {
+                direction = followers[followers.length - 1].getDirection();
+            }
+            dancer.setDirection(direction);
+
             followers.push(dancer);
+        };
+
+        /** PUBLIC. Prüft, ob sich ein Element innerhalt der Schlange (Head + Follower) befindet.
+         */
+        this.isInside = function(obj) {
+            var i = followers.length;
+
+            if(Game.hitTest(this, obj)) {
+                return true;
+            }
+
+            while(i--) {
+                if(Game.hitTest(followers[i], obj)) {
+                    return true;
+                }
+            }
+
+            return false;
         };
 
 

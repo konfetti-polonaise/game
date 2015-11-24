@@ -65,7 +65,6 @@ var Dancer = (function () {
         // Rotation
         this.setRotation(direction.getRotation());
 
-
         Game.addToHitList(this);
 
         var isPickedUp = false;
@@ -74,12 +73,14 @@ var Dancer = (function () {
             // Wartend auf Einsammlug
             if(isPickedUp == false) {
                 isPickedUp = true;
+
                 Game.removeFromHitList(this);
+                Game.addToPassingList(this);
             }
             // An Schlange hängen
             else {
-                //TODO
-                console.log('collision Schlange mit Schlange');
+                Game.removeFromPassingList(this);
+                Game.addToSnake(this);
             }
         };
 

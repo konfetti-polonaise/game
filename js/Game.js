@@ -4,6 +4,7 @@ var Game = (function () {
     var cursor;
     var gridSize = 32;
     var hitList = [];
+    var passingList = [];
 
     // constructor
     var cls = function () {
@@ -21,13 +22,26 @@ var Game = (function () {
 
         var playground = KonfettiPolonaise.getPhaser().add.image(0, 0, 'playground');
 
-        wall = new Wall(128 + 16, 16);
-
         snake = new Snake();
 
         cursor = KonfettiPolonaise.getPhaser().input.keyboard.createCursorKeys();
 
+        // Test: Mehrere einsammelbare Dancer
         new Dancer(128 + 16, 128 + 16);
+        new Dancer(128 + 16, 256 + 16);
+        new Dancer(128 + 16, 384 + 16);
+
+        new Dancer(256 + 16, 256 + 16);
+        new Dancer(256 + 16, 128 + 16);
+        new Dancer(256 + 16, 384 + 16);
+
+        new Dancer(384 + 16, 256 + 16);
+        new Dancer(384 + 16, 128 + 16);
+        new Dancer(384 + 16, 384 + 16);
+
+        new Dancer(512 + 16, 256 + 16);
+        new Dancer(512 + 16, 128 + 16);
+        new Dancer(512 + 16, 384 + 16);
     };
 
     cls.prototype.update = function() {
@@ -38,6 +52,9 @@ var Game = (function () {
             handleDirectionChange();
 
             testCollisions();
+
+            testPassings();
+
             //console.log(cls.hitTest(snake, wall));
         }
 
@@ -54,6 +71,7 @@ var Game = (function () {
 
 
     cls.hitTest = function(_obj1, _obj2) {
+        // TODO: Berechnug anpassen. HitTest schlÃ¤gt an, wenn man an Element vorbei lÃ¤uft
         var dx = Math.abs(_obj1.getX() - _obj2.getX());
         var dy = Math.abs(_obj1.getY() - _obj2.getY());
 
@@ -93,11 +111,11 @@ var Game = (function () {
             return cursorDirection;
         }
 
-        return null;   // Falls keine Taste gedrückt ist.
+        return null;   // Falls keine Taste gedrï¿½ckt ist.
     };
 
 
-    /** Prüft ob eine Richtungsänderung getätigt wird und gibt dies an snake zur Speicherung im Buffer weiter.
+    /** Prï¿½ft ob eine Richtungsï¿½nderung getï¿½tigt wird und gibt dies an snake zur Speicherung im Buffer weiter.
      */
     var handleDirectionChange = function() {
 
@@ -105,7 +123,7 @@ var Game = (function () {
     };
 
 
-    /** Gibt zurück ob sich ein DisplayElement im Grid,
+    /** Gibt zurï¿½ck ob sich ein DisplayElement im Grid,
      * also exakt auf einem der Felder des definierten Rasters befindet.
      * @param del
      * @returns TRUE wenn sich das Element im Raster befindet.
@@ -115,7 +133,7 @@ var Game = (function () {
         var yValue = (del.getY() + gridSize / 2);
 
         xValue = (Math.round(xValue * 100) / 100);  // mathematisches Runden, weil
-        yValue = (Math.round(yValue * 100) / 100);  // JS nicht vernünftig mit Fließkommazahlen umgehen kann.
+        yValue = (Math.round(yValue * 100) / 100);  // JS nicht vernï¿½nftig mit Flieï¿½kommazahlen umgehen kann.
 
         return (xValue % gridSize == 0 && yValue % gridSize == 0);    // Berechnung ob Position im Grid ist
     };
@@ -124,30 +142,61 @@ var Game = (function () {
         return gridSize;
     };
 
+    var addToList = function(list, element) {
+        list.push(element);
+    };
+
+    var removeFromList = function(list, element) {
+        var i = list.length;
+        while(i--) {
+            if(list[i] === element) {
+                list.splice(i, 1);
+            }
+        }
+    };
+
     cls.addToHitList = function(del) {
-        hitList.push(del);
+        addToList(hitList, del);
     };
 
     cls.removeFromHitList = function(del) {
-        var i = hitList.length;
-        while(i--) {
-            if(hitList[i] === del) {
-                hitList.splice(i, 1);
-            }
-        }
+        removeFromList(hitList, del);
+    };
+
+    cls.addToPassingList = function(del) {
+        addToList(passingList, del);
+    };
+
+    cls.removeFromPassingList = function(del) {
+        removeFromList(passingList, del);
     };
 
     var testCollisions = function() {
         var i = hitList.length;
         while(i--) {
             if(Game.hitTest(snake, hitList[i])) {
+                console.log('HIT');
                 hitList[i].action();
             }
         }
     };
 
+    var testPassings = function() {
+        var i = passingList.length;
+
+        while(i--) {
+           if(!snake.isInside(passingList[i])) {
+               passingList[i].action();
+           }
+        }
+    };
+
     cls.random = function(min, max) {
         return Math.floor((Math.random() * max) + min);
+    };
+
+    cls.addToSnake = function(dancer) {
+        snake.addFollower(dancer);
     };
 
     return cls;
