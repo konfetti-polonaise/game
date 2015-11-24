@@ -2,7 +2,6 @@ var Game = (function () {
     var snake;
     var wall;
     var cursor;
-    var nextDirection;
     var gridSize = 32;
     var hitList = [];
 
