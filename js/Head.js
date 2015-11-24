@@ -8,7 +8,7 @@ var Head = (function () {
         this.constructor.super.call(this, _x, _y, spriteName);
 
         // Animationen
-        this.addAnimation('walk', [0, 1], 10, true);
+        this.addAnimation('walk', [0], 10, true);
         this.playAnimation('walk');
 
         var direction = new Direction();

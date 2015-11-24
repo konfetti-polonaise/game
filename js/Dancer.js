@@ -1,28 +1,33 @@
 var Dancer = (function () {
     var headFiles = [
-        'dude-kopf-blond',
-        'dude-kopf-braun',
-        'dude-kopf-rot',
-        'dude-kopf-white'
+        'dancer-head-blond',
+        'dancer-head-brown',
+        'dancer-head-red',
+        'dancer-head-white',
+        'dancer-head-blue',
+        'dancer-head-black'
     ];
 
     var bodyFiles = [
-        'dude-oberteil-blau',
-        'dude-oberteil-gelb',
-        'dude-oberteil-lila',
-        'dude-oberteil-rot',
-        'dude-oberteil-schwarz'
+        'dancer-chest-blue',
+        'dancer-chest-yellow',
+        'dancer-chest-green',
+        'dancer-chest-hotpink',
+        'dancer-chest-pink',
+        'dancer-chest-orange',
+        'dancer-chest-red',
+        'dancer-chest-black'
     ];
 
     var legFiles = [
-        'dude-beine-gradeaus-blau',
-        'dude-beine-gradeaus-gruen',
-        'dude-beine-gradeaus-rot'
+        'dancer-legs-blue',
+        'dancer-legs-green',
+        'dancer-legs-red',
+        'dancer-legs-black'
     ];
 
     // constructor
     var cls = function (_x, _y) {
-        var spriteName = 'dude-oberteil-blau';
         var direction = new Direction();
 
         var createBodyPart = function(group, sprite) {
