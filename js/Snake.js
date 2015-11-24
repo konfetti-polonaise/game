@@ -84,7 +84,7 @@ var Snake = (function () {
             followers.push(dancer);
         };
 
-        /** PUBLIC. Prüft, ob sich ein Element innerhalt der Schlange (Head + Follower) befindet.
+        /** PUBLIC. Prüft, ob sich ein Element innerhalb der Schlange (Head + Follower) befindet.
          */
         this.isInside = function(obj) {
             var i = followers.length;

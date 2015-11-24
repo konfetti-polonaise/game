@@ -77,7 +77,7 @@ var Dancer = (function () {
                 Game.removeFromHitList(this);
                 Game.addToPassingList(this);
             }
-            // An Schlange hängen
+            // An Schlange hängend
             else {
                 Game.removeFromPassingList(this);
                 Game.addToSnake(this);

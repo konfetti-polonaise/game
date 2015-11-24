@@ -111,11 +111,11 @@ var Game = (function () {
             return cursorDirection;
         }
 
-        return null;   // Falls keine Taste gedr�ckt ist.
+        return null;   // Falls keine Taste gedrueckt ist.
     };
 
 
-    /** Pr�ft ob eine Richtungs�nderung get�tigt wird und gibt dies an snake zur Speicherung im Buffer weiter.
+    /** Prueft ob eine Richtungsaenderung getaetigt wird und gibt dies an snake zur Speicherung im Buffer weiter.
      */
     var handleDirectionChange = function() {
 
@@ -123,7 +123,7 @@ var Game = (function () {
     };
 
 
-    /** Gibt zur�ck ob sich ein DisplayElement im Grid,
+    /** Gibt zurueck ob sich ein DisplayElement im Grid,
      * also exakt auf einem der Felder des definierten Rasters befindet.
      * @param del
      * @returns TRUE wenn sich das Element im Raster befindet.
@@ -133,7 +133,7 @@ var Game = (function () {
         var yValue = (del.getY() + gridSize / 2);
 
         xValue = (Math.round(xValue * 100) / 100);  // mathematisches Runden, weil
-        yValue = (Math.round(yValue * 100) / 100);  // JS nicht vern�nftig mit Flie�kommazahlen umgehen kann.
+        yValue = (Math.round(yValue * 100) / 100);  // JS nicht vernuenftig mit Fliesskommazahlen umgehen kann.
 
         return (xValue % gridSize == 0 && yValue % gridSize == 0);    // Berechnung ob Position im Grid ist
     };
