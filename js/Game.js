@@ -14,9 +14,13 @@ var Game = (function () {
         cls.loadSpritesheets(Dancer);
         cls.loadSpritesheets(Head);
         cls.loadSpritesheets(Wall);
+        KonfettiPolonaise.getPhaser().load.image('playground', 'assets/img/playground.png');
     };
 
     cls.prototype.create = function() {
+
+        var playground = KonfettiPolonaise.getPhaser().add.image(0, 0, 'playground');
+
         wall = new Wall(128 + 16, 16);
 
         snake = new Snake();
@@ -70,24 +74,30 @@ var Game = (function () {
     };
 
     var checkInput = function () {
+        var cursorDirection = new Direction();
+
         if (cursor.right.isDown) {
-            return new Direction(1, 0);
+            cursorDirection.setRight();
+            return cursorDirection;
 
         } else if (cursor.left.isDown) {
-            return new Direction(-1, 0);
+            cursorDirection.setLeft();
+            return cursorDirection;
 
         } else if (cursor.up.isDown) {
-            return new Direction(0, -1);
+            cursorDirection.setUp();
+            return cursorDirection;
 
         } else if (cursor.down.isDown) {
-            return new Direction(0, 1);
+            cursorDirection.setDown();
+            return cursorDirection;
         }
 
         return null;   // Falls keine Taste gedrückt ist.
     };
 
 
-    /** Prüft ob eine Richtungsänderung getätigt wird und gibt dies an Snake zur Speicherung im Buffer weiter.
+    /** Prüft ob eine Richtungsänderung getätigt wird und gibt dies an snake zur Speicherung im Buffer weiter.
      */
     var handleDirectionChange = function() {
 
@@ -95,8 +105,19 @@ var Game = (function () {
     };
 
 
+    /** Gibt zurück ob sich ein DisplayElement im Grid,
+     * also exakt auf einem der Felder des definierten Rasters befindet.
+     * @param del
+     * @returns TRUE wenn sich das Element im Raster befindet.
+     */
     cls.isInGrid = function(del) {
-        return (del.getX() + gridSize / 2) % gridSize == 0 && (del.getY() + gridSize / 2) % gridSize == 0;
+        var xValue = (del.getX() + gridSize / 2);   // Position errechnen
+        var yValue = (del.getY() + gridSize / 2);
+
+        xValue = (Math.round(xValue * 100) / 100);  // mathematisches Runden, weil
+        yValue = (Math.round(yValue * 100) / 100);  // JS nicht vernünftig mit Fließkommazahlen umgehen kann.
+
+        return (xValue % gridSize == 0 && yValue % gridSize == 0);    // Berechnung ob Position im Grid ist
     };
 
     cls.getGridSize = function() {

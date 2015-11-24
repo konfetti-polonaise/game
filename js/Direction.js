@@ -1,37 +1,45 @@
 var Direction = (function () {
 
-    // constructor
+    var distance = 0.1;   // Verbuggt ?!
+
+    /** Konstruktor: Initialisiert wenn _x und _y angegeben sind die Richtung manuell.
+     * So kann auch eine Direction erzeugt werden,
+     * die eine distance unabhängig vom Standardwert hat. Dies ist allerdings sehr fehleranfällig!
+     * @param _x xDistanz
+     * @param _y yDistanz
+     */
     var cls = function (_x, _y) {
         var xDistance = _x || 0;
         var yDistance = _y || 0;
 
+
         this.isRight = function() {
-            return xDistance == 1;
+            return xDistance == distance;
         };
         this.isLeft = function() {
-            return xDistance == -1;
+            return xDistance == -distance;
         };
         this.isDown = function() {
-            return yDistance == 1;
+            return yDistance == distance;
         };
         this.isUp = function() {
-            return yDistance == -1;
+            return yDistance == -distance;
         };
         this.setRight = function() {
-            xDistance = 1;
+            xDistance = distance;
             yDistance = 0;
         };
         this.setLeft = function() {
-            xDistance = -1;
+            xDistance = -distance;
             yDistance = 0;
         };
         this.setDown = function() {
             xDistance = 0;
-            yDistance = 1;
+            yDistance = distance;
         };
         this.setUp = function() {
             xDistance = 0;
-            yDistance = -1;
+            yDistance = -distance;
         };
         this.getXDistance = function() {
             return xDistance;
@@ -54,6 +62,10 @@ var Direction = (function () {
             }
         };
         this.equals = function(_direction) {
+
+            //console.log(xDistance == _direction.getXDistance()
+            //    && yDistance == _direction.getYDistance());
+
             return xDistance == _direction.getXDistance()
                 && yDistance == _direction.getYDistance();
         };

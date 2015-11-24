@@ -2,7 +2,7 @@ var Snake = (function () {
     // constructor
     var cls = function () {
         // private
-        var speed = 1;
+        var speed = 7;  // Initialgeschwindigkeit
         var buffList = [];
         var head = new Head(16 + 32 + 32 + 32 +32, 16 + 32);
 
@@ -48,6 +48,13 @@ var Snake = (function () {
         this.setSpeed = function (_speed) {
             speed = _speed;
         };
+
+        /** Wird aufgerufen um die Geschwindigkeit und somit die Schwierigkeit zu erhöhen.
+         */
+        this.increaseSpeed = function() {
+            speed++;
+        };
+
         this.addToBuffList = function(buff) {
             buffList.push(buff);
         };
@@ -55,6 +62,7 @@ var Snake = (function () {
         this.getHitboxHeight = function() {
             return head.getHitboxHeight();
         };
+
         this.getHitboxWidth = function() {
             return head.getHitboxWidth();
         };
@@ -137,7 +145,7 @@ var Snake = (function () {
             move(); // Schlange bewegt sich um eine Schrittweite
 
             if(isSnakeInGrid()) {
-
+                
                 changeFollowersDirection(); // Follower drehen sich
                 changeHeadDirection(nextDirection); // Head dreht sich gegebenenfalls
             }
