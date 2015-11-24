@@ -199,5 +199,9 @@ var Game = (function () {
         snake.addFollower(dancer);
     };
 
+    cls.increaseSpeed = function() {
+        snake.increaseSpeed();
+    };
+
     return cls;
 })();

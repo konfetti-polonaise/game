@@ -81,6 +81,7 @@ var Dancer = (function () {
             else {
                 Game.removeFromPassingList(this);
                 Game.addToSnake(this);
+                Game.increaseSpeed();
             }
         };
 
