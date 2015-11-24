@@ -18,9 +18,10 @@ var Game = (function () {
     };
 
     cls.prototype.create = function() {
+        wall = new Wall(128 + 16, 16);
+
         snake = new Snake();
 
-        wall = new Wall(128 + 16, 16);
         cursor = KonfettiPolonaise.getPhaser().input.keyboard.createCursorKeys();
 
         new Dancer(128 + 16, 128 + 16);
@@ -30,7 +31,7 @@ var Game = (function () {
         // @TODO: auslagern
         var i = snake.getSpeed();
         while(i--) {
-            snake.move();
+            snake.step();
             handleDirectionChange();
 
             testCollisions();
@@ -48,12 +49,6 @@ var Game = (function () {
 
     };
 
-    /*cls.hitTest = function(_obj1, _obj2) {
-        var dx = _obj1.getX() - _obj2.getX();
-        var dy = _obj1.getY() - _obj2.getY();
-
-        return Math.sqrt((dx * dx) + (dy * dy)) < gridSize; // TODO: An Hitbox anpassen
-    };*/
 
     cls.hitTest = function(_obj1, _obj2) {
         var dx = Math.abs(_obj1.getX() - _obj2.getX());
@@ -89,19 +84,17 @@ var Game = (function () {
             return new Direction(0, 1);
         }
 
-        return nextDirection;
+        return null;   // Falls keine Taste gedrückt ist.
     };
 
+
+    /** Prüft ob eine Richtungsänderung getätigt wird und gibt dies an Snake zur Speicherung im Buffer weiter.
+     */
     var handleDirectionChange = function() {
-        nextDirection = checkInput();
-        if(isSnakeInGrid()) {
-            snake.changeDirection(nextDirection);
-        }
+
+        snake.setNextDirection(checkInput());
     };
 
-    var isSnakeInGrid = function() {
-        return cls.isInGrid(snake);
-    };
 
     cls.isInGrid = function(del) {
         return (del.getX() + gridSize / 2) % gridSize == 0 && (del.getY() + gridSize / 2) % gridSize == 0;
@@ -114,6 +107,7 @@ var Game = (function () {
     cls.addToHitList = function(del) {
         hitList.push(del);
     };
+
     cls.removeFromHitList = function(del) {
         var i = hitList.length;
         while(i--) {
@@ -122,6 +116,7 @@ var Game = (function () {
             }
         }
     };
+
     var testCollisions = function() {
         var i = hitList.length;
         while(i--) {
@@ -130,6 +125,7 @@ var Game = (function () {
             }
         }
     };
+
     cls.random = function(min, max) {
         return Math.floor((Math.random() * max) + min);
     };
