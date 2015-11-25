@@ -69,11 +69,18 @@ var Game = (function () {
 
     };
 
+    /** STATIC. Rundet eine Fließkommazahl mathematisch auf 2 Dezimalstellen nach dem Komma ab.
+     */
+    cls.round2decimal = function(floatnumber) {
+        return (Math.round(floatnumber * 100) / 100);
+    };
 
     cls.hitTest = function(_obj1, _obj2) {
-        // TODO: Berechnug anpassen. HitTest schlägt an, wenn man an Element vorbei läuft
-        var dx = Math.abs(_obj1.getX() - _obj2.getX());
-        var dy = Math.abs(_obj1.getY() - _obj2.getY());
+        var dx = Math.abs(_obj1.getX() - _obj2.getX()); // deltaX
+        var dy = Math.abs(_obj1.getY() - _obj2.getY()); // deltaY
+
+        dx = cls.round2decimal(dx); // mathematisches Runden, weil
+        dy = cls.round2decimal(dy); // JS nicht vernuenftig mit Fliesskommazahlen umgehen kann.
 
         if(dx > dy) {
             return dx < (_obj1.getHitboxWidth() / 2 + _obj2.getHitboxWidth() / 2);
@@ -132,8 +139,8 @@ var Game = (function () {
         var xValue = (del.getX() + gridSize / 2);   // Position errechnen
         var yValue = (del.getY() + gridSize / 2);
 
-        xValue = (Math.round(xValue * 100) / 100);  // mathematisches Runden, weil
-        yValue = (Math.round(yValue * 100) / 100);  // JS nicht vernuenftig mit Fliesskommazahlen umgehen kann.
+        xValue = cls.round2decimal(xValue);   // mathematisches Runden, weil
+        yValue = cls.round2decimal(yValue);   // JS nicht vernuenftig mit Fliesskommazahlen umgehen kann.
 
         return (xValue % gridSize == 0 && yValue % gridSize == 0);    // Berechnung ob Position im Grid ist
     };
