@@ -11,7 +11,7 @@ var Menu = (function () {
     cls.prototype.create = function () {
     };
 
-    cls.prototype.startGame = function () {
+    cls.startGame = function () {
     };
 
     return cls;

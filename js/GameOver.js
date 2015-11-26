@@ -9,9 +9,18 @@ var GameOver = (function () {
     };
 
     cls.prototype.create = function () {
+        var gameover = KonfettiPolonaise.getPhaser().add.text(400, 200, 'GAME OVER', { font: 'bold 50px Courier, monospace', fill: '#fff'});
+        gameover.anchor.set(0.5);
+
+        var text = KonfettiPolonaise.getPhaser().add.text(400, 300, 'RESTART', { font: 'bold 40px Courier, monospace', fill: '#fff'});
+        text.anchor.set(0.5);
+        text.inputEnabled = true;
+
+        text.events.onInputDown.add(cls.restartGame, this);
     };
 
-    cls.prototype.startGame = function () {
+    cls.restartGame = function() {
+        KonfettiPolonaise.startGame();
     };
 
     return cls;
