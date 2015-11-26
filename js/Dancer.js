@@ -77,12 +77,17 @@ var Dancer = (function () {
                 Game.removeFromHitList(this);
                 Game.addToPassingList(this);
             }
-            // An Schlange hängend
+            // Game Over
             else {
-                Game.removeFromPassingList(this);
-                Game.addToSnake(this);
-                Game.increaseSpeed();
+                Game.gameOver(this);
             }
+        };
+
+        this.queue = function() {
+            Game.removeFromPassingList(this);
+            Game.addToSnake(this);
+            Game.increaseSpeed();
+
         };
 
         this.getDirection = function() {

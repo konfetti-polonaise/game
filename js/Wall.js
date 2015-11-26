@@ -1,17 +1,17 @@
 // unsichtbare Wand zur Hitdetection.
-// aussehen der Wände wird durch das hintergrundbild.png festegelegt
+// aussehen der Wï¿½nde wird durch das hintergrundbild.png festegelegt
 var Wall = (function () {
     var spriteName = 'wall';    // wird noch ein durchsichtiges Bild. sichtbar zum testen.
 
     // constructor
     var cls = function (_x, _y) {
         // Call super constructor on this instance (any arguments
-        // to the constructor would go after "this" in call(…)).
+        // to the constructor would go after "this" in call(ï¿½)).
         this.constructor.super.call(this, _x, _y, spriteName);
         Game.addToHitList(this);
 
         this.action = function() {
-            // dummy
+            Game.gameOver(this);
         };
     };
 

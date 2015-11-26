@@ -8,7 +8,7 @@ var KonfettiPolonaise = (function () {
     );
 
     phaser.state.add('Game', Game);
-    phaser.state.start('Game');
+    phaser.state.add('GameOver', GameOver);
 
     // constructor
     var cls = function () {
@@ -18,6 +18,16 @@ var KonfettiPolonaise = (function () {
     cls.getPhaser = function() {
         return phaser;
     };
+
+    cls.startGame = function() {
+        phaser.state.start('Game');
+    };
+
+    cls.gameOver = function() {
+        phaser.state.start('GameOver');
+    };
+
+    cls.startGame();
 
     return cls;
 })();

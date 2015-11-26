@@ -101,7 +101,7 @@ var Snake = (function () {
             else if(dy > 0) {
                 direction.setDown();
             }
-
+            console.log(direction);
             dancer.setDirection(direction);
 
             followers.push(dancer);
@@ -125,6 +125,15 @@ var Snake = (function () {
             return false;
         };
 
+        this.getBodyCollision = function() {
+            for(var i = 1; i < followers.length; i++) {
+                if(Game.hitTest(head, followers[i])) {
+                    return followers[i];
+                }
+            }
+
+            return null;
+        };
 
         /** PRIVATE. Bewegt die gesammte Schlange (Head + Follower) um einen Schritt.
          */

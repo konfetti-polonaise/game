@@ -30,27 +30,27 @@ var Game = (function () {
         new Dancer(128 + 16, 32 + 16);
         new Dancer(128 + 16, 128 + 16);
         new Dancer(128 + 16, 256 + 16);
-        new Dancer(128 + 16, 384 + 16);
 
         new Dancer(256 + 16, 32 + 16);
         new Dancer(256 + 16, 256 + 16);
         new Dancer(256 + 16, 128 + 16);
-        new Dancer(256 + 16, 384 + 16);
 
         new Dancer(384 + 16, 32 + 16);
         new Dancer(384 + 16, 256 + 16);
         new Dancer(384 + 16, 128 + 16);
-        new Dancer(384 + 16, 384 + 16);
 
         new Dancer(512 + 16, 32 + 16);
         new Dancer(512 + 16, 256 + 16);
         new Dancer(512 + 16, 128 + 16);
-        new Dancer(512 + 16, 384 + 16);
 
         new Dancer(640 + 16, 32 + 16);
         new Dancer(640 + 16, 256 + 16);
         new Dancer(640 + 16, 128 + 16);
-        new Dancer(640 + 16, 384 + 16);
+
+        for(var i = 2; i < 23; i++) {
+            new Dancer(i * 32 + 16, 384 + 16);
+            new Dancer(i * 32 + 16, 384 + 32 + 16);
+        }
     };
 
     cls.prototype.update = function() {
@@ -197,9 +197,13 @@ var Game = (function () {
         var i = hitList.length;
         while(i--) {
             if(Game.hitTest(snake, hitList[i])) {
-                console.log('HIT');
                 hitList[i].action();
             }
+        }
+
+        var bodyCollision = snake.getBodyCollision();
+        if(bodyCollision instanceof Dancer) {
+            bodyCollision.action();
         }
     };
 
@@ -208,7 +212,7 @@ var Game = (function () {
 
         while(i--) {
            if(!snake.isInside(passingList[i])) {
-               passingList[i].action();
+               passingList[i].queue();
            }
         }
     };
@@ -223,6 +227,10 @@ var Game = (function () {
 
     cls.increaseSpeed = function() {
         snake.increaseSpeed();
+    };
+
+    cls.gameOver = function(obj) {
+        KonfettiPolonaise.gameOver();
     };
 
     return cls;
