@@ -4,7 +4,7 @@ var Snake = (function () {
         // private
         var speed = 7;  // Initialgeschwindigkeit
         var buffList = [];
-        var head = new Head(16 + 32 + 32 + 32 +32, 16 + 32);
+        var head = new Head(16 + 32, 16 + 32);
 
         // Richtung in die sich die Richtung des Heads ändern wird, sobald Schlange im Grid ist.
         var nextDirection;

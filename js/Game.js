@@ -27,21 +27,30 @@ var Game = (function () {
         cursor = KonfettiPolonaise.getPhaser().input.keyboard.createCursorKeys();
 
         // Test: Mehrere einsammelbare Dancer
+        new Dancer(128 + 16, 32 + 16);
         new Dancer(128 + 16, 128 + 16);
         new Dancer(128 + 16, 256 + 16);
         new Dancer(128 + 16, 384 + 16);
 
+        new Dancer(256 + 16, 32 + 16);
         new Dancer(256 + 16, 256 + 16);
         new Dancer(256 + 16, 128 + 16);
         new Dancer(256 + 16, 384 + 16);
 
+        new Dancer(384 + 16, 32 + 16);
         new Dancer(384 + 16, 256 + 16);
         new Dancer(384 + 16, 128 + 16);
         new Dancer(384 + 16, 384 + 16);
 
+        new Dancer(512 + 16, 32 + 16);
         new Dancer(512 + 16, 256 + 16);
         new Dancer(512 + 16, 128 + 16);
         new Dancer(512 + 16, 384 + 16);
+
+        new Dancer(640 + 16, 32 + 16);
+        new Dancer(640 + 16, 256 + 16);
+        new Dancer(640 + 16, 128 + 16);
+        new Dancer(640 + 16, 384 + 16);
     };
 
     cls.prototype.update = function() {
