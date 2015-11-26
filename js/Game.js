@@ -45,21 +45,8 @@ var Game = (function () {
     };
 
     cls.prototype.update = function() {
-        // @TODO: auslagern
-        var i = snake.getSpeed();
-        while(i--) {
-            snake.step();
-            handleDirectionChange();
 
-            testCollisions();
-
-            testPassings();
-
-            //console.log(cls.hitTest(snake, wall));
-        }
-
-
-
+        updateSnake();
 
         // @TODO: Hitdetection Snake mit sich selber.
         // @TODO: action() von Wall und Dancer programmieren.
@@ -98,6 +85,8 @@ var Game = (function () {
         }
     };
 
+    /** STATIC.
+     */
     var checkInput = function () {
         var cursorDirection = new Direction();
 
@@ -127,6 +116,23 @@ var Game = (function () {
     var handleDirectionChange = function() {
 
         snake.setNextDirection(checkInput());
+    };
+
+
+    /** PRIVATE. Fuehrt eine komplette Schlangenbewegung durch.
+     * Checkt dannach ob es Collisionen oder Verschwindene Objekte gibt und behandelt diese.
+     */
+    var updateSnake = function() {
+
+        var i = snake.getSpeed();
+        while(i--) {
+            snake.step();
+            handleDirectionChange();
+
+            testCollisions();
+
+            testPassings();
+        }
     };
 
 
