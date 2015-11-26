@@ -49,6 +49,12 @@ var DisplayElement = (function () {
         this.setY = function (_y) {
             sprite.y = _y;
         };
+        this.increaseX = function (_x) {
+            sprite.x += _x;
+        };
+        this.increaseY = function (_y) {
+            sprite.y += _y;
+        };
         this.setRotation = function (_rotation) {
             sprite.angle = _rotation;
         };

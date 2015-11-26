@@ -90,6 +90,8 @@ var Snake = (function () {
             // Neuen Tänzer zum Vorgänger drehen
             var direction = new Direction();
             if(Math.abs(dx) > Math.abs(dy)) {
+                dancer.setX(infront.getX() - dx);
+
                 if(dx > 0) {
                     direction.setRight();
                 }
@@ -97,6 +99,8 @@ var Snake = (function () {
                     direction.setLeft();
                 }
             } else {
+                dancer.setY(infront.getY() - dy);
+
                 if(dy < 0) {
                     direction.setUp();
                 }
