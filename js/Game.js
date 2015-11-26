@@ -230,8 +230,7 @@ var Game = (function () {
     };
 
     cls.gameOver = function(obj) {
-        KonfettiPolonaise.startGame();
-        //KonfettiPolonaise.gameOver();
+        KonfettiPolonaise.gameOver();
     };
 
     return cls;
