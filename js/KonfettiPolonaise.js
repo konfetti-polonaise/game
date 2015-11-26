@@ -16,16 +16,20 @@ var KonfettiPolonaise = (function () {
 
     };
 
+    var startState = function(state) {
+        phaser.state.start(state);
+    };
+
     cls.getPhaser = function() {
         return phaser;
     };
 
     cls.startGame = function() {
-        phaser.state.start('Game');
+        startState('Game');
     };
 
     cls.gameOver = function() {
-        phaser.state.start('GameOver');
+        startState('GameOver');
     };
 
     cls.startGame();
