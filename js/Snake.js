@@ -75,14 +75,33 @@ var Snake = (function () {
         /** PUBLIC. Dreht ein element und fügt es der Schlange hinzu
          */
         this.addFollower = function(dancer) {
-            /*
-            TODO: Neuer Dancer muss sich beim einhängen immer zum Vordermann wenden
-             und nicht die Direction des Vordermanss übernehmen
-            */
-            var direction = head.getDirection();
+            // Vorgänger ermitteln
+            var infront = head;
             if(followers.length > 0) {
-                direction = followers[followers.length - 1].getDirection();
+                infront = followers[followers.length - 1];
             }
+
+            // Distanz zwischen beiden Pbjekten
+            var dx = infront.getX() - dancer.getX(); // deltaX
+            var dy = infront.getY() - dancer.getY(); // deltaY
+            dx = Game.round2decimal(dx);
+            dy = Game.round2decimal(dy);
+
+            // Neuen Tänzer zum Vorgänger drehen
+            var direction = new Direction();
+            if(dx > 0) {
+                direction.setRight();
+            }
+            else if(dx < 0) {
+                direction.setLeft();
+            }
+            else if(dy < 0) {
+                direction.setUp();
+            }
+            else if(dy > 0) {
+                direction.setDown();
+            }
+
             dancer.setDirection(direction);
 
             followers.push(dancer);
