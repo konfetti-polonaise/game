@@ -75,6 +75,10 @@ var Snake = (function () {
         /** PUBLIC. Dreht ein element und fügt es der Schlange hinzu
          */
         this.addFollower = function(dancer) {
+            /*
+            TODO: Neuer Dancer muss sich beim einhängen immer zum Vordermann wenden
+             und nicht die Direction des Vordermanss übernehmen
+            */
             var direction = head.getDirection();
             if(followers.length > 0) {
                 direction = followers[followers.length - 1].getDirection();
