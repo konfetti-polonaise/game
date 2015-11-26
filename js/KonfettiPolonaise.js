@@ -7,6 +7,7 @@ var KonfettiPolonaise = (function () {
         'game'
     );
 
+    phaser.state.add('Menu', Menu);
     phaser.state.add('Game', Game);
     phaser.state.add('GameOver', GameOver);
 
