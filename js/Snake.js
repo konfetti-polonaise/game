@@ -89,19 +89,21 @@ var Snake = (function () {
 
             // Neuen Tänzer zum Vorgänger drehen
             var direction = new Direction();
-            if(dx > 0) {
-                direction.setRight();
+            if(Math.abs(dx) > Math.abs(dy)) {
+                if(dx > 0) {
+                    direction.setRight();
+                }
+                else {
+                    direction.setLeft();
+                }
+            } else {
+                if(dy < 0) {
+                    direction.setUp();
+                }
+                else {
+                    direction.setDown();
+                }
             }
-            else if(dx < 0) {
-                direction.setLeft();
-            }
-            else if(dy < 0) {
-                direction.setUp();
-            }
-            else if(dy > 0) {
-                direction.setDown();
-            }
-            console.log(direction);
             dancer.setDirection(direction);
 
             followers.push(dancer);
