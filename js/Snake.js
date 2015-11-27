@@ -103,6 +103,9 @@ var Snake = (function () {
             document.getElementById('dancer').innerHTML = '\n' +
                 'x: ' + dancer.getX() + '\n' +
                 'y: ' + dancer.getY() + '\n'
+                + '\n' +
+                'dx: ' + dx + '\n' +
+                'dy: ' + dy + '\n'
             ;
 
             // Neuen Tänzer zum Vorgänger drehen
