@@ -91,11 +91,19 @@ var Snake = (function () {
                 infront = followers[followers.length - 1];
             }
 
-            // Distanz zwischen beiden Pbjekten
-            var dx = infront.getX() - dancer.getX(); // deltaX
-            var dy = infront.getY() - dancer.getY(); // deltaY
-            dx = Game.round2decimal(dx);
-            dy = Game.round2decimal(dy);
+            // Distanz zwischen beiden Objekten
+            var dx = Game.round2decimal(infront.getX()) - Game.round2decimal(dancer.getX()); // deltaX
+            var dy = Game.round2decimal(infront.getY()) - Game.round2decimal(dancer.getY()); // deltaY
+
+            document.getElementById('infront').innerHTML =
+                'x: ' + infront.getX() + '\n' +
+                'y: ' + infront.getY() + '\n'
+            ;
+
+            document.getElementById('dancer').innerHTML = '\n' +
+                'x: ' + dancer.getX() + '\n' +
+                'y: ' + dancer.getY() + '\n'
+            ;
 
             // Neuen Tänzer zum Vorgänger drehen
             var direction = new Direction();
