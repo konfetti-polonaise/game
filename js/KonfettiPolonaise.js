@@ -47,3 +47,16 @@ function inherit(cls, superCls) {
     cls.prototype.constructor = cls;
     cls.super = superCls;
 }
+
+function addToList(list, element) {
+    list.push(element);
+};
+
+function removeFromList(list, element) {
+    var i = list.length;
+    while(i--) {
+        if(list[i] === element) {
+            list.splice(i, 1);
+        }
+    }
+};

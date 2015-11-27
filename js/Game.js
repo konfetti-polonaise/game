@@ -164,19 +164,6 @@ var Game = (function () {
         return gridSize;
     };
 
-    var addToList = function(list, element) {
-        list.push(element);
-    };
-
-    var removeFromList = function(list, element) {
-        var i = list.length;
-        while(i--) {
-            if(list[i] === element) {
-                list.splice(i, 1);
-            }
-        }
-    };
-
     cls.addToHitList = function(del) {
         addToList(hitList, del);
     };

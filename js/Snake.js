@@ -3,7 +3,7 @@ var Snake = (function () {
     var cls = function () {
         // private
         var speed = 7;  // Initialgeschwindigkeit
-        var buffList = [];
+        var buff;       // Powerupeffekt
         var head = new Head(16 + 32, 16 + 32);
 
         // Richtung in die sich die Richtung des Heads ändern wird, sobald Schlange im Grid ist.
@@ -43,9 +43,6 @@ var Snake = (function () {
             speed++;
         };
 
-        this.addToBuffList = function(buff) {
-            buffList.push(buff);
-        };
 
         this.getHitboxHeight = function() {
             return head.getHitboxHeight();
@@ -55,13 +52,26 @@ var Snake = (function () {
             return head.getHitboxWidth();
         };
 
-        this.xxx = function () {
-            var i = buffList.length;
-            while(i--) {
-                // bufftimer runterzählen
-                // & ggf entfernen
+
+        this.addBuff = function(_buff) {
+            _buff.action();
+            buff = _buff;
+        };
+
+        var removeBuff = function() {
+            buff = null;
+        };
+
+        var decreaseBuffTimer = function () {
+
+            if(buff.isOver()) {
+                removeBuff();
+            }
+            else {
+                buff.decreaseTimer();
             }
         };
+
 
 
         this.getX = function() {
