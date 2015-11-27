@@ -76,6 +76,8 @@ var Dancer = (function () {
 
                 Game.removeFromHitList(this);
                 Game.addToPassingList(this);
+
+                // Neuen Dancer machen
             }
             // Game Over
             else {

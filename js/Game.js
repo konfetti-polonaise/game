@@ -233,5 +233,20 @@ var Game = (function () {
         KonfettiPolonaise.gameOver();
     };
 
+    cls.placeDisplayElement = function(del, x, y) {
+        // esay
+    };
+
+    cls.placeDisplayElementRandom = function(del) {
+        // plaziert element an zufaelliger stelle wenn da kein hit ist.
+
+        var i = hitList.length;
+        while (i--) {//.....
+
+        }
+    };
+
+
+
     return cls;
 })();
