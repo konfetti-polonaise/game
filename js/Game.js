@@ -7,6 +7,14 @@ var Game = (function () {
     var passingList = [];   // Falscher Name. PassingList war für was anderes Spezifiziert. TODO: Umbenennen
     var powerUp = null;
 
+    var filterManager;
+    var wholeScreen;
+
+    // test für tastatureingabe
+    var key1;
+    var key2;
+    var key3;
+
     // constructor
     var cls = function () {
 
@@ -30,6 +38,20 @@ var Game = (function () {
 
         cursor = KonfettiPolonaise.getPhaser().input.keyboard.createCursorKeys();
         Game.placeRandomDisplayElement(new Dancer(0,0), true);
+        
+
+        wholeScreen = KonfettiPolonaise.getPhaser().add.sprite(0, 0);
+        wholeScreen.texture.baseTexture.skipRender = false;         //workaround, da phaser immer die letzte texture rendert
+        wholeScreen.width =  KonfettiPolonaise.getPhaser().width;
+        wholeScreen.height = KonfettiPolonaise.getPhaser().height;
+
+        filterManager = new FilterManager();
+
+        //Tastatur
+        //TODO refactor in kofnettiPoloniase klasse?
+        key1 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.ONE);
+        key2 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.TWO);
+        key3 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.THREE);
     };
 
     cls.prototype.update = function() {
@@ -39,11 +61,12 @@ var Game = (function () {
         snake.decreaseBuffTimer();
         powerUpAppearing();
 
-        // @TODO: Hitdetection Snake mit sich selber.
         // @TODO: action() von Wall und Dancer programmieren.
         // @TODO: Powerups programmieren
         // @TODO: Hitdetektion mit Powerups.
         // @TODO: Animation etc....
+
+       filterManager.update();
 
     };
 
@@ -95,6 +118,17 @@ var Game = (function () {
         } else if (cursor.down.isDown) {
             cursorDirection.setDown();
             return cursorDirection;
+
+        } else if (key1.isDown) {
+            filterManager.removeActiveFilters(wholeScreen);
+
+        } else if (key2.isDown) {
+            filterManager.removeActiveFilters(wholeScreen);
+            filterManager.addFireFilter(wholeScreen);
+
+        } else if (key3.isDown) {
+            filterManager.removeActiveFilters(wholeScreen);
+            filterManager.addPlasmaFilter(wholeScreen);
         }
 
         return null;   // Falls keine Taste gedrueckt ist.
