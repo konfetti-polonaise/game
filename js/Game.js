@@ -243,7 +243,10 @@ var Game = (function () {
      */
     var powerUpAppearing = function() {
 
-        if(powerUp == null && getRandomValue(1,401) > 400) {
+        var randomNumber = getRandomFloat(1,2401);
+        console.log(randomNumber);
+
+        if(powerUp == null && randomNumber > 2400) {
 
             powerUp = new JeTaime(0,0);
             Game.placeRandomDisplayElement(powerUp);
@@ -282,4 +285,8 @@ var Game = (function () {
 
 function getRandomValue(min, max){
     return Math.round(Math.random() * (max - min) + min);
+}
+
+function getRandomFloat(min, max){
+    return Math.random() * (max - min) + min;
 }
