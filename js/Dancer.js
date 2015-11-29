@@ -78,6 +78,7 @@ var Dancer = (function () {
                 Game.addToPassingList(this);
 
                 // Neuen Dancer machen
+                Game.placeRandomDisplayElement(new Dancer(0,0));
             }
             // Game Over
             else {

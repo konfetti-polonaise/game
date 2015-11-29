@@ -19,44 +19,14 @@ var Game = (function () {
     };
 
     cls.prototype.create = function() {
-
         var playground = KonfettiPolonaise.getPhaser().add.image(0, 0, 'playground');
-
         snake = new Snake();
-
         cursor = KonfettiPolonaise.getPhaser().input.keyboard.createCursorKeys();
-
-        // Test: Mehrere einsammelbare Dancer
-        new Dancer(128 + 16, 32 + 16);
-        new Dancer(128 + 16, 128 + 16);
-        new Dancer(128 + 16, 256 + 16);
-
-        new Dancer(256 + 16, 32 + 16);
-        new Dancer(256 + 16, 256 + 16);
-        new Dancer(256 + 16, 128 + 16);
-
-        new Dancer(384 + 16, 32 + 16);
-        new Dancer(384 + 16, 256 + 16);
-        new Dancer(384 + 16, 128 + 16);
-
-        new Dancer(512 + 16, 32 + 16);
-        new Dancer(512 + 16, 256 + 16);
-        new Dancer(512 + 16, 128 + 16);
-
-        new Dancer(640 + 16, 32 + 16);
-        new Dancer(640 + 16, 256 + 16);
-        new Dancer(640 + 16, 128 + 16);
-
-        for(var i = 2; i < 23; i++) {
-            new Dancer(i * 32 + 16, 384 + 16);
-            new Dancer(i * 32 + 16, 384 + 32 + 16);
-        }
+        Game.placeRandomDisplayElement(new Dancer(0,0));
     };
 
     cls.prototype.update = function() {
-
         updateSnake();
-
         // @TODO: Hitdetection Snake mit sich selber.
         // @TODO: action() von Wall und Dancer programmieren.
         // @TODO: Powerups programmieren
@@ -123,7 +93,6 @@ var Game = (function () {
     /** Prueft ob eine Richtungsaenderung getaetigt wird und gibt dies an snake zur Speicherung im Buffer weiter.
      */
     var handleDirectionChange = function() {
-
         snake.setNextDirection(checkInput());
     };
 
@@ -137,9 +106,7 @@ var Game = (function () {
         while(i--) {
             snake.step();
             handleDirectionChange();
-
             testCollisions();
-
             testPassings();
         }
     };
@@ -220,20 +187,31 @@ var Game = (function () {
         KonfettiPolonaise.gameOver();
     };
 
-    cls.placeDisplayElement = function(del, x, y) {
-        // esay
-    };
-
-    cls.placeDisplayElementRandom = function(del) {
+    cls.placeRandomDisplayElement = function(del) {
         // plaziert element an zufaelliger stelle wenn da kein hit ist.
+        var x, y, isHitted;
 
-        var i = hitList.length;
-        while (i--) {//.....
+        isFreePosition = true;
+        do{
+            x = getRandomValue(32, 800-32);
+            y = getRandomValue(32, 512-32);
+            x -= x%32;
+            y -= y%32;
+            del.setX(x+16);
+            del.setY(y+16);
 
-        }
-    };
-
-
-
+            var i = hitList.length;
+            while(i--) {
+                if(Game.hitTest(del, hitList[i])) {
+                    isFreePosition = false;
+                }
+            }
+        }while(isFreePosition != false);
+        del.setRotation(getRandomValue(1, 5)*90);
+    }
     return cls;
 })();
+
+function getRandomValue(min, max){
+    return Math.round(Math.random() * (max - min) + min);
+}
