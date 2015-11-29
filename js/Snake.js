@@ -4,7 +4,7 @@ var Snake = (function () {
         // private
         var speed = 7;  // Initialgeschwindigkeit
         var buff;       // Powerupeffekt
-        var head = new Head(16 + 32, 16 + 32);
+        var head = new Head(16 + 32, 16 + 32);  // Startposition. TODO: Zufällig platzieren ?
 
         // Richtung in die sich die Richtung des Heads ändern wird, sobald Schlange im Grid ist.
         var nextDirection;
@@ -51,24 +51,31 @@ var Snake = (function () {
 
 
         this.addBuff = function(_buff) {
-            _buff.action();
             buff = _buff;
         };
 
-        var removeBuff = function() {
+        this.removeBuff = function() {
             buff = null;
         };
 
-        var decreaseBuffTimer = function () {
-
-            if(buff.isOver()) {
-                removeBuff();
-            }
-            else {
-                buff.decreaseTimer();
-            }
+        this.getBuff = function() {
+            return buff;
         };
 
+        /** Wird ein mal pro UPDATE aufgerufen. zählt den Timer des PowerUps runter, und entfernt dieses, wenn er bei 0 ist.
+         */
+        this.decreaseBuffTimer = function () {
+
+            if(null != buff) {  // wenn es einen buff gibt
+                if(buff.isOver()) {
+                    buff.undo();
+                    this.removeBuff();
+                }
+                else {
+                    buff.decreaseTimer();
+                }
+            }
+        };
 
 
         this.getX = function() {
@@ -131,6 +138,7 @@ var Snake = (function () {
             followers.push(dancer);
         };
 
+
         /** PUBLIC. Prüft, ob sich ein Element innerhalb der Schlange (Head + Follower) befindet.
          */
         this.isInside = function(obj) {
@@ -149,6 +157,7 @@ var Snake = (function () {
             return false;
         };
 
+        // Was macht die Funktion und wofür ist sie da ?
         this.getBodyCollision = function() {
             for(var i = 1; i < followers.length; i++) {
                 if(Game.hitTest(head, followers[i])) {
@@ -228,12 +237,9 @@ var Snake = (function () {
             return Game.isInGrid(head);
         };
 
-
-
-
-
-        // function deleteFromBuffList()  ???
     };
+
+
 
     return cls;
 })();

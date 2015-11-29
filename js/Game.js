@@ -4,8 +4,8 @@ var Game = (function () {
     var cursor;
     var gridSize = 32;
     var hitList = [];
-    var passingList = [];
-    var PowerUp = null;
+    var passingList = [];   // Falscher Name. PassingList war für was anderes Spezifiziert. TODO: Umbenennen
+    var powerUp = null;
 
     // constructor
     var cls = function () {
@@ -16,6 +16,9 @@ var Game = (function () {
         cls.loadSpritesheets(Dancer);
         cls.loadSpritesheets(Head);
         cls.loadSpritesheets(Wall);
+        cls.loadSpritesheets(JeTaime);
+        cls.loadSpritesheets(Chilli);
+        cls.loadSpritesheets(Beer);
         KonfettiPolonaise.getPhaser().load.image('playground', 'assets/img/playground.png');
     };
 
@@ -26,12 +29,15 @@ var Game = (function () {
         snake = new Snake();
 
         cursor = KonfettiPolonaise.getPhaser().input.keyboard.createCursorKeys();
-        Game.placeRandomDisplayElement(new Dancer(0,0));
+        Game.placeRandomDisplayElement(new Dancer(0,0), true);
     };
 
     cls.prototype.update = function() {
 
         updateSnake();
+        snake.setNextDirection(checkInput());
+        snake.decreaseBuffTimer();
+        powerUpAppearing();
 
         // @TODO: Hitdetection Snake mit sich selber.
         // @TODO: action() von Wall und Dancer programmieren.
@@ -70,8 +76,7 @@ var Game = (function () {
         }
     };
 
-    /** STATIC.
-     */
+
     var checkInput = function () {
         var cursorDirection = new Direction();
 
@@ -112,6 +117,11 @@ var Game = (function () {
         }
     };
 
+    /** Damit die PowerUps leichter mit der Snake interagieren koennen.
+     */
+    cls.getSnake = function() {
+        return snake;
+    }
 
     /** Gibt zurueck ob sich ein DisplayElement im Grid,
      * also exakt auf einem der Felder des definierten Rasters befindet.
@@ -188,19 +198,29 @@ var Game = (function () {
         KonfettiPolonaise.gameOver();
     };
 
-    /** Lässt, wenn es nicht schon eins gibt ein zufälliges PowerUp erscheinen.
+    /** Lässt das PowerUp auf dem Spielfeld verschwinden. wird aufgerufen wenn ein PowerUp eingesammelt wird.
+     */
+    cls.removePowerUp = function() {
+        powerUp.destroySprite();
+        powerUp = null;
+    };
+
+    /** Lässt, wenn es nicht schon eins gibt mit einer geringen Warscheinlichkeit ein zufälliges PowerUp erscheinen.
      */
     var powerUpAppearing = function() {
 
-        // wenn es schon ein powerup gibt passiert nix
-        // wenn es keins gibt wird eventuell ein zufaelliges random platziert.
+        if(powerUp == null && getRandomValue(1,401) > 400) {
+
+            powerUp = new JeTaime(0,0);
+            Game.placeRandomDisplayElement(powerUp);
+        }
     };
 
-    cls.placeRandomDisplayElement = function(del) {
+    cls.placeRandomDisplayElement = function(del, rotate) {
         // plaziert element an zufaelliger stelle wenn da kein hit ist.
         var x, y, isHitted;
 
-        isFreePosition = true;
+        var isFreePosition = true;
         do{
             x = getRandomValue(32, 800-32);
             y = getRandomValue(32, 512-32);
@@ -216,8 +236,13 @@ var Game = (function () {
                 }
             }
         }while(isFreePosition != false);
-        del.setRotation(getRandomValue(1, 5)*90);
-    }
+
+        if(rotate === true) {
+            del.setRotation(getRandomValue(1, 5) * 90);
+        }
+    };
+
+
     return cls;
 })();
 

@@ -78,6 +78,12 @@ var DisplayElement = (function () {
             this.setHitboxHeight(_height);
         };
 
+        /** Entfernt den Sprite des DisplayElements. es wird also unsichbar.
+         */
+        this.destroySprite = function() {
+            sprite.destroy();
+        }
+
     };
 
     // public (shared across instances)

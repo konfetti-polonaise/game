@@ -16,7 +16,7 @@ var Chilli = (function () {
             startBuff();
         };
 
-        this.undoBuff = function() {
+        this.undo = function() {
             //Marius
 
             stopSound();

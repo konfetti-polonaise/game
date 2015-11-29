@@ -75,10 +75,12 @@ var Dancer = (function () {
                 isPickedUp = true;
 
                 Game.removeFromHitList(this);
-                Game.addToPassingList(this);
+                Game.addToPassingList(this); // Warum ?
+
+                Game.increaseSpeed();
 
                 // Neuen Dancer machen
-                Game.placeRandomDisplayElement(new Dancer(0,0));
+                Game.placeRandomDisplayElement(new Dancer(0,0), true);
             }
             // Game Over
             else {
@@ -89,8 +91,6 @@ var Dancer = (function () {
         this.queue = function() {
             Game.removeFromPassingList(this);
             Game.addToSnake(this);
-            Game.increaseSpeed();
-
         };
 
         this.getDirection = function() {

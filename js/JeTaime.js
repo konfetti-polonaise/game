@@ -3,25 +3,46 @@ var JeTaime = (function () {
     var spriteName = 'jeTaime';
 
     var cls = function (_x, _y) {
-        this.constructor.super.call(this, _x, _y, spriteName);
+        this.constructor.super.call(this, _x, _y, spriteName, true);
         Game.addToHitList(this);
 
-        var timer = new PowerUpTimer(10);
+        var timer = new PowerUpTimer(1000); // TODO: Muss noch genau auf 10s gemacht werden
+
+        this.setHitboxHeight(20);
+        this.setHitboxWidth(20);
+
+        var snake;
+        var originalSpeed;
 
         this.action = function() {
-            //Marius
+
+            snake = Game.getSnake();
+            var oldBuff = snake.getBuff();
+
+            if(null != oldBuff) {   // wenn oldBuff nicht leer ist
+                oldBuff.undo();
+            }
+
+            originalSpeed = snake.getSpeed();
 
             startSound();
             startFilter();
             startBuff();
+
+            snake.addBuff(this);
+            Game.removeFromHitList(this);
+            Game.removePowerUp();
         };
 
-        this.undoBuff = function() {
-            //Marius
+        /** Macht alle auswirkungen dieses Powerups wieder rueckgaengig.
+         */
+        this.undo = function() {
 
             stopSound();
             stopFilter();
             stopBuff();
+
+            snake.removeBuff();
         };
 
         this.isOver = function() {
@@ -49,13 +70,11 @@ var JeTaime = (function () {
         };
 
         var startBuff = function() {
-            // Marius
-            //snake.speed verlangsamen
+            snake.setSpeed(7);
         };
 
         var stopBuff = function() {
-            // Marius
-            //snake.speed wieder auf normal setzen.
+            snake.setSpeed(originalSpeed);
         };
 
     };
