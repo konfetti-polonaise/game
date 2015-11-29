@@ -2,9 +2,9 @@ var Snake = (function () {
     // constructor
     var cls = function () {
         // private
-        var speed = 7;  // Initialgeschwindigkeit
-        var buff;       // Powerupeffekt
-        var head = new Head(16 + 32, 16 + 32);  // Startposition. TODO: Zufällig platzieren ?
+        var speed = 7;      // Initialgeschwindigkeit
+        var buff = null;    // Powerupeffekt
+        var head = new Head(16 + 32, 16 + 32);  // Startposition. TODO: Zufällig platzieren ???
 
         // Richtung in die sich die Richtung des Heads ändern wird, sobald Schlange im Grid ist.
         var nextDirection;
@@ -69,7 +69,6 @@ var Snake = (function () {
             if(null != buff) {  // wenn es einen buff gibt
                 if(buff.isOver()) {
                     buff.undo();
-                    this.removeBuff();
                 }
                 else {
                     buff.decreaseTimer();

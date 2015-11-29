@@ -6,37 +6,62 @@ var JeTaime = (function () {
         this.constructor.super.call(this, _x, _y, spriteName, true);
         Game.addToHitList(this);
 
-        var timer = new PowerUpTimer(1000); // TODO: Muss noch genau auf 10s gemacht werden
+        /*DEBUG
+        var nr = JeTaime.getInstanceNr();
+        console.log("Create JetaimeNr:" + nr);
+        */
+
+        var timer;  // Wirkungszeit
 
         this.setHitboxHeight(20);
         this.setHitboxWidth(20);
 
-        var snake;
+        var snake = Game.getSnake();
         var originalSpeed;
 
         this.action = function() {
 
-            snake = Game.getSnake();
+            //DEBUG
+            //console.log("action() JetaimeNr:" + nr);
+
+            timer = new PowerUpTimer(1000); // TODO: Muss noch genau auf 10s gemacht werden
+
+            Game.removeFromHitList(this);
+            Game.removePowerUp();
+
             var oldBuff = snake.getBuff();
 
-            if(null != oldBuff) {   // wenn oldBuff nicht leer ist
+            /*DEBUG
+            if (null != oldBuff) {
+                console.log("oldBuff JetaimeNr:" + nr + " = JetaimeNr " + oldBuff.getNr());
+            }
+            else{
+                console.log("oldBuff JetaimeNr:" + nr + " = JetaimeNr NICHTS");
+            }
+            */
+
+            if(null != oldBuff) {   // wenn es noch einen aktiven buff gibt
                 oldBuff.undo();
             }
 
             originalSpeed = snake.getSpeed();
+
+            //DEBUG
+            //console.log("originalSpeed JetaimeNr:" + nr + " = " + originalSpeed);
 
             startSound();
             startFilter();
             startBuff();
 
             snake.addBuff(this);
-            Game.removeFromHitList(this);
-            Game.removePowerUp();
         };
 
         /** Macht alle auswirkungen dieses Powerups wieder rueckgaengig.
          */
         this.undo = function() {
+
+            //DEBUG
+            //console.log("Undo() JetaimeNr:" + nr);
 
             stopSound();
             stopFilter();
@@ -77,8 +102,20 @@ var JeTaime = (function () {
             snake.setSpeed(originalSpeed);
         };
 
+        //DEBUG
+        this.getNr = function() {
+            return nr;
+        }
+
     };
 
+    /* DEBUG
+    var instanceNr = 0;
+    cls.getInstanceNr = function() {
+        instanceNr++;
+        return instanceNr;
+    };
+    */
 
     cls.getSpritesheets = function() {
         return [
