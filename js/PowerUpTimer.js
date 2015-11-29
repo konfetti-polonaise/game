@@ -1,5 +1,7 @@
 var PowerUpTimer = (function () {
 
+    var time;
+
     // constructor
     var cls = function (_time) {
 

@@ -16,9 +16,6 @@ var Snake = (function () {
         ];
 
 
-        // public (this instance only)
-
-
         this.getNextDirection = function() {
             return nextDirection;
         };

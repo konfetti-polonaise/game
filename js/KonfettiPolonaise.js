@@ -50,7 +50,7 @@ function inherit(cls, superCls) {
 
 function addToList(list, element) {
     list.push(element);
-};
+}
 
 function removeFromList(list, element) {
     var i = list.length;
@@ -59,4 +59,4 @@ function removeFromList(list, element) {
             list.splice(i, 1);
         }
     }
-};
+}

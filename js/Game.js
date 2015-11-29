@@ -5,6 +5,7 @@ var Game = (function () {
     var gridSize = 32;
     var hitList = [];
     var passingList = [];
+    var PowerUp = null;
 
     // constructor
     var cls = function () {
@@ -19,14 +20,19 @@ var Game = (function () {
     };
 
     cls.prototype.create = function() {
+
         var playground = KonfettiPolonaise.getPhaser().add.image(0, 0, 'playground');
+
         snake = new Snake();
+
         cursor = KonfettiPolonaise.getPhaser().input.keyboard.createCursorKeys();
         Game.placeRandomDisplayElement(new Dancer(0,0));
     };
 
     cls.prototype.update = function() {
+
         updateSnake();
+
         // @TODO: Hitdetection Snake mit sich selber.
         // @TODO: action() von Wall und Dancer programmieren.
         // @TODO: Powerups programmieren
@@ -90,13 +96,6 @@ var Game = (function () {
     };
 
 
-    /** Prueft ob eine Richtungsaenderung getaetigt wird und gibt dies an snake zur Speicherung im Buffer weiter.
-     */
-    var handleDirectionChange = function() {
-        snake.setNextDirection(checkInput());
-    };
-
-
     /** PRIVATE. Fuehrt eine komplette Schlangenbewegung durch.
      * Checkt dannach ob es Collisionen oder Verschwindene Objekte gibt und behandelt diese.
      */
@@ -105,8 +104,10 @@ var Game = (function () {
         var i = snake.getSpeed();
         while(i--) {
             snake.step();
-            handleDirectionChange();
+            snake.setNextDirection(checkInput());
+
             testCollisions();
+
             testPassings();
         }
     };
@@ -185,6 +186,14 @@ var Game = (function () {
 
     cls.gameOver = function(obj) {
         KonfettiPolonaise.gameOver();
+    };
+
+    /** Lässt, wenn es nicht schon eins gibt ein zufälliges PowerUp erscheinen.
+     */
+    var powerUpAppearing = function() {
+
+        // wenn es schon ein powerup gibt passiert nix
+        // wenn es keins gibt wird eventuell ein zufaelliges random platziert.
     };
 
     cls.placeRandomDisplayElement = function(del) {
