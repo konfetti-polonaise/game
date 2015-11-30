@@ -13,6 +13,8 @@ var JeTaime = (function () {
 
         var timer;  // Wirkungszeit
 
+        var slowSpeed = 7;
+
         this.setHitboxHeight(20);
         this.setHitboxWidth(20);
 
@@ -95,17 +97,18 @@ var JeTaime = (function () {
         };
 
         var startBuff = function() {
-            snake.setSpeed(7);
+            snake.setSpeed(slowSpeed);
         };
 
         var stopBuff = function() {
             snake.setSpeed(originalSpeed);
         };
 
-        //DEBUG
-        this.getNr = function() {
-            return nr;
-        }
+        /*DEBUG
+         this.getNr = function() {
+         return nr;
+         }
+         */
 
     };
 

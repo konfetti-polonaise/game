@@ -1,11 +1,13 @@
 var Game = (function () {
     var snake;
-    var wall;
     var cursor;
     var gridSize = 32;
     var hitList = [];
-    var passingList = [];   // Falscher Name. PassingList war für was anderes Spezifiziert. TODO: Umbenennen
+    var passingList = [];   // Falscher Name. PassingList war für was anderes Spezifiziert. TODO: Umbenennen[
+
     var powerUp = null;
+
+    var allPowerUps;
 
     var filterManager;
     var wholeScreen;
@@ -52,6 +54,11 @@ var Game = (function () {
         key1 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.ONE);
         key2 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.TWO);
         key3 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.THREE);
+
+        allPowerUps = [
+            JeTaime,
+            Chilli
+        ];
     };
 
     cls.prototype.update = function() {
@@ -243,13 +250,11 @@ var Game = (function () {
      */
     var powerUpAppearing = function() {
 
-        var randomNumber = getRandomFloat(1,2401);
-        console.log(randomNumber);
+        if(powerUp == null && getRandomFloat(1,2001) > 2000) {
 
-        if(powerUp == null && randomNumber > 2400) {
+            powerUp = new allPowerUps[getRandomValue( 0, allPowerUps.length-1 )](0,0);
 
-            powerUp = new JeTaime(0,0);
-            Game.placeRandomDisplayElement(powerUp);
+            Game.placeRandomDisplayElement( powerUp );
         }
     };
 
