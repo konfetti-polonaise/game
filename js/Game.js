@@ -15,6 +15,7 @@ var Game = (function () {
     var key1;
     var key2;
     var key3;
+    var key4;
 
     // constructor
     var cls = function () {
@@ -53,6 +54,7 @@ var Game = (function () {
         key1 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.ONE);
         key2 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.TWO);
         key3 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.THREE);
+        key4 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.FOUR);
 
         allPowerUps = [
             JeTaime, Chilli, Beer
@@ -73,6 +75,10 @@ var Game = (function () {
 
        filterManager.update();
 
+        if (isInsideRoom(snake)) {
+            KonfettiPolonaise.gameOver();
+        }
+
     };
 
     /** STATIC. Rundet eine Fließkommazahl mathematisch auf 2 Dezimalstellen nach dem Komma ab.
@@ -88,7 +94,7 @@ var Game = (function () {
         dx = cls.round2decimal(dx); // mathematisches Runden, weil
         dy = cls.round2decimal(dy); // JS nicht vernuenftig mit Fliesskommazahlen umgehen kann.
 
-        if(dx > dy) {
+        if(dx >= dy) {
             return dx < (_obj1.getHitboxWidth() / 2 + _obj2.getHitboxWidth() / 2);
         } else {
             return dy < (_obj1.getHitboxHeight() / 2 + _obj2.getHitboxHeight() / 2);
@@ -137,6 +143,9 @@ var Game = (function () {
         } else if (key3.isDown) {
             filterManager.removeActiveFilters(wholeScreen);
             filterManager.addPlasmaFilter(wholeScreen);
+        } else if (key4.isDown) {
+            filterManager.removeActiveFilters(wholeScreen);
+            filterManager.addDrunkFilter(wholeScreen);
         }
         // DEBUG END
 
@@ -238,6 +247,19 @@ var Game = (function () {
         }
     };
 
+    var isInsideRoom = function (_del) {
+        var isOutside = false;
+
+        if (_del.getX() > KonfettiPolonaise.getPhaser().width - gridSize ||
+            _del.getX() < gridSize ||
+            _del.getY() > KonfettiPolonaise.getPhaser().height - gridSize ||
+            _del.getY() < gridSize) {
+            isOutside = true;
+        }
+
+        return isOutside;
+    };
+
     cls.random = function(min, max) {
         return Math.floor((Math.random() * max) + min);
     };
@@ -293,12 +315,10 @@ var Game = (function () {
 
         var isFreePosition = true;
         do{
-            x = getRandomValue(32, 800-32);
-            y = getRandomValue(32, 512-32);
-            x -= x%32;
-            y -= y%32;
-            del.setX(x+16);
-            del.setY(y+16);
+            x = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().width-gridSize);
+            y = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().height-gridSize);
+            x -= x%gridSize;
+            y -= y%gridSize;
 
             var i = hitList.length;
             while(i--) {
@@ -307,6 +327,9 @@ var Game = (function () {
                 }
             }
         }while(isFreePosition != false);
+
+        del.setX(x+gridSize/2);
+        del.setY(y+gridSize/2);
 
         if(rotate === true) {
             del.setRotation(getRandomValue(1, 5) * 90);

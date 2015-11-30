@@ -1,7 +1,6 @@
 var Snake = (function () {
     // constructor
     var cls = function () {
-        // private
         var speed = 7;      // Initialgeschwindigkeit
         var buff = null;    // Powerupeffekt
         var head = new Head(16 + 32, 16 + 32);  // Startposition. TODO: Zufällig platzieren ???
@@ -9,11 +8,7 @@ var Snake = (function () {
         // Richtung in die sich die Richtung des Heads ändern wird, sobald Schlange im Grid ist.
         var nextDirection;
 
-        var followers = [
-            //new Dancer(16 + 32 + 32 + 32, 16 + 32),
-            //new Dancer(16 + 32 + 32, 16 + 32),
-            //new Dancer(16 + 32, 16 + 32)
-        ];
+        var followers = [];
 
 
         this.getNextDirection = function() {
@@ -34,12 +29,12 @@ var Snake = (function () {
             speed = _speed;
         };
 
+
         /** Wird aufgerufen um die Geschwindigkeit und somit die Schwierigkeit zu erhöhen.
          */
         this.increaseSpeed = function() {
             speed++;
         };
-
 
         this.getHitboxHeight = function() {
             return head.getHitboxHeight();
@@ -48,7 +43,6 @@ var Snake = (function () {
         this.getHitboxWidth = function() {
             return head.getHitboxWidth();
         };
-
 
         this.addBuff = function(_buff) {
             buff = _buff;
@@ -62,10 +56,9 @@ var Snake = (function () {
             return buff;
         };
 
-        /** Wird ein mal pro UPDATE aufgerufen. zählt den Timer des aktivierten PowerUps runter, und entfernt dieses, wenn er bei 0 ist.
+        /** Wird ein mal pro UPDATE aufgerufen. zählt den Timer des PowerUps runter, und entfernt dieses, wenn er bei 0 ist.
          */
         this.decreaseBuffTimer = function () {
-
             if(null != buff) {  // wenn es einen buff gibt
                 if(buff.buffIsOver()) {
                     buff.undo();
@@ -75,7 +68,6 @@ var Snake = (function () {
                 }
             }
         };
-
 
         this.getX = function() {
             return head.getX();
@@ -118,8 +110,7 @@ var Snake = (function () {
 
                 if(dx > 0) {
                     direction.setRight();
-                }
-                else {
+                } else {
                     direction.setLeft();
                 }
             } else {
@@ -127,8 +118,7 @@ var Snake = (function () {
 
                 if(dy < 0) {
                     direction.setUp();
-                }
-                else {
+                } else {
                     direction.setDown();
                 }
             }
@@ -223,7 +213,7 @@ var Snake = (function () {
             move(); // Schlange bewegt sich um eine Schrittweite
 
             if(isSnakeInGrid()) {
-                
+
                 changeFollowersDirection(); // Follower drehen sich
                 changeHeadDirection(nextDirection); // Head dreht sich gegebenenfalls
             }
