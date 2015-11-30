@@ -144,8 +144,8 @@ var Game = (function () {
             filterManager.removeActiveFilters(wholeScreen);
             filterManager.addPlasmaFilter(wholeScreen);
         } else if (key4.isDown) {
-            filterManager.removeActiveFilters(wholeScreen);
-            filterManager.addDrunkFilter(wholeScreen);
+           // filterManager.removeActiveFilters(wholeScreen);
+            //filterManager.addDrunkFilter(wholeScreen);
         }
         // DEBUG END
 

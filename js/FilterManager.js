@@ -22,8 +22,8 @@ var FilterManager = (function () {
         fireFilter.alpha = 0.0;
         plasmaFilter = KonfettiPolonaise.getPhaser().add.filter('Plasma', KonfettiPolonaise.getPhaser.width, KonfettiPolonaise.getPhaser().height);
         plasmaFilter.alpha = 0.0;
-        drunkFilter = KonfettiPolonaise.getPhaser().add.filter('Drunk', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
-        drunkFilter.alpha = 0.0;
+        //drunkFilter = KonfettiPolonaise.getPhaser().add.filter('Drunk', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
+        //drunkFilter.alpha = 0.0;
 
 
 
@@ -44,12 +44,12 @@ var FilterManager = (function () {
             _sprite.filters = [plasmaFilter];
             activeFilter.push(plasmaFilter);
         };
-
+/*
         this.addDrunkFilter = function (_sprite) {
             _sprite.filters = [drunkFilter];
             activeFilter.push(drunkFilter);
         };
-
+*/
         this.removeActiveFilters = function (_sprite) {
             for(var i = 0; i < _sprite.length; i++) {
                 _sprite.filters[i].destroy();

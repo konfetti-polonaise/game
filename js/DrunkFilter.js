@@ -4,7 +4,7 @@
 /**
  * A horizontal blur filter by Mat Groves http://matgroves.com/ @Doormat23
  */
-Phaser.Filter.DrunkFilter = function (game) {
+Phaser.Filter.drunkFilter = function (game) {
 
     Phaser.Filter.call(this, game);
 
@@ -39,10 +39,10 @@ Phaser.Filter.DrunkFilter = function (game) {
 
 };
 
-Phaser.Filter.DrunkFilter.prototype = Object.create(Phaser.Filter.prototype);
-Phaser.Filter.DrunkFilter.prototype.constructor = Phaser.Filter.DrunkFilter;
+Phaser.Filter.drunkFilter.prototype = Object.create(Phaser.Filter.prototype);
+Phaser.Filter.drunkFilter.prototype.constructor = Phaser.Filter.drunkFilter;
 
-Object.defineProperty(Phaser.Filter.DrunkFilter.prototype, 'blur', {
+Object.defineProperty(Phaser.Filter.drunkFilter.prototype, 'blur', {
 
     get: function() {
         return this.uniforms.blur.value / (1/7000);
