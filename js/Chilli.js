@@ -11,7 +11,10 @@ var Chilli = (function () {
          console.log("Create ChilliNr:" + nr);
          */
 
-        var timer;  // Wirkungszeit
+        var buffTimer;  // Wirkungszeit
+
+        // Wie lange das PowerUp auf dem Feld bleibt bevor es unaufgesammelt verschwindet
+        var onFieldTimer = new PowerUpTimer(1000);
 
         var speedBoost = 15;
 
@@ -19,15 +22,16 @@ var Chilli = (function () {
         this.setHitboxWidth(20);
 
         var snake = Game.getSnake();
+        var filterManager = Game.getFilterManager();
+        var wholeScreen = Game.getWholeScreen();
 
         this.action = function() {
 
             //DEBUG
             //console.log("action() ChilliNr:" + nr);
 
-            timer = new PowerUpTimer(1000); // TODO: Muss noch genau auf 10s gemacht werden
+            buffTimer = new PowerUpTimer(1000); // TODO: Muss noch genau auf 10s gemacht werden
 
-            Game.removeFromHitList(this);
             Game.removePowerUp();
 
             var oldBuff = snake.getBuff();
@@ -46,11 +50,9 @@ var Chilli = (function () {
                 if(oldBuff instanceof Chilli) { //Wenn dieser eine Chilli ist, speed doppelt erhoehen
 
                     speedBoost = speedBoost + oldBuff.getSpeedBoost();
-                    oldBuff.undo();
                 }
-                else {
-                    oldBuff.undo();
-                }
+
+                oldBuff.undo();
             }
 
             startSound();
@@ -74,12 +76,20 @@ var Chilli = (function () {
             snake.removeBuff();
         };
 
-        this.isOver = function() {
-            return timer.isOver();
+        this.buffIsOver = function() {
+            return buffTimer.isOver();
         };
 
-        this.decreaseTimer = function() {
-            timer.decrease();
+        this.decreaseBuffTimer = function() {
+            buffTimer.decrease();
+        };
+
+        this.onFieldIsOver = function() {
+            return onFieldTimer.isOver();
+        };
+
+        this.decreaseOnFieldTimer = function() {
+            onFieldTimer.decrease();
         };
 
         var startSound = function() {
@@ -91,11 +101,11 @@ var Chilli = (function () {
         };
 
         var startFilter = function() {
-            // Pinker effekt startet
+            filterManager.addFireFilter(wholeScreen);
         };
 
         var stopFilter = function() {
-            // Pinker effekt entfernen
+            filterManager.removeActiveFilters(wholeScreen);
         };
 
         var startBuff = function() {

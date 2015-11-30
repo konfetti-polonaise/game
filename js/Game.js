@@ -3,10 +3,9 @@ var Game = (function () {
     var cursor;
     var gridSize = 32;
     var hitList = [];
-    var passingList = [];   // Falscher Name. PassingList war für was anderes Spezifiziert. TODO: Umbenennen[
+    var passingList = [];   // Falscher Name. PassingList war für was anderes Spezifiziert. TODO: Umbenennen
 
     var powerUp = null;
-
     var allPowerUps;
 
     var filterManager;
@@ -56,8 +55,7 @@ var Game = (function () {
         key3 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.THREE);
 
         allPowerUps = [
-            JeTaime,
-            Chilli
+            JeTaime, Chilli, Beer
         ];
     };
 
@@ -66,7 +64,7 @@ var Game = (function () {
         updateSnake();
         snake.setNextDirection(checkInput());
         snake.decreaseBuffTimer();
-        powerUpAppearing();
+        updatePowerUp();
 
         // @TODO: action() von Wall und Dancer programmieren.
         // @TODO: Powerups programmieren
@@ -126,7 +124,10 @@ var Game = (function () {
             cursorDirection.setDown();
             return cursorDirection;
 
-        } else if (key1.isDown) {
+        }
+
+        // DEBUG
+        else if (key1.isDown) {
             filterManager.removeActiveFilters(wholeScreen);
 
         } else if (key2.isDown) {
@@ -137,6 +138,8 @@ var Game = (function () {
             filterManager.removeActiveFilters(wholeScreen);
             filterManager.addPlasmaFilter(wholeScreen);
         }
+        // DEBUG END
+
 
         return null;   // Falls keine Taste gedrueckt ist.
     };
@@ -162,7 +165,19 @@ var Game = (function () {
      */
     cls.getSnake = function() {
         return snake;
-    }
+    };
+
+    /** Damit die PowerUps Filter benutzen koennen.
+     */
+    cls.getFilterManager = function() {
+        return filterManager;
+    };
+
+    /** Damit die PowerUps Filter ueber den gesamten Bildschirm legen koennen.
+     */
+    cls.getWholeScreen = function() {
+        return wholeScreen;
+    };
 
     /** Gibt zurueck ob sich ein DisplayElement im Grid,
      * also exakt auf einem der Felder des definierten Rasters befindet.
@@ -242,19 +257,33 @@ var Game = (function () {
     /** Lässt das PowerUp auf dem Spielfeld verschwinden. wird aufgerufen wenn ein PowerUp eingesammelt wird.
      */
     cls.removePowerUp = function() {
+        Game.removeFromHitList(powerUp);
         powerUp.destroySprite();
         powerUp = null;
     };
 
     /** Lässt, wenn es nicht schon eins gibt mit einer geringen Warscheinlichkeit ein zufälliges PowerUp erscheinen.
+     * Wenn es bereits ein PowerUp auf dem Feld gibt, wird sein onFieldTimer runtergezaelt.
+     * Wenn dieser 0 ist, verschwindet das PowerUp wieder vom Feld ohne dass es eingesammelt wurde.
      */
-    var powerUpAppearing = function() {
+    var updatePowerUp = function() {
 
-        if(powerUp == null && getRandomFloat(1,2001) > 2000) {
+        if(powerUp == null) {
 
-            powerUp = new allPowerUps[getRandomValue( 0, allPowerUps.length-1 )](0,0);
+            if( getRandomFloat(1,201) > 200 ) {  // Geringe Warscheinlichkeit
 
-            Game.placeRandomDisplayElement( powerUp );
+                powerUp = new allPowerUps[getRandomValue(0, allPowerUps.length - 1)](0, 0);  // Ein zufaelliges PowerUp erstellen
+
+                Game.placeRandomDisplayElement(powerUp);
+            }
+        }
+        else{
+            if(powerUp.onFieldIsOver()) {
+                Game.removePowerUp();
+            }
+            else {
+                powerUp.decreaseOnFieldTimer();
+            }
         }
     };
 
