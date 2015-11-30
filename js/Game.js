@@ -42,10 +42,10 @@ var Game = (function () {
         Game.placeRandomDisplayElement(new Dancer(0,0), true);
         
 
-        wholeScreen = KonfettiPolonaise.getPhaser().add.sprite(0, 0);
+        wholeScreen = KonfettiPolonaise.getPhaser().add.sprite(20, 20);
         wholeScreen.texture.baseTexture.skipRender = false;         //workaround, da phaser immer die letzte texture rendert
-        wholeScreen.width =  KonfettiPolonaise.getPhaser().width;
-        wholeScreen.height = KonfettiPolonaise.getPhaser().height;
+        wholeScreen.width =  KonfettiPolonaise.getPhaser().width-40;
+        wholeScreen.height = KonfettiPolonaise.getPhaser().height-40;
 
         filterManager = new FilterManager();
 
