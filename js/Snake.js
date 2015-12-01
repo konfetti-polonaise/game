@@ -56,7 +56,7 @@ var Snake = (function () {
             return buff;
         };
 
-        /** Wird ein mal pro UPDATE aufgerufen. zählt den Timer des PowerUps runter, und entfernt dieses, wenn er bei 0 ist.
+        /** Wird ein mal pro UPDATE aufgerufen. zählt den Timer des aktiven PowerUps runter, und entfernt dieses, wenn er bei 0 ist.
          */
         this.decreaseBuffTimer = function () {
             if(null != buff) {  // wenn es einen buff gibt

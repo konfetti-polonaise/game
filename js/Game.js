@@ -75,7 +75,7 @@ var Game = (function () {
 
        filterManager.update();
 
-        if (isInsideRoom(snake)) {
+        if (isOutsideRoom(snake)) {
             KonfettiPolonaise.gameOver();
         }
 
@@ -247,7 +247,7 @@ var Game = (function () {
         }
     };
 
-    var isInsideRoom = function (_del) {
+    var isOutsideRoom = function (_del) {
         var isOutside = false;
 
         if (_del.getX() > KonfettiPolonaise.getPhaser().width - gridSize ||
@@ -292,7 +292,7 @@ var Game = (function () {
 
         if(powerUp == null) {
 
-            if( getRandomFloat(1,201) > 200 ) {  // Geringe Warscheinlichkeit
+            if( getRandomFloat(1,2001) > 2000 ) {  // Geringe Warscheinlichkeit
 
                 powerUp = new allPowerUps[getRandomValue(0, allPowerUps.length - 1)](0, 0);  // Ein zufaelliges PowerUp erstellen
 
