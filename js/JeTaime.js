@@ -62,6 +62,7 @@ var JeTaime = (function () {
             snake.addBuff(this);
         };
 
+
         /** Macht alle auswirkungen dieses Powerups wieder rueckgaengig.
          */
         this.undo = function() {
@@ -75,6 +76,7 @@ var JeTaime = (function () {
 
             snake.removeBuff();
         };
+
 
         this.buffIsOver = function() {
             return buffTimer.isOver();

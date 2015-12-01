@@ -75,10 +75,6 @@ var Game = (function () {
 
        filterManager.update();
 
-        if (isOutsideRoom(snake)) {
-            KonfettiPolonaise.gameOver();
-        }
-
     };
 
     /** STATIC. Rundet eine Fließkommazahl mathematisch auf 2 Dezimalstellen nach dem Komma ab.
@@ -224,6 +220,8 @@ var Game = (function () {
     };
 
     var testCollisions = function() {
+
+        // Collisionen mit anderen Objekten auf dem Spielfeld
         var i = hitList.length;
         while(i--) {
             if(Game.hitTest(snake, hitList[i])) {
@@ -231,9 +229,15 @@ var Game = (function () {
             }
         }
 
+        // Collision von Schlangenkopf mit Schlangenkörper
         var bodyCollision = snake.getBodyCollision();
-        if(bodyCollision instanceof Dancer) {
+        if(bodyCollision != null) {
             bodyCollision.action();
+        }
+
+        // Collision von Schlangenkopf mit den AussenWaenden
+        if (isOutsideRoom(snake)) {
+            KonfettiPolonaise.gameOver();
         }
     };
 
@@ -250,10 +254,12 @@ var Game = (function () {
     var isOutsideRoom = function (_del) {
         var isOutside = false;
 
-        if (_del.getX() > KonfettiPolonaise.getPhaser().width - gridSize ||
-            _del.getX() < gridSize ||
-            _del.getY() > KonfettiPolonaise.getPhaser().height - gridSize ||
-            _del.getY() < gridSize) {
+        var gridSizeHalf = gridSize/2;
+
+        if (_del.getX() > KonfettiPolonaise.getPhaser().width - gridSize + gridSizeHalf ||
+            _del.getX() < gridSize + gridSizeHalf ||
+            _del.getY() > KonfettiPolonaise.getPhaser().height - gridSize + gridSizeHalf ||
+            _del.getY() < gridSize + gridSizeHalf ) {
             isOutside = true;
         }
 
@@ -311,7 +317,7 @@ var Game = (function () {
 
     cls.placeRandomDisplayElement = function(del, rotate) {
         // plaziert element an zufaelliger stelle wenn da kein hit ist.
-        var x, y, isHitted;
+        var x, y;
 
         var isFreePosition = true;
         do{
