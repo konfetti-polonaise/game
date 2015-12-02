@@ -256,9 +256,9 @@ var Game = (function () {
 
         var gridSizeHalf = gridSize/2;
 
-        if (_del.getX() + gridSizeHalf > KonfettiPolonaise.getPhaser().width - gridSize ||
+        if (_del.getX() + gridSizeHalf -1 > KonfettiPolonaise.getPhaser().width - gridSize ||
             _del.getX() < gridSize + gridSizeHalf ||
-            _del.getY() + gridSizeHalf > KonfettiPolonaise.getPhaser().height - gridSize ||
+            _del.getY() + gridSizeHalf -1 > KonfettiPolonaise.getPhaser().height - gridSize ||
             _del.getY() < gridSize + gridSizeHalf ) {
             isOutside = true;
         }
