@@ -1,4 +1,7 @@
 var KonfettiPolonaise = (function () {
+
+    var score; // Punktestand
+
     // private static
     var phaser = new Phaser.Game(
         800,
@@ -39,7 +42,22 @@ var KonfettiPolonaise = (function () {
     };
 
 
-    // ???????
+    cls.displayScore = function(_score) {
+        document.getElementById("score").innerHTML = _score;
+    };
+
+
+    cls.setScore = function(_score) {
+        score = _score;
+        KonfettiPolonaise.displayScore(_score);
+    };
+
+
+    cls.addScore = function(_add) {
+        KonfettiPolonaise.setScore(score + _add);
+    };
+
+
     cls.startGame();
 
     return cls;
@@ -68,3 +86,11 @@ function removeFromList(list, element) {
         }
     }
 }
+
+/** Rundet eine Flieﬂkommazahl mathematisch auf X Dezimalstellen nach dem Komma ab.
+ */
+function roundXdecimal(floatnumber, decimals) {
+    var temp = Math.pow(10, decimals);
+    return (Math.round(floatnumber * temp) / temp);
+}
+

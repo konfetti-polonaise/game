@@ -87,8 +87,8 @@ var Snake = (function () {
             }
 
             // Distanz zwischen beiden Objekten
-            var dx = Game.round2decimal(infront.getX()) - Game.round2decimal(dancer.getX()); // deltaX
-            var dy = Game.round2decimal(infront.getY()) - Game.round2decimal(dancer.getY()); // deltaY
+            var dx = roundXdecimal(infront.getX(), 2) - roundXdecimal(dancer.getX(), 2); // deltaX
+            var dy = roundXdecimal(infront.getY(), 2) - roundXdecimal(dancer.getY(), 2); // deltaY
 
             document.getElementById('infront').innerHTML =
                 'x: ' + infront.getX() + '\n' +

@@ -28,6 +28,7 @@ var Dancer = (function () {
 
     // constructor
     var cls = function (_x, _y) {
+
         var direction = new Direction();
 
         var createBodyPart = function(group, sprite) {
@@ -75,9 +76,11 @@ var Dancer = (function () {
                 isPickedUp = true;
 
                 Game.removeFromHitList(this);
-                Game.addToPassingList(this); // Warum ?
+                Game.addToPassingList(this);
 
                 Game.increaseSpeed();
+
+                Score.increaseScore();
 
                 // Neuen Dancer machen
                 Game.placeRandomDisplayElement(new Dancer(0,0), true);

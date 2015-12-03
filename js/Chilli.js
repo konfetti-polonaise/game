@@ -17,6 +17,7 @@ var Chilli = (function () {
         var onFieldTimer = new PowerUpTimer(1000);
 
         var speedBoost = 15;
+        var numberOfChillis = 1; // Die wie vielte Chilli in Folge THIS ist, ohne dass der Buff zwischendurch nachgelassen hat.
 
         this.setHitboxHeight(20);
         this.setHitboxWidth(20);
@@ -47,17 +48,19 @@ var Chilli = (function () {
 
             if(null != oldBuff) {   // wenn es noch einen aktiven buff gibt
 
-                if(oldBuff instanceof Chilli) { //Wenn dieser eine Chilli ist, speed doppelt erhoehen
-
-                    speedBoost = speedBoost + oldBuff.getSpeedBoost();
+                if(oldBuff instanceof Chilli) {
+                    numberOfChillis = numberOfChillis + oldBuff.getNumberOfChillis();
+                    if(numberOfChillis > 3) {
+                        numberOfChillis = 3;    // Multiplikator-Obergrenze
+                    }
                 }
 
                 oldBuff.undo();
             }
 
+            startBuff();
             startSound();
             startFilter();
-            startBuff();
 
             snake.addBuff(this);
         };
@@ -70,11 +73,11 @@ var Chilli = (function () {
             //DEBUG
             //console.log("Undo() ChilliNr:" + nr);
 
+            snake.removeBuff();
+
             stopSound();
             stopFilter();
             stopBuff();
-
-            snake.removeBuff();
         };
 
 
@@ -111,15 +114,17 @@ var Chilli = (function () {
         };
 
         var startBuff = function() {
-            snake.setSpeed( snake.getSpeed() + speedBoost );
+            Score.setMultiplier( Math.pow(2, numberOfChillis) * 10 );
+            snake.setSpeed( snake.getSpeed() + numberOfChillis * speedBoost );
         };
 
         var stopBuff = function() {
-            snake.setSpeed( snake.getSpeed() - speedBoost );
+            snake.setSpeed( snake.getSpeed() - numberOfChillis * speedBoost );
+            Score.resetMultiplier();
         };
 
-        this.getSpeedBoost = function() {
-            return speedBoost;
+        this.getNumberOfChillis = function() {
+            return numberOfChillis;
         };
 
         /*DEBUG

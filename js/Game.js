@@ -2,10 +2,10 @@ var Game = (function () {
     var snake;
     var cursor;
     var gridSize = 32;
-    var hitList = [];
-    var passingList = [];   // Falscher Name. PassingList war für was anderes Spezifiziert. TODO: Umbenennen
+    var hitList;   // Liste mit beruehrbaren Elementen
+    var passingList;   //Dancer die nach hinten durchgereicht werden.
 
-    var powerUp = null;
+    var powerUp;
     var allPowerUps;
 
     var filterManager;
@@ -18,9 +18,8 @@ var Game = (function () {
     var key4;
 
     // constructor
-    var cls = function () {
+    var cls = function() {};
 
-    };
 
     cls.prototype.preload = function() {
         cls.loadSpritesheets(Dancer);
@@ -36,7 +35,14 @@ var Game = (function () {
 
         var playground = KonfettiPolonaise.getPhaser().add.image(0, 0, 'playground');
 
+        Score.reset();
+
+        hitList = [];
+        passingList = [];
+
         snake = new Snake();
+
+        powerUp = null;
 
         cursor = KonfettiPolonaise.getPhaser().input.keyboard.createCursorKeys();
         Game.placeRandomDisplayElement(new Dancer(0,0), true);
@@ -56,8 +62,8 @@ var Game = (function () {
         key4 = KonfettiPolonaise.registerKey('FOUR');
 
         allPowerUps = [
-            JeTaime, Chilli, Beer
-        ];
+            Chilli, JeTaime, Beer
+        ];  // Welche PowerUps erscheinen koennen.
     };
 
     cls.prototype.update = function() {
@@ -73,18 +79,13 @@ var Game = (function () {
 
     };
 
-    /** STATIC. Rundet eine Fließkommazahl mathematisch auf 2 Dezimalstellen nach dem Komma ab.
-     */
-    cls.round2decimal = function(floatnumber) {
-        return (Math.round(floatnumber * 100) / 100);
-    };
 
     cls.hitTest = function(_obj1, _obj2) {
         var dx = Math.abs(_obj1.getX() - _obj2.getX()); // deltaX
         var dy = Math.abs(_obj1.getY() - _obj2.getY()); // deltaY
 
-        dx = cls.round2decimal(dx); // mathematisches Runden, weil
-        dy = cls.round2decimal(dy); // JS nicht vernuenftig mit Fliesskommazahlen umgehen kann.
+        dx = roundXdecimal(dx, 2); // mathematisches Runden, weil
+        dy = roundXdecimal(dy, 2); // JS nicht vernuenftig mit Fliesskommazahlen umgehen kann.
 
         if(dx >= dy) {
             return dx < (_obj1.getHitboxWidth() / 2 + _obj2.getHitboxWidth() / 2);
@@ -189,8 +190,8 @@ var Game = (function () {
         var xValue = (del.getX() + gridSize / 2);   // Position errechnen
         var yValue = (del.getY() + gridSize / 2);
 
-        xValue = cls.round2decimal(xValue);   // mathematisches Runden, weil
-        yValue = cls.round2decimal(yValue);   // JS nicht vernuenftig mit Fliesskommazahlen umgehen kann.
+        xValue = roundXdecimal(xValue, 2);   // mathematisches Runden, weil
+        yValue = roundXdecimal(yValue, 2);   // JS nicht vernuenftig mit Fliesskommazahlen umgehen kann.
 
         return (xValue % gridSize == 0 && yValue % gridSize == 0);    // Berechnung ob Position im Grid ist
     };
@@ -250,12 +251,10 @@ var Game = (function () {
     var isOutsideRoom = function (_del) {
         var isOutside = false;
 
-        var gridSizeHalf = gridSize/2;
-
-        if (_del.getX() + gridSizeHalf -1 > KonfettiPolonaise.getPhaser().width - gridSize ||
-            _del.getX() < gridSize + gridSizeHalf ||
-            _del.getY() + gridSizeHalf -1 > KonfettiPolonaise.getPhaser().height - gridSize ||
-            _del.getY() < gridSize + gridSizeHalf ) {
+        if (_del.getX() > KonfettiPolonaise.getPhaser().width - gridSize ||
+            _del.getX() < gridSize ||
+            _del.getY() > KonfettiPolonaise.getPhaser().height - gridSize ||
+            _del.getY() < gridSize ) {
             isOutside = true;
         }
 
@@ -311,6 +310,8 @@ var Game = (function () {
         }
     };
 
+
+    //TODO: beim testen ist ein Dancer in der rechten Aussenwand aufgetaucht. Beheben...
     cls.placeRandomDisplayElement = function(del, rotate) {
         // plaziert element an zufaelliger stelle wenn da kein hit ist.
         var x, y;

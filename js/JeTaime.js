@@ -19,6 +19,8 @@ var JeTaime = (function () {
         var slowSpeed = 7;
         var originalSpeed;
 
+        var multiplierDivident = 2;
+
         this.setHitboxHeight(20);
         this.setHitboxWidth(20);
 
@@ -55,9 +57,9 @@ var JeTaime = (function () {
             //DEBUG
             //console.log("originalSpeed JetaimeNr:" + nr + " = " + originalSpeed);
 
+            startBuff();
             startSound();
             startFilter();
-            startBuff();
 
             snake.addBuff(this);
         };
@@ -70,11 +72,11 @@ var JeTaime = (function () {
             //DEBUG
             //console.log("Undo() JetaimeNr:" + nr);
 
+            snake.removeBuff();
+
             stopSound();
             stopFilter();
             stopBuff();
-
-            snake.removeBuff();
         };
 
 
@@ -111,11 +113,13 @@ var JeTaime = (function () {
         };
 
         var startBuff = function() {
+            Score.setMultiplier( Score.getMultiplier() / multiplierDivident );
             snake.setSpeed(slowSpeed);
         };
 
         var stopBuff = function() {
             snake.setSpeed(originalSpeed);
+            Score.resetMultiplier();
         };
 
         /*DEBUG

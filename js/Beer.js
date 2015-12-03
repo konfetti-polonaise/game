@@ -16,6 +16,8 @@ var Beer = (function () {
         // Wie lange das PowerUp auf dem Feld bleibt bevor es unaufgesammelt verschwindet
         var onFieldTimer = new PowerUpTimer(1000);
 
+        var multiplierFactor = 2;
+
         this.setHitboxHeight(20);
         this.setHitboxWidth(20);
 
@@ -50,9 +52,9 @@ var Beer = (function () {
             //DEBUG
             //console.log("originalSpeed BeerNr:" + nr + " = " + originalSpeed);
 
+            startBuff();
             startSound();
             startFilter();
-            startBuff();
 
             snake.addBuff(this);
         };
@@ -65,11 +67,11 @@ var Beer = (function () {
             //DEBUG
             //console.log("Undo() BeerNr:" + nr);
 
+            snake.removeBuff();
+
             stopSound();
             stopFilter();
             stopBuff();
-
-            snake.removeBuff();
         };
 
 
@@ -106,9 +108,11 @@ var Beer = (function () {
         };
 
         var startBuff = function() {
+            Score.setMultiplier( Score.getMultiplier() * multiplierFactor );
         };
 
         var stopBuff = function() {
+            Score.resetMultiplier();
         };
 
         /*DEBUG
