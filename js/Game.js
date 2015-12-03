@@ -50,11 +50,10 @@ var Game = (function () {
         filterManager = new FilterManager();
 
         //Tastatur
-        //TODO refactor in kofnettiPoloniase klasse?
-        key1 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.ONE);
-        key2 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.TWO);
-        key3 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.THREE);
-        key4 = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.FOUR);
+        key1 = KonfettiPolonaise.registerKey('ONE');
+        key2 = KonfettiPolonaise.registerKey('TWO');
+        key3 = KonfettiPolonaise.registerKey('THREE');
+        key4 = KonfettiPolonaise.registerKey('FOUR');
 
         allPowerUps = [
             JeTaime, Chilli, Beer
@@ -68,9 +67,6 @@ var Game = (function () {
         snake.decreaseBuffTimer();
         updatePowerUp();
 
-        // @TODO: action() von Wall und Dancer programmieren.
-        // @TODO: Powerups programmieren
-        // @TODO: Hitdetektion mit Powerups.
         // @TODO: Animation etc....
 
        filterManager.update();

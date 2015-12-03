@@ -31,6 +31,15 @@ var KonfettiPolonaise = (function () {
         startState('GameOver');
     };
 
+
+    /** Meldet in Phaser einen neuen Key an und gibt diesen zurueck.
+     */
+    cls.registerKey = function(phaserKeyName) {
+        return phaser.input.keyboard.addKey(Phaser.Keyboard[phaserKeyName]);
+    };
+
+
+    // ???????
     cls.startGame();
 
     return cls;
