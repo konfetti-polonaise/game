@@ -38,7 +38,7 @@ var Score = (function () {
 
     var displayMultiplier = function() {
         var temp = roundXdecimal(multiplier / 10 , 1);
-        document.getElementById("multiplier").innerHTML = temp;
+        document.getElementById("multiplier").innerHTML = temp+"x";
     };
 
     cls.reset = function() {

@@ -2,6 +2,18 @@ body{
     background:url("../assets/img/city.jpg") no-repeat center center fixed;
 }
 
+@font-face {
+    font-family: 'pixel';
+    src: url('../assets/font/pixel-webfont.eot');
+    src: url('../assets/font/pixel-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../assets/font/pixel-webfont.woff2') format('woff2'),
+         url('../assets/font/pixel-webfont.woff') format('woff'),
+         url('../assets/font/pixel-webfont.ttf') format('truetype'),
+         url('../assets/font/pixel-webfont.svg#04b25regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 #game{
     height: 512px;
     width: 1000px;
@@ -22,19 +34,21 @@ body{
 }
 
     #highscore h1, p{
-        position: absolute;
+        position: relative;
         width: 168px;
+        margin-bottom: -30px;
         text-align: center;
-        font-family: Rockwell;
-        font-size: 1.6em;
+        font-family: pixel;
     }
 
     #highscore h1{
-        top: 40px;
+        margin-top: 50px;
+        font-size: 1.4em;
     }
 
     #highscore p{
-        top: 70px;
+        margin-top: 40px;
+        font-size: 2em;
     }
 
 canvas{
