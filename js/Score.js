@@ -24,22 +24,23 @@ var Score = (function () {
 
 
     cls.getMultiplier = function() {
-        return multiplier;
+        return multiplier / initialMulti;
     };
 
     cls.setMultiplier = function(_multiplier) {
-        multiplier = _multiplier;
+        multiplier = _multiplier * initialMulti;
         displayMultiplier();
     };
 
     cls.resetMultiplier = function() {
-        Score.setMultiplier(initialMulti);
+        multiplier = initialMulti;
+        displayMultiplier();
     };
 
     var displayMultiplier = function() {
-        var temp = roundXdecimal(multiplier / 10 , 1);
-        document.getElementById("multiplier").innerHTML = temp+"x";
+        document.getElementById("multiplier").innerHTML = Score.getMultiplier() + "x";
     };
+
 
     cls.reset = function() {
         Score.resetScore();

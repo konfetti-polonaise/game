@@ -114,7 +114,7 @@ var Chilli = (function () {
         };
 
         var startBuff = function() {
-            Score.setMultiplier( Math.pow(2, numberOfChillis) * 10 );
+            Score.setMultiplier( Score.getMultiplier() * Math.pow(2, numberOfChillis) );
             snake.setSpeed( snake.getSpeed() + numberOfChillis * speedBoost );
         };
 
