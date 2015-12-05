@@ -9,7 +9,7 @@ body{
          url('../assets/font/pixel-webfont.woff2') format('woff2'),
          url('../assets/font/pixel-webfont.woff') format('woff'),
          url('../assets/font/pixel-webfont.ttf') format('truetype'),
-         url('../assets/font/pixel-webfont.svg#04b25regular') format('svg');
+         url('../assets/font/pixel-webfont.svg#pixel') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -53,8 +53,21 @@ body{
 
 canvas{
     position: absolute;
-    /*margin: -256px 0 0 -400px;*/
     top: 0;
     left: 0;
     z-index: 10;
+}
+
+/* MedieQuerys */
+
+@media screen and (max-width: 1220px) {
+
+    body{
+        background-position: calc(50% - 100px) center;
+    }
+
+    #game{
+        margin-left: -500px;
+    }
+
 }
