@@ -295,26 +295,40 @@ var Game = (function () {
         }
     };
 
+    /**
+     * Prüft ob sich das übergebene Objekt an einer freien Stelle befindet
+     * @param del
+     * @returns true, wenn Position frei ist
+     */
+    cls.isFreePosition = function(del) {
+        var isFree = true;
+
+        if(snake.isInside(del)) {
+            isFree = false;
+        } else {
+            var i = hitList.length;
+            while(i--) {
+                if(Game.hitTest(del, hitList[i])) {
+                    isFree = false;
+                }
+            }
+        }
+
+        return isFree;
+    };
 
     //TODO: beim testen ist ein Dancer in der rechten Aussenwand aufgetaucht. Beheben...
     cls.placeRandomDisplayElement = function(del, rotate) {
         // plaziert element an zufaelliger stelle wenn da kein hit ist.
         var x, y;
 
-        var isFreePosition = true;
         do{
             x = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().width-gridSize);
             y = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().height-gridSize);
             x -= x%gridSize;
             y -= y%gridSize;
 
-            var i = hitList.length;
-            while(i--) {
-                if(Game.hitTest(del, hitList[i])) {
-                    isFreePosition = false;
-                }
-            }
-        }while(isFreePosition != false);
+        }while(this.isFreePosition(del) != false);
 
         del.setX(x+gridSize/2);
         del.setY(y+gridSize/2);

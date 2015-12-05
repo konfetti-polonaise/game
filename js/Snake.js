@@ -128,7 +128,7 @@ var Snake = (function () {
         /** PUBLIC. Prüft, ob sich ein Element innerhalb der Schlange (Head + Follower) befindet.
          */
         this.isInside = function(obj) {
-            return isInside(onj);
+            return isInside(obj);
         };
         // Workaround: Public Methoden innerhalb cls
         var isInside = function(obj) {
