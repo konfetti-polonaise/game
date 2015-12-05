@@ -278,7 +278,7 @@ var Game = (function () {
 
         if(powerUp == null) {
 
-            if( getRandomFloat(1,2001) > 2000 ) {  // Geringe Warscheinlichkeit
+            if( getRandomFloat(1,1801) > 1800 ) {  // Geringe Warscheinlichkeit
 
                 powerUp = new allPowerUps[getRandomValue(0, allPowerUps.length - 1)](0, 0);  // Ein zufaelliges PowerUp erstellen
 

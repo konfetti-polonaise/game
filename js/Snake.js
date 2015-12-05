@@ -28,6 +28,7 @@ var Snake = (function () {
 
         this.setSpeed = function (_speed) {
             speed = _speed;
+            updateAnimationSpeed();
         };
 
 
@@ -35,8 +36,11 @@ var Snake = (function () {
          */
         this.increaseSpeed = function() {
             speed++;
+            updateAnimationSpeed();
+        };
 
-            // Animationsgeschwindigkeit erhöhen
+        var updateAnimationSpeed = function() {
+            // Animationsgeschwindigkeit aktualisieren
             var i = followers.length;
             while(i--) {
                 followers[i].setAnimationSpeed(speed);
