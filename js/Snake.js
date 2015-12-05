@@ -1,15 +1,16 @@
 var Snake = (function () {
+
     // constructor
     var cls = function () {
         var speed = 7;      // Initialgeschwindigkeit
         var buff = null;    // Powerupeffekt
         var head = new Head(16 + 32, 16 + 32);  // Startposition. TODO: Zufällig platzieren ???
+        var passingList = [];   //Dancer die nach hinten durchgereicht werden.
 
         // Richtung in die sich die Richtung des Heads ändern wird, sobald Schlange im Grid ist.
         var nextDirection;
 
         var followers = [];
-
 
         this.getNextDirection = function() {
             return nextDirection;
@@ -34,6 +35,12 @@ var Snake = (function () {
          */
         this.increaseSpeed = function() {
             speed++;
+
+            // Animationsgeschwindigkeit erhöhen
+            var i = followers.length;
+            while(i--) {
+                followers[i].setAnimationSpeed(speed);
+            }
         };
 
         this.getHitboxHeight = function() {
@@ -90,19 +97,6 @@ var Snake = (function () {
             var dx = roundXdecimal(infront.getX(), 2) - roundXdecimal(dancer.getX(), 2); // deltaX
             var dy = roundXdecimal(infront.getY(), 2) - roundXdecimal(dancer.getY(), 2); // deltaY
 
-            document.getElementById('infront').innerHTML =
-                'x: ' + infront.getX() + '\n' +
-                'y: ' + infront.getY() + '\n'
-            ;
-
-            document.getElementById('dancer').innerHTML = '\n' +
-                'x: ' + dancer.getX() + '\n' +
-                'y: ' + dancer.getY() + '\n'
-                + '\n' +
-                'dx: ' + dx + '\n' +
-                'dy: ' + dy + '\n'
-            ;
-
             // Neuen Tänzer zum Vorgänger drehen
             var direction = new Direction();
             if(Math.abs(dx) > Math.abs(dy)) {
@@ -124,16 +118,23 @@ var Snake = (function () {
             }
             dancer.setDirection(direction);
 
+            // Laufanimation abspielen
+            dancer.playAnimation('walk');
+
+            // Der Schlange hinzufügen
             followers.push(dancer);
         };
-
 
         /** PUBLIC. Prüft, ob sich ein Element innerhalb der Schlange (Head + Follower) befindet.
          */
         this.isInside = function(obj) {
+            return isInside(onj);
+        };
+        // Workaround: Public Methoden innerhalb cls
+        var isInside = function(obj) {
             var i = followers.length;
 
-            if(Game.hitTest(this, obj)) {
+            if(Game.hitTest(head, obj)) {
                 return true;
             }
 
@@ -146,7 +147,26 @@ var Snake = (function () {
             return false;
         };
 
-        // Was macht die Funktion und wofür ist sie da ?
+        var testPassings = function() {
+            var i = passingList.length;
+
+            while(i--) {
+                if(!isInside(passingList[i])) {
+                    passingList[i].queue();
+                }
+            }
+        };
+
+        this.addToPassingList = function(del) {
+            addToList(passingList, del);
+        };
+
+        this.removeFromPassingList = function(del) {
+            removeFromList(passingList, del);
+        };
+
+        /** Gibt ein Körperteil zurück, wenn es mit Kopf kollidiert
+         */
         this.getBodyCollision = function() {
             for(var i = 1; i < followers.length; i++) {
                 if(Game.hitTest(head, followers[i])) {
@@ -216,9 +236,10 @@ var Snake = (function () {
 
                 changeFollowersDirection(); // Follower drehen sich
                 changeHeadDirection(nextDirection); // Head dreht sich gegebenenfalls
+
+                testPassings(); // Follower anhängen
             }
         };
-
 
         /** PRIVATE. Ob sich die Schlange im Grid befindet.
          */
@@ -227,8 +248,6 @@ var Snake = (function () {
         };
 
     };
-
-
 
     return cls;
 })();

@@ -3,7 +3,6 @@ var Game = (function () {
     var cursor;
     var gridSize = 32;
     var hitList;   // Liste mit beruehrbaren Elementen
-    var passingList;   //Dancer die nach hinten durchgereicht werden.
 
     var powerUp;
     var allPowerUps;
@@ -38,7 +37,6 @@ var Game = (function () {
         Score.reset();
 
         hitList = [];
-        passingList = [];
 
         snake = new Snake();
 
@@ -46,7 +44,6 @@ var Game = (function () {
 
         cursor = KonfettiPolonaise.getPhaser().input.keyboard.createCursorKeys();
         Game.placeRandomDisplayElement(new Dancer(0,0), true);
-        
 
         wholeScreen = KonfettiPolonaise.getPhaser().add.sprite(20, 20);
         wholeScreen.texture.baseTexture.skipRender = false;         //workaround, da phaser immer die letzte texture rendert
@@ -158,8 +155,6 @@ var Game = (function () {
             snake.setNextDirection(checkInput());
 
             testCollisions();
-
-            testPassings();
         }
     };
 
@@ -209,11 +204,11 @@ var Game = (function () {
     };
 
     cls.addToPassingList = function(del) {
-        addToList(passingList, del);
+        snake.addToPassingList(del);
     };
 
     cls.removeFromPassingList = function(del) {
-        removeFromList(passingList, del);
+        snake.removeFromPassingList(del);
     };
 
     var testCollisions = function() {
@@ -235,16 +230,6 @@ var Game = (function () {
         // Collision von Schlangenkopf mit den AussenWaenden
         if (isOutsideRoom(snake)) {
             KonfettiPolonaise.gameOver();
-        }
-    };
-
-    var testPassings = function() {
-        var i = passingList.length;
-
-        while(i--) {
-           if(!snake.isInside(passingList[i])) {
-               passingList[i].queue();
-           }
         }
     };
 

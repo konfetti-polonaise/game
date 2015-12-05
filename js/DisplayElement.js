@@ -61,12 +61,6 @@ var DisplayElement = (function () {
         this.getSpriteName = function() {
             return sprite.key;
         };
-        this.addAnimation = function(_name, _frames, _fps, _loop) {
-            sprite.animations.add(_name, _frames, _fps, _loop);
-        };
-        this.playAnimation = function(_name) {
-            sprite.animations.play(_name);
-        };
         this.setHitboxHeight = function(_height) {
             hitboxHeight = _height;
         };
@@ -76,6 +70,12 @@ var DisplayElement = (function () {
         this.setHitbox = function(_width, _height) {
             this.setHitboxWidth(_width);
             this.setHitboxHeight(_height);
+        };
+        this.addAnimation = function(_name, _frames, _fps, _loop) {
+            sprite.animations.add(_name, _frames, _fps, _loop);
+        };
+        this.playAnimation = function(_name) {
+            sprite.animations.play(_name);
         };
 
         /** Entfernt den Sprite des DisplayElements. es wird also unsichbar.

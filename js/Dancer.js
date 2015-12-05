@@ -28,6 +28,7 @@ var Dancer = (function () {
 
     // constructor
     var cls = function (_x, _y) {
+        var head, body, legs;
 
         var direction = new Direction();
 
@@ -40,6 +41,16 @@ var Dancer = (function () {
             return part;
         };
 
+        var createLegs = function (group, sprite) {
+            var part = createBodyPart(group, sprite);
+            part.x -= 4;
+            //part.y -= 1;
+
+            part.animations.add('walk', [0,1,2,3,4,5,6,7,8,9,10,11], 6, true);
+
+            return part;
+        };
+
         var randomizeDancer = function(_x, _y) {
             var group = KonfettiPolonaise.getPhaser().add.group();
             group.x = _x;
@@ -47,17 +58,14 @@ var Dancer = (function () {
             group.pivot.x = _x;
             group.pivot.y = _y;
 
-            createBodyPart(group, legFiles[Game.random(0, legFiles.length)]);
-            createBodyPart(group, bodyFiles[Game.random(0, bodyFiles.length)]);
-            createBodyPart(group, headFiles[Game.random(0, headFiles.length)]);
+            legs = createLegs(group, legFiles[Game.random(0, legFiles.length)]);
+            body = createBodyPart(group, bodyFiles[Game.random(0, bodyFiles.length)]);
+            head = createBodyPart(group, headFiles[Game.random(0, headFiles.length)]);
 
             return group;
         };
 
         var group = randomizeDancer(_x, _y);
-
-        group.addAnimation = function(_name, _frames, _fps, _loop) {};
-        group.playAnimation = function(_name) {};
 
         // Call super constructor on this instance (any arguments
         // to the constructor would go after "this" in call(…)).
@@ -103,6 +111,20 @@ var Dancer = (function () {
         this.setDirection = function(_direction) {
             direction = new Direction(_direction.getXDistance(), _direction.getYDistance());
             this.setRotation(direction.getRotation());
+        };
+
+        this.addAnimation = function(_name, _frames, _fps, _loop) {};
+
+        this.playAnimation = function(_name) {
+            var i = group.length;
+
+            while(i--) {
+                group.children[i].animations.play(_name);
+            }
+        };
+
+        this.setAnimationSpeed = function(_speed) {
+            legs.animations.currentAnim.speed = _speed;
         };
     };
 
