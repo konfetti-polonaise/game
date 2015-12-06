@@ -16,10 +16,16 @@ var GameOver = (function () {
         text.anchor.set(0.5);
         text.inputEnabled = true;
 
+        // HTML anpassung
+        document.getElementById("gameover").className = "display";
+
         text.events.onInputDown.add(cls.restartGame, this);
     };
 
     cls.restartGame = function() {
+        // HTML anpassung
+        document.getElementById("gameover").className = "hide";
+
         KonfettiPolonaise.startGame();
     };
 
