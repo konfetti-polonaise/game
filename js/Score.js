@@ -18,6 +18,10 @@ var Score = (function () {
         displayScore();
     };
 
+    cls.getScore = function(){
+        return score;
+    };
+
     var displayScore = function() {
         document.getElementById("score").innerHTML = score;
     };

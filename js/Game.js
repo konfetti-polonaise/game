@@ -323,8 +323,8 @@ var Game = (function () {
         var x, y;
 
         do{
-            x = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().width-gridSize);
-            y = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().height-gridSize);
+            x = cls.random(gridSize, KonfettiPolonaise.getPhaser().width-gridSize);
+            y = cls.random(gridSize, KonfettiPolonaise.getPhaser().height-gridSize);
             x -= x%gridSize;
             y -= y%gridSize;
 
@@ -334,7 +334,7 @@ var Game = (function () {
         del.setY(y+gridSize/2);
 
         if(rotate === true) {
-            del.setRotation(getRandomValue(1, 5) * 90);
+            del.setRotation(cls.random(1, 5) * 90);
         }
     };
 
