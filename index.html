@@ -27,53 +27,47 @@
     <script type="text/javascript" src="js/FilterManager.js"></script>
 </head>
 <body>
-    <div id="game">
-        <div id="highscore">
-            <h1>Points</h1>
-            <p id="score">0</p>
-            <h1>Multiplicator</h1>
-            <p id="multiplier">1</p>
-        </div>
+<div id="game">
+    <div id="highscore">
+        <h1>Points</h1>
+        <p id="score">0</p>
+        <h1>Multiplicator</h1>
+        <p id="multiplier">1</p>
     </div>
-    <pre id="infront"></pre>
-    <pre id="dancer"></pre>
-    <div id="gameover" class="hide">
-        <div id="infobox">
-            <h1>Game Over</h1>
-            <h2>Your Score: <span id="final-score"></span></h2>
-            <table>
-                <tr>
-                    <th>#</th><th>Name</th><th>Points</th>
-                </tr>
-                <tr>
-                    <td>1</td><td>Susanne</td><td>710</td>
-                </tr>
-                <tr>
-                    <td>2</td><td>Gregor</td><td>695</td>
-                </tr>
-                <tr>
-                    <td>3</td><td>Ruth</td><td>650</td>
-                </tr>
-                <tr>
-                    <td>4</td><td>Max</td><td>610</td>
-                </tr>
-                <tr>
-                    <td>5</td><td>Phillipe</td><td>545</td>
-                </tr>
-            </table>
-            <a href="#" onclick="restartGame();">Restart</a>
-        </div>
+</div>
+<pre id="infront"></pre>
+<pre id="dancer"></pre>
+<div id="gameover" class="hide">
+    <div id="infobox">
+        <h1>Game Over</h1>
+        <h2>Your Score: <span id="final-score"></span></h2>
+        <table>
+            <tr>
+                <th>#</th><th>Name</th><th>Points</th>
+            </tr>
+            <tr>
+                <td>1</td><td>Susanne</td><td>710</td>
+            </tr>
+            <tr>
+                <td>2</td><td>Gregor</td><td>695</td>
+            </tr>
+            <tr>
+                <td>3</td><td>Ruth</td><td>650</td>
+            </tr>
+            <tr>
+                <td>4</td><td>Max</td><td>610</td>
+            </tr>
+            <tr>
+                <td>5</td><td>Phillipe</td><td>545</td>
+            </tr>
+        </table>
+        <a href="">Restart</a>
     </div>
-    <script type="text/javascript">
-        var konfettiPolonaise;
-
-        window.onload = function() {
-            konfettiPolonaise = new KonfettiPolonaise();
-        };
-
-        function restartGame() {
-            konfettiPolonaise.restartGame();
-        }
-    </script>
+</div>
+<script type="text/javascript">
+    window.onload = function() {
+        var game = new KonfettiPolonaise();
+    };
+</script>
 </body>
 </html>

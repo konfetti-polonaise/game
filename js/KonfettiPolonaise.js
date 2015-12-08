@@ -12,8 +12,7 @@ var KonfettiPolonaise = (function () {
 
     phaser.state.add('Menu', Menu);
     phaser.state.add('Game', Game);
-    //phaser.state.add('GameOver', GameOver);
-
+    phaser.state.add('GameOver', GameOver);
     // constructor
     var cls = function () {
 
@@ -32,8 +31,7 @@ var KonfettiPolonaise = (function () {
     };
 
     cls.gameOver = function() {
-        document.getElementById("gameover").className = "display";
-        document.getElementById("final-score").innerHTML = Score.getScore();
+        startState('GameOver');
     };
 
 
@@ -59,12 +57,6 @@ var KonfettiPolonaise = (function () {
         KonfettiPolonaise.setScore(score + _add);
     };
 
-    cls.prototype.restartGame = function() {
-        // HTML anpassung
-        document.getElementById("gameover").className = "hide";
-
-        cls.startGame();
-    };
 
     cls.startGame();
 
@@ -95,7 +87,7 @@ function removeFromList(list, element) {
     }
 }
 
-/** Rundet eine Flieï¿½kommazahl mathematisch auf X Dezimalstellen nach dem Komma ab.
+/** Rundet eine Fließkommazahl mathematisch auf X Dezimalstellen nach dem Komma ab.
  */
 function roundXdecimal(floatnumber, decimals) {
     var temp = Math.pow(10, decimals);

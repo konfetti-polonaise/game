@@ -72,7 +72,7 @@ var Game = (function () {
 
         // @TODO: Animation etc....
 
-       filterManager.update();
+        filterManager.update();
 
     };
 
@@ -134,7 +134,7 @@ var Game = (function () {
             filterManager.removeActiveFilters(wholeScreen);
             filterManager.addPlasmaFilter(wholeScreen);
         } else if (key4.isDown) {
-           // filterManager.removeActiveFilters(wholeScreen);
+            // filterManager.removeActiveFilters(wholeScreen);
             //filterManager.addDrunkFilter(wholeScreen);
         }
         // DEBUG END
@@ -323,8 +323,8 @@ var Game = (function () {
         var x, y;
 
         do{
-            x = cls.random(gridSize, KonfettiPolonaise.getPhaser().width-gridSize);
-            y = cls.random(gridSize, KonfettiPolonaise.getPhaser().height-gridSize);
+            x = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().width-gridSize);
+            y = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().height-gridSize);
             x -= x%gridSize;
             y -= y%gridSize;
 
@@ -334,7 +334,7 @@ var Game = (function () {
         del.setY(y+gridSize/2);
 
         if(rotate === true) {
-            del.setRotation(cls.random(1, 5) * 90);
+            del.setRotation(getRandomValue(1, 5) * 90);
         }
     };
 
@@ -349,3 +349,4 @@ function getRandomValue(min, max){
 function getRandomFloat(min, max){
     return Math.random() * (max - min) + min;
 }
+
