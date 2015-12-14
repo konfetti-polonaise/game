@@ -4,7 +4,7 @@ var Snake = (function () {
     var cls = function () {
         var speed = 7;      // Initialgeschwindigkeit
         var buff = null;    // Powerupeffekt
-        var head = new Head(16 + 32, 16 + 32);  // Startposition. TODO: Zufällig platzieren ???
+        var head = new Head(16 + 32, 16 + 32);  // Startposition.
         var passingList = [];   //Dancer die nach hinten durchgereicht werden.
 
         // Richtung in die sich die Richtung des Heads ändern wird, sobald Schlange im Grid ist.
