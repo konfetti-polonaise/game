@@ -46,6 +46,17 @@ var Score = (function () {
     };
 
 
+    // Aendert die Farbe des Multiplikators. Bei Parameter NULL wird zurueck aufs Inintial gesetzt.
+    cls.setMultiplierColor = function(_color) {
+
+        if(_color = null) {
+            _color = "";
+        }
+
+        document.getElementById("multiplier").style.color = _color;  // TODO: warum funktioniert das nicht mit einem Paramenter ?!
+    };
+
+
     cls.reset = function() {
         Score.resetScore();
         Score.resetMultiplier();

@@ -107,10 +107,16 @@ var Chilli = (function () {
 
         var startFilter = function() {
             filterManager.addFireFilter(wholeScreen);
+
+            //Score.setMultiplierColor("940000");
+            document.getElementById("multiplier").style.color = "#940000";     // Dirty Way
         };
 
         var stopFilter = function() {
             filterManager.removeActiveFilters(wholeScreen);
+
+            //Score.setMultiplierColor(null);
+            document.getElementById("multiplier").style.color = "";     // Dirty Way
         };
 
         var startBuff = function() {

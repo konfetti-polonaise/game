@@ -101,10 +101,16 @@ var Beer = (function () {
 
         var startFilter = function() {
             filterManager.addPlasmaFilter(wholeScreen);
+
+            //Score.setMultiplierColor("F24DD1");
+            document.getElementById("multiplier").style.color = "#022C03";     // Dirty Way
         };
 
         var stopFilter = function() {
             filterManager.removeActiveFilters(wholeScreen);
+
+            //Score.setMultiplierColor(null);
+            document.getElementById("multiplier").style.color = "";     // Dirty Way
         };
 
         var startBuff = function() {

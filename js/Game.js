@@ -15,6 +15,10 @@ var Game = (function () {
     var key2;
     var key3;
     var key4;
+    var keyW;
+    var keyA;
+    var keyS;
+    var keyD;
 
     // constructor
     var cls = function() {};
@@ -57,6 +61,10 @@ var Game = (function () {
         key2 = KonfettiPolonaise.registerKey('TWO');
         key3 = KonfettiPolonaise.registerKey('THREE');
         key4 = KonfettiPolonaise.registerKey('FOUR');
+        keyW = KonfettiPolonaise.registerKey('W');
+        keyA = KonfettiPolonaise.registerKey('A');
+        keyS = KonfettiPolonaise.registerKey('S');
+        keyD = KonfettiPolonaise.registerKey('D');
 
         allPowerUps = [
             Chilli, JeTaime, Beer
@@ -73,7 +81,6 @@ var Game = (function () {
         // @TODO: Animation etc....
 
         filterManager.update();
-
     };
 
 
@@ -104,22 +111,21 @@ var Game = (function () {
     var checkInput = function () {
         var cursorDirection = new Direction();
 
-        if (cursor.right.isDown) {
+        if (cursor.right.isDown || keyD.isDown) {
             cursorDirection.setRight();
             return cursorDirection;
 
-        } else if (cursor.left.isDown) {
+        } else if (cursor.left.isDown || keyA.isDown) {
             cursorDirection.setLeft();
             return cursorDirection;
 
-        } else if (cursor.up.isDown) {
+        } else if (cursor.up.isDown || keyW.isDown) {
             cursorDirection.setUp();
             return cursorDirection;
 
-        } else if (cursor.down.isDown) {
+        } else if (cursor.down.isDown || keyS.isDown) {
             cursorDirection.setDown();
             return cursorDirection;
-
         }
 
         // DEBUG
