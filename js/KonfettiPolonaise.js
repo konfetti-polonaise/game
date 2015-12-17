@@ -94,3 +94,11 @@ function roundXdecimal(floatnumber, decimals) {
     return (Math.round(floatnumber * temp) / temp);
 }
 
+
+// TODO: waiting Dancer tanzanimation animieren.
+// TODO: hauptmenue-Grafik designen ( "secret agent man"-Style)
+// TODO: city.png aufpimpen ( Strassenlampen, Sand, Wellblechdach)
+// TODO: beer fitler programmieren
+// TODO: rosa Filter programmieren
+// TODO: Hauptmenue-stage Programmieren
+

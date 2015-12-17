@@ -304,7 +304,7 @@ var Game = (function () {
     /**
      * Prüft ob sich das übergebene Objekt an einer freien Stelle befindet
      * @param del
-     * @returns true, wenn Position frei ist
+     * @returns boolean true, wenn Position frei ist
      */
     cls.isFreePosition = function(del) {
         var isFree = true;
@@ -323,7 +323,8 @@ var Game = (function () {
         return isFree;
     };
 
-    //TODO: beim testen ist ein Dancer in der rechten Aussenwand aufgetaucht. Beheben...
+    //TODO: beim testen ist ein Dancer in der rechten Aussenwand aufgetaucht.
+    //TODO: objekte spawnen noch innerhalb der Follower der Schlange.
     cls.placeRandomDisplayElement = function(del, rotate) {
         // plaziert element an zufaelliger stelle wenn da kein hit ist.
         var x, y;
