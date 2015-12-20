@@ -38,6 +38,13 @@ var Game = (function () {
 
         var playground = KonfettiPolonaise.getPhaser().add.image(0, 0, 'playground');
 
+        wholeScreen = KonfettiPolonaise.getPhaser().add.sprite(20, 20);
+        wholeScreen.texture.baseTexture.skipRender = false;         //workaround, da phaser immer die letzte texture rendert
+        wholeScreen.width =  KonfettiPolonaise.getPhaser().width-40;
+        wholeScreen.height = KonfettiPolonaise.getPhaser().height-40;
+
+        filterManager = new FilterManager();
+
         Score.reset();
 
         hitList = [];
@@ -48,13 +55,6 @@ var Game = (function () {
 
         cursor = KonfettiPolonaise.getPhaser().input.keyboard.createCursorKeys();
         Game.placeRandomDisplayElement(new Dancer(0,0), true);
-
-        wholeScreen = KonfettiPolonaise.getPhaser().add.sprite(20, 20);
-        wholeScreen.texture.baseTexture.skipRender = false;         //workaround, da phaser immer die letzte texture rendert
-        wholeScreen.width =  KonfettiPolonaise.getPhaser().width-40;
-        wholeScreen.height = KonfettiPolonaise.getPhaser().height-40;
-
-        filterManager = new FilterManager();
 
         //Tastatur
         key1 = KonfettiPolonaise.registerKey('ONE');
@@ -144,7 +144,6 @@ var Game = (function () {
             //filterManager.addDrunkFilter(wholeScreen);
         }
         // DEBUG END
-
 
         return null;   // Falls keine Taste gedrueckt ist.
     };
@@ -309,7 +308,7 @@ var Game = (function () {
     cls.isFreePosition = function(del) {
         var isFree = true;
 
-        if(snake.isInside(del)) {
+        if( snake.isInside(del) || (powerUp != null && Game.hitTest(del, powerUp)) ) {
             isFree = false;
         } else {
             var i = hitList.length;
@@ -323,22 +322,23 @@ var Game = (function () {
         return isFree;
     };
 
-    //TODO: beim testen ist ein Dancer in der rechten Aussenwand aufgetaucht.
+
+    //TODO: beim testen ist ein Dancer in der rechten Aussenwand aufgetaucht.   WARSCHEINLICH BEHOBEN
     //TODO: objekte spawnen noch innerhalb der Follower der Schlange.
     cls.placeRandomDisplayElement = function(del, rotate) {
         // plaziert element an zufaelliger stelle wenn da kein hit ist.
         var x, y;
 
         do{
-            x = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().width-gridSize);
-            y = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().height-gridSize);
+            x = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().width - gridSize-1);
+            y = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().height - gridSize-1);
             x -= x%gridSize;
             y -= y%gridSize;
+            del.setX(x+gridSize/2);
+            del.setY(y+gridSize/2);
 
-        }while(this.isFreePosition(del) != false);
+        }while(Game.isFreePosition(del) != false);
 
-        del.setX(x+gridSize/2);
-        del.setY(y+gridSize/2);
 
         if(rotate === true) {
             del.setRotation(getRandomValue(1, 5) * 90);
@@ -348,6 +348,7 @@ var Game = (function () {
 
     return cls;
 })();
+
 
 function getRandomValue(min, max){
     return Math.round(Math.random() * (max - min) + min);
