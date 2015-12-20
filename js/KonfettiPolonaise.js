@@ -100,5 +100,6 @@ function roundXdecimal(floatnumber, decimals) {
 // TODO: city.png aufpimpen ( Strassenlampen, Sand, Wellblechdach)
 // TODO: beer fitler programmieren
 // TODO: rosa Filter programmieren
-// TODO: Hauptmenue-stage Programmieren
+// TODO: Hauptmenue-stage Programmieren (Start mit Leertaste)
+// TODO: Sounds einfuegen
 
