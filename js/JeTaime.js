@@ -108,14 +108,14 @@ var JeTaime = (function () {
             // Pinker effekt startet
 
             //Score.setMultiplierColor("F24DD1");
-            document.getElementById("multiplier").style.color = "#BF358C";     // Dirty Way
+            document.getElementById("multiplierFull").style.color = "#BF358C";     // Dirty Way
         };
 
         var stopFilter = function() {
             filterManager.removeActiveFilters(wholeScreen);
 
             //Score.setMultiplierColor(null);
-            document.getElementById("multiplier").style.color = "";     // Dirty Way
+            document.getElementById("multiplierFull").style.color = "";     // Dirty Way
         };
 
         var startBuff = function() {
