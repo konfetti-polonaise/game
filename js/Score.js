@@ -18,7 +18,7 @@ var Score = (function () {
         displayScore();
     };
 
-    cls.retrurnScore = function(){
+    cls.getScore = function() {
         return score;
     };
 
@@ -53,7 +53,7 @@ var Score = (function () {
             _color = "";
         }
 
-        document.getElementById("multiplier").style.color = _color;  // TODO: warum funktioniert das nicht mit einem Paramenter ?!
+        document.getElementById("multiplierFull").style.color = _color;  // TODO: warum funktioniert das nicht mit einem Paramenter ?!
     };
 
 
