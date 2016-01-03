@@ -18,7 +18,7 @@ var Score = (function () {
         displayScore();
     };
 
-    cls.getScore = function(){
+    cls.retrurnScore = function(){
         return score;
     };
 
