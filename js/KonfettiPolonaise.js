@@ -10,9 +10,11 @@ var KonfettiPolonaise = (function () {
         'game'
     );
 
+    // Gamestates hinzufÃ¼gen
     phaser.state.add('Menu', Menu);
     phaser.state.add('Game', Game);
     phaser.state.add('GameOver', GameOver);
+
     // constructor
     var cls = function () {
 
@@ -32,6 +34,10 @@ var KonfettiPolonaise = (function () {
 
     cls.gameOver = function() {
         startState('GameOver');
+    };
+
+    cls.displayMenu = function() {
+        startState('Menu');
     };
 
 
@@ -58,7 +64,7 @@ var KonfettiPolonaise = (function () {
     };
 
 
-    cls.startGame();
+    cls.displayMenu();
 
     return cls;
 })();
@@ -87,7 +93,7 @@ function removeFromList(list, element) {
     }
 }
 
-/** Rundet eine Fließkommazahl mathematisch auf X Dezimalstellen nach dem Komma ab.
+/** Rundet eine Flieï¿½kommazahl mathematisch auf X Dezimalstellen nach dem Komma ab.
  */
 function roundXdecimal(floatnumber, decimals) {
     var temp = Math.pow(10, decimals);

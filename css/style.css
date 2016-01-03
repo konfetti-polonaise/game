@@ -108,13 +108,43 @@ body{
             font-size: 3em;
         }
 
-    .display{
-        display: block;
+    #menu {
+        background: url('../assets/img/startscreen.png') no-repeat;
+        height: 583px;
+        width: 1099px;
+
+        position: absolute;
+        left: -38px;
+        top: -69px;
+        z-index: 20;
     }
 
-    .hide{
-        display: none;
+    #menu a {
+        display: block;
+        background: url('../assets/img/startgame.png') no-repeat;
+        height: 83px;
+        width: 383px;
+
+        position: relative;
+        top: 360px;
+        left: 80px;
+
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
     }
+    #menu a:hover {
+        margin-top: -2px;
+        padding-bottom: 2px;
+    }
+
+.display{
+    display: block;
+}
+
+.hide{
+    display: none;
+}
 
 
 canvas{
