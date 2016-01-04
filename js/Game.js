@@ -26,7 +26,7 @@ var Game = (function () {
 
     cls.prototype.preload = function() {
         cls.loadSpritesheets(Dancer);
-        cls.loadSpritesheets(Head);
+        cls.loadSpritesheets(Head, 32);
         cls.loadSpritesheets(Wall);
         cls.loadSpritesheets(JeTaime);
         cls.loadSpritesheets(Chilli);
@@ -98,12 +98,15 @@ var Game = (function () {
         }
     };
 
-    cls.loadSpritesheets = function(_cls) {
+    cls.loadSpritesheets = function(_cls, _height, _width) {
         var spritesheets = _cls.getSpritesheets();
+
+        var height = _height || gridSize;
+        var width = _width || height;
 
         for(var i = 0; i < spritesheets.length; i++) {
             var sprite = spritesheets[i];
-            KonfettiPolonaise.getPhaser().load.spritesheet(sprite, 'assets/img/' + sprite + '.png', 32, 32);
+            KonfettiPolonaise.getPhaser().load.spritesheet(sprite, 'assets/img/' + sprite + '.png', height, width);
         }
     };
 
