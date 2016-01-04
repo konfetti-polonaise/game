@@ -20,11 +20,14 @@ var Game = (function () {
     var keyS;
     var keyD;
 
+    var music;
+
     // constructor
     var cls = function() {};
 
 
     cls.prototype.preload = function() {
+        //KonfettiPolonaise.getPhaser().load.audio('music', ['assets/sound/laCucaracha.ogg', 'assets/sound/laCucaracha.mp3']);
         cls.loadSpritesheets(Dancer);
         cls.loadSpritesheets(Head, 32);
         cls.loadSpritesheets(Wall);
@@ -39,6 +42,11 @@ var Game = (function () {
         var playground = KonfettiPolonaise.getPhaser().add.image(0, 0, 'playground');
 
         Score.reset();
+
+        //music = KonfettiPolonaise.getPhaser().add.audio('music');
+        //KonfettiPolonaise.getPhaser().sound.setDecodedCallback(music, music.play , this);
+        //music.loop = true;
+        //music.play();
 
         wholeScreen = KonfettiPolonaise.getPhaser().add.sprite(20, 20);
         wholeScreen.texture.baseTexture.skipRender = false;         //workaround, da phaser immer die letzte texture rendert

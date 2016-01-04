@@ -1,7 +1,5 @@
 var KonfettiPolonaise = (function () {
 
-    var score; // Punktestand
-
     // private static
     var phaser = new Phaser.Game(
         800,
@@ -45,22 +43,6 @@ var KonfettiPolonaise = (function () {
      */
     cls.registerKey = function(phaserKeyName) {
         return phaser.input.keyboard.addKey(Phaser.Keyboard[phaserKeyName]);
-    };
-
-
-    cls.displayScore = function(_score) {
-        document.getElementById("score").innerHTML = _score;
-    };
-
-
-    cls.setScore = function(_score) {
-        score = _score;
-        KonfettiPolonaise.displayScore(_score);
-    };
-
-
-    cls.addScore = function(_add) {
-        KonfettiPolonaise.setScore(score + _add);
     };
 
 

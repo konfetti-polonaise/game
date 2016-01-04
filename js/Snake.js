@@ -20,11 +20,12 @@ var Snake = (function () {
             if(_nextDirection instanceof Direction && nextDirections.length < 2) {
 
                 // Sonderfall: Wenn An erster Stelle im Buffer bereits eine Direction ist,
-                // pruefen ob Eingabe nicht identisch ist mit erster Stelle.
+                // pruefen ob Eingabe nicht identisch ist mit erster Stelle oder gegenueber.
                 var first = nextDirections[0];
 
                 if(first instanceof Direction) {
-                    if( first.equals(_nextDirection) === false) {
+
+                    if( first.equals(_nextDirection) === false && first.isOpposite(_nextDirection) === false) {
                         addToList(nextDirections, _nextDirection);
                     }
                 }
