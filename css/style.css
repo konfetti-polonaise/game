@@ -51,62 +51,7 @@ body{
         font-size: 2em;
     }
 
-    #gameover{
-        position: absolute;
-        z-index: 20;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-    }
 
-    #infobox{
-        position: relative;
-        top: 50%;
-        left: 50%;
-        width: 600px;
-        height: 650px;
-        margin: -300px 0 0 -300px;
-        text-align: center;
-    }
-
-        #gameover h1, #gameover h2, #gameover table, #gameover a{
-            text-align: left;
-            position: relative;
-            width: 100%;
-            font-family: pixel;
-            font-size: 2.5em;
-            color: #fff;
-        }
-            #gameover table{
-                /* Für Highscorespeicherung */
-
-                margin-bottom: 30px;
-            }
-
-                #gameover th{
-                    height: 50px;
-                }
-
-                #gameover td{
-                    height: 50px;
-                }
-
-        #gameover h1, #gameover h2{
-            text-align: center;
-        }
-
-        #gameover h1 {
-            font-size: 6em;
-        }
-
-        #gameover h2 {
-            margin-bottom: 30px;
-        }
-
-        #gameover a{
-            text-decoration: none;
-            font-size: 3em;
-        }
 
     #menu {
         background: url('../assets/img/startscreen.png') no-repeat;
@@ -136,6 +81,40 @@ body{
     #menu a:hover {
         margin-top: -2px;
         padding-bottom: 2px;
+    }
+
+
+    #gameover {
+        background: url('../assets/img/hangover.png') no-repeat;
+        height: 516px;
+        width: 1080px;
+
+        position: absolute;
+        left: -38px;
+        top: 0px;
+        z-index: 40;
+    }
+
+    #gameover a {
+        display: block;
+        background: url('../assets/img/restart.png') no-repeat;
+        height: 83px;
+        width: 383px;
+
+        position: relative;
+        top: 230px;
+        left: 580px;
+
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    #gameover a:hover {
+        margin-top: -2px;
+        padding-bottom: 2px;
+    }
+    #gameover .hide{
+        display: none;
     }
 
 .display{
