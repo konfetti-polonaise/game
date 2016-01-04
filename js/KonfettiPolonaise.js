@@ -93,12 +93,13 @@ function removeFromList(list, element) {
     }
 }
 
-/** Rundet eine Flie�kommazahl mathematisch auf X Dezimalstellen nach dem Komma ab.
+/** Rundet eine Fliesskommazahl mathematisch auf X Dezimalstellen nach dem Komma ab.
  */
 function roundXdecimal(floatnumber, decimals) {
     var temp = Math.pow(10, decimals);
     return (Math.round(floatnumber * temp) / temp);
 }
+
 
 
 // TODO: waiting Dancer tanzanimation animieren.                        Anja, David
@@ -110,8 +111,6 @@ function roundXdecimal(floatnumber, decimals) {
 // TODO: Sounds einfuegen                                               Marius
 // TODO: Mute-Button                                                    Marius
 // TODO: Mexikanerhut vergroessern                                      Anja, David
-// TODO: Eingabe-Buffer                                                 Marius
-// TODO: Farbe anpassen (Multi)                                         Marius
 // TODO: Farbe Highscoreumrandung anpassen                              Hendrik
 // TODO: Scoreanzeige Gameover-Screen                                   Morice
 // TODO: Spawn-Problem fixen                                            David, Laurin, Morice

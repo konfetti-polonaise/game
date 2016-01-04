@@ -3,24 +3,43 @@ var Snake = (function () {
     // constructor
     var cls = function () {
         var speed = 7;      // Initialgeschwindigkeit
-        var buff = null;    // Powerupeffekt
-        var head = new Head(16 + 32, 16 + 224);  // Startposition.
-        var passingList = [];   //Dancer die nach hinten durchgereicht werden.
+        var buff = null;    // Powerup-Effekt
+        var head = new Head(16 + 32, 16 + 32);  // Startposition.
+        var passingList = [];   //Dancer die nach hinten durchgereicht werden bis sie das Ende der Schlange erreichen.
 
         // Richtung in die sich die Richtung des Heads ändern wird, sobald Schlange im Grid ist.
-        var nextDirection;
+        var nextDirections = [];
 
         var followers = [];
 
-        this.getNextDirection = function() {
-            return nextDirection;
-        };
 
-        this.setNextDirection = function(_nextDirection) {
-            if( _nextDirection instanceof Direction) {      // Wenn gültige Richtung.
-                nextDirection = _nextDirection;
+        // Fuellt den Richtungsbuffer mit neuen Eingaben. Maximalgroesse des Buffers ist 2.
+        this.addNextDirection = function(_nextDirection) {
+
+            // Wenn Eingabe gültige Richtung ist & Buffer nicht schon zu voll ist.
+            if(_nextDirection instanceof Direction && nextDirections.length < 2) {
+
+                // Sonderfall: Wenn An erster Stelle im Buffer bereits eine Direction ist,
+                // pruefen ob Eingabe nicht identisch ist mit erster Stelle.
+                var first = nextDirections[0];
+
+                if(first instanceof Direction) {
+                    if( first.equals(_nextDirection) === false) {
+                        addToList(nextDirections, _nextDirection);
+                    }
+                }
+
+                // Sonderfall: Wenn der Buffer leer ist,
+                // pruefen ob Eingabe nicht identisch ist oder genau gegenueber von aktueller Laufrichtung der Schlange.
+                else{
+                    if(_nextDirection.equals(head.getDirection()) === false
+                        && _nextDirection.isOpposite(head.getDirection()) === false) {
+                        addToList(nextDirections, _nextDirection);
+                    }
+                }
             }
         };
+
 
         this.getSpeed = function () {
             return speed;
@@ -240,7 +259,10 @@ var Snake = (function () {
             if(isSnakeInGrid()) {
 
                 changeFollowersDirection(); // Follower drehen sich
-                changeHeadDirection(nextDirection); // Head dreht sich gegebenenfalls
+
+                var next = nextDirections[0];
+                changeHeadDirection(next); // Head dreht sich gegebenenfalls
+                removeFromList(nextDirections, next);
 
                 testPassings(); // Follower anhängen
             }

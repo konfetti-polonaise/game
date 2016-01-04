@@ -38,14 +38,14 @@ var Game = (function () {
 
         var playground = KonfettiPolonaise.getPhaser().add.image(0, 0, 'playground');
 
+        Score.reset();
+
         wholeScreen = KonfettiPolonaise.getPhaser().add.sprite(20, 20);
         wholeScreen.texture.baseTexture.skipRender = false;         //workaround, da phaser immer die letzte texture rendert
         wholeScreen.width =  KonfettiPolonaise.getPhaser().width-40;
         wholeScreen.height = KonfettiPolonaise.getPhaser().height-40;
 
         filterManager = new FilterManager();
-
-        Score.reset();
 
         hitList = [];
 
@@ -74,11 +74,9 @@ var Game = (function () {
     cls.prototype.update = function() {
 
         updateSnake();
-        snake.setNextDirection(checkInput());
         snake.decreaseBuffTimer();
-        updatePowerUp();
 
-        // @TODO: Animation etc....
+        updatePowerUp();
 
         filterManager.update();
     };
@@ -160,7 +158,7 @@ var Game = (function () {
         var i = snake.getSpeed();
         while(i--) {
             snake.step();
-            snake.setNextDirection(checkInput());
+            snake.addNextDirection(checkInput());
 
             testCollisions();
         }
@@ -286,7 +284,7 @@ var Game = (function () {
 
         if(powerUp == null) {
 
-            if( getRandomFloat(1,801) > 800 ) {  // Geringe Warscheinlichkeit
+            if( getRandomFloat(1,1801) > 1800 ) {  // Geringe Warscheinlichkeit
 
                 powerUp = new allPowerUps[getRandomValue(0, allPowerUps.length - 1)](0, 0);  // Ein zufaelliges PowerUp erstellen
 

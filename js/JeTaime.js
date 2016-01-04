@@ -107,15 +107,13 @@ var JeTaime = (function () {
         var startFilter = function() {
             // Pinker effekt startet
 
-            //Score.setMultiplierColor("F24DD1");
-            document.getElementById("multiplierFull").style.color = "#BF358C";     // Dirty Way
+            document.getElementById("multiplierFull").className = "jeTaimePink";
         };
 
         var stopFilter = function() {
             filterManager.removeActiveFilters(wholeScreen);
 
-            //Score.setMultiplierColor(null);
-            document.getElementById("multiplierFull").style.color = "";     // Dirty Way
+            Score.resetMultiplierColor();
         };
 
         var startBuff = function() {

@@ -125,6 +125,16 @@ body{
     display: none;
 }
 
+.chilliRed{
+    color: #940000;
+}
+.beerGreen{
+    color: #022C03;
+}
+.jeTaimePink{
+    color: #BF358C;
+}
+
 
 canvas{
     position: absolute;

@@ -108,15 +108,13 @@ var Chilli = (function () {
         var startFilter = function() {
             filterManager.addFireFilter(wholeScreen);
 
-            //Score.setMultiplierColor("940000");
-            document.getElementById("multiplierFull").style.color = "#940000";     // Dirty Way
+            document.getElementById("multiplierFull").className = "chilliRed";
         };
 
         var stopFilter = function() {
             filterManager.removeActiveFilters(wholeScreen);
 
-            //Score.setMultiplierColor(null);
-            document.getElementById("multiplierFull").style.color = "";     // Dirty Way
+            Score.resetMultiplierColor();
         };
 
         var startBuff = function() {

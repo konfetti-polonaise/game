@@ -61,6 +61,8 @@ var Direction = (function () {
                 return 270;
             }
         };
+
+
         this.equals = function(_direction) {
 
             //console.log(xDistance == _direction.getXDistance()
@@ -68,6 +70,26 @@ var Direction = (function () {
 
             return xDistance == _direction.getXDistance()
                 && yDistance == _direction.getYDistance();
+        };
+
+        this.isOpposite = function(_direction) {
+
+            var opposite = false;
+
+            if(_direction.isRight() && this.isLeft()) {
+                opposite = true;
+            }
+            else if(_direction.isLeft() && this.isRight()) {
+                opposite = true;
+            }
+            else if(_direction.isDown() && this.isUp()) {
+                opposite = true;
+            }
+            else if(_direction.isUp() && this.isDown()) {
+                opposite = true;
+            }
+
+            return opposite;
         };
 
         // Wenn Richtung nicht schon gesetzt wurde

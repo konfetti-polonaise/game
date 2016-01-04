@@ -103,14 +103,13 @@ var Beer = (function () {
             filterManager.addPlasmaFilter(wholeScreen);
 
             //Score.setMultiplierColor("F24DD1");
-            document.getElementById("multiplierFull").style.color = "#022C03";     // Dirty Way
+            document.getElementById("multiplierFull").className = "beerGreen";
         };
 
         var stopFilter = function() {
             filterManager.removeActiveFilters(wholeScreen);
 
-            //Score.setMultiplierColor(null);
-            document.getElementById("multiplierFull").style.color = "";     // Dirty Way
+            Score.resetMultiplierColor();
         };
 
         var startBuff = function() {
