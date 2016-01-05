@@ -29,7 +29,7 @@ var Game = (function () {
     cls.prototype.preload = function() {
         //KonfettiPolonaise.getPhaser().load.audio('music', ['assets/sound/laCucaracha.ogg', 'assets/sound/laCucaracha.mp3']);
         cls.loadSpritesheets(Dancer);
-        cls.loadSpritesheets(Head, 32);
+        cls.loadSpritesheets(Head, 40);
         cls.loadSpritesheets(Wall);
         cls.loadSpritesheets(JeTaime);
         cls.loadSpritesheets(Chilli);
@@ -62,9 +62,9 @@ var Game = (function () {
         powerUp = null;
 
         cursor = KonfettiPolonaise.getPhaser().input.keyboard.createCursorKeys();
-        Game.placeRandomDisplayElement(new Dancer(0,0), true);
+        Game.placeRandomDisplayElement(new Dancer(0, 0, false), true);
 
-        //Tastatur
+        // Tastatur
         key1 = KonfettiPolonaise.registerKey('ONE');
         key2 = KonfettiPolonaise.registerKey('TWO');
         key3 = KonfettiPolonaise.registerKey('THREE');
@@ -107,8 +107,15 @@ var Game = (function () {
     cls.loadSpritesheets = function(_cls, _height, _width) {
         var spritesheets = _cls.getSpritesheets();
 
-        var height = _height || gridSize;
-        var width = _width || height;
+        var height = gridSize;
+        if (_height !== undefined) {
+            height = _height
+        }
+
+        var width = height;
+        if (_width !== undefined) {
+            width = _width
+        }
 
         for(var i = 0; i < spritesheets.length; i++) {
             var sprite = spritesheets[i];

@@ -24,7 +24,7 @@ var Head = (function () {
 
         this.getDirection = function() {
             return direction;
-        }
+        };
     };
 
     cls.getSpritesheets = function() {

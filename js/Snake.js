@@ -4,8 +4,9 @@ var Snake = (function () {
     var cls = function () {
         var speed = 7;      // Initialgeschwindigkeit
         var buff = null;    // Powerup-Effekt
-        var head = new Head(16 + 32, 16 + 32);  // Startposition.
+        var head = new Head(16 + 32, 16 + 224);  // Startposition.
         var passingList = [];   //Dancer die nach hinten durchgereicht werden bis sie das Ende der Schlange erreichen.
+
 
         // Richtung in die sich die Richtung des Heads ändern wird, sobald Schlange im Grid ist.
         var nextDirections = [];
@@ -117,33 +118,16 @@ var Snake = (function () {
                 infront = followers[followers.length - 1];
             }
 
-            // Distanz zwischen beiden Objekten
-            var dx = roundXdecimal(infront.getX(), 2) - roundXdecimal(dancer.getX(), 2); // deltaX
-            var dy = roundXdecimal(infront.getY(), 2) - roundXdecimal(dancer.getY(), 2); // deltaY
-
-            // Neuen Tänzer zum Vorgänger drehen
-            var direction = new Direction();
-            if(Math.abs(dx) > Math.abs(dy)) {
-                dancer.setX(infront.getX() - dx);
-
-                if(dx > 0) {
-                    direction.setRight();
-                } else {
-                    direction.setLeft();
-                }
-            } else {
-                dancer.setY(infront.getY() - dy);
-
-                if(dy < 0) {
-                    direction.setUp();
-                } else {
-                    direction.setDown();
-                }
-            }
-            dancer.setDirection(direction);
+            // Zum Vorgänger drehen
+            dancer.turnTowards(infront);
 
             // Laufanimation abspielen
             dancer.playAnimation('walk');
+
+            // Erster Follower
+            if(followers.length == 0) {
+                head.moveUp();
+            }
 
             // Der Schlange hinzufügen
             followers.push(dancer);

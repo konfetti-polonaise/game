@@ -84,15 +84,13 @@ function roundXdecimal(floatnumber, decimals) {
 
 
 
-// TODO: waiting Dancer tanzanimation animieren.                        Anja, David
-// TODO: Trageanimation                                                 Anja, David
+// TODO: Bugix: Dancer muss sich zur Kopfrichtung drehen                David
 // TODO: city.png aufpimpen ( Strassenlampen, Sand, Wellblechdach)      Hendrik
 // TODO: DOKU                                                           Hendrik, Morice, Anja
 // TODO: beer fitler programmieren                                      Laurin
 // TODO: rosa Filter programmieren                                      Laurin
 // TODO: Sounds einfuegen                                               Marius
 // TODO: Mute-Button                                                    Marius
-// TODO: Mexikanerhut vergroessern                                      Anja, David
 // TODO: Farbe Highscoreumrandung anpassen                              Hendrik
 // TODO: Scoreanzeige Gameover-Screen                                   Morice
 // TODO: Spawn-Problem fixen                                            David, Laurin, Morice

@@ -71,6 +71,9 @@ var DisplayElement = (function () {
         this.playAnimation = function(_name) {
             sprite.animations.play(_name);
         };
+        this.moveUp = function() {
+            sprite.moveUp();
+        };
 
         /** Entfernt den Sprite des DisplayElements. es wird also unsichbar.
          */
