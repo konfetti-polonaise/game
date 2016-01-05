@@ -84,7 +84,7 @@ function roundXdecimal(floatnumber, decimals) {
 
 
 
-// TODO: Bugix: Dancer muss sich zur Kopfrichtung drehen                David
+// TODO: Bugix: Dancer muss sich zur Kopfrichtung drehen                David, ???
 // TODO: city.png aufpimpen ( Strassenlampen, Sand, Wellblechdach)      Hendrik
 // TODO: DOKU                                                           Hendrik, Morice, Anja
 // TODO: beer fitler programmieren                                      Laurin

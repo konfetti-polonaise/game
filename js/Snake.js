@@ -124,10 +124,8 @@ var Snake = (function () {
             // Laufanimation abspielen
             dancer.playAnimation('walk');
 
-            // Erster Follower
-            if(followers.length == 0) {
-                head.moveUp();
-            }
+            // Z-Index des Kopfs erhöhen
+            head.moveUp();
 
             // Der Schlange hinzufügen
             followers.push(dancer);
