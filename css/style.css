@@ -79,8 +79,7 @@ body{
         overflow: hidden;
     }
     #menu a:hover {
-        margin-top: -2px;
-        padding-bottom: 2px;
+        background-position: center -83px;
     }
 
 
@@ -110,8 +109,7 @@ body{
         overflow: hidden;
     }
     #gameover a:hover {
-        margin-top: -2px;
-        padding-bottom: 2px;
+        background-position: center -83px;
     }
     #gameover p {
         position: absolute;
