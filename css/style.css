@@ -29,7 +29,7 @@ body{
     position: absolute;
     top: 0;
     right: 0;
-    background:url("../assets/img/highscore.jpg") no-repeat 0 0;
+    background:url("../assets/img/highscore.png") no-repeat 0 0;
     z-index: 2;
 }
 
@@ -38,7 +38,7 @@ body{
         width: 168px;
         margin-bottom: -30px;
         text-align: center;
-        font-family: pixel;
+        font-family: pixel, "Courier New", Courier, monospace;
     }
 
     #highscore h1{
@@ -99,11 +99,11 @@ body{
         display: block;
         background: url('../assets/img/restart.png') no-repeat;
         height: 83px;
-        width: 383px;
+        width: 313px;
 
-        position: relative;
+        position: absolute;
         top: 230px;
-        left: 580px;
+        left: 562px;
 
         text-indent: 100%;
         white-space: nowrap;
@@ -113,16 +113,26 @@ body{
         margin-top: -2px;
         padding-bottom: 2px;
     }
-    #gameover .hide{
-        display: none;
+    #gameover p {
+        position: absolute;
+        top: 160px;
+        left: 430px;
+        width: 580px;
+
+        color: #fff;
+        font-family: pixel, "Courier New", Courier, monospace;
+        font-size: 2em;
+        text-align: center;
+        white-space: nowrap;
     }
 
+
 .display{
-    display: block;
+    display: block !important;
 }
 
-.hide{
-    display: none;
+.hide {
+    display: none !important;
 }
 
 .chilliRed{
