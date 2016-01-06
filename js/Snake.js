@@ -205,10 +205,14 @@ var Snake = (function () {
          * @param _direction Richtung in die geändert werden soll
          */
         var changeHeadDirection = function(_direction) {
+            var changed = false;
 
             if(_direction instanceof Direction) {
                 head.changeDirection(_direction);
+                changed = true;
             }
+
+            return changed;
         };
 
 
@@ -244,7 +248,23 @@ var Snake = (function () {
                 changeFollowersDirection(); // Follower drehen sich
 
                 var next = nextDirections[0];
-                changeHeadDirection(next); // Head dreht sich gegebenenfalls
+
+                // Wenn Kopf sich gedreht hat
+                if(changeHeadDirection(next)) {
+
+                    // Hochgehobene Tänzer bei Bewegung drehen
+                    for(var i = 0; i < passingList.length; i++) {
+                        if(Game.hitTest(head, passingList[i])) {
+
+                            var direction = head.getDirection();
+                            direction = new Direction(direction.getXDistance(), direction.getYDistance());
+                            direction.inverse(); // Sprite ist "falsch"rum
+                            passingList[i].setDirection(direction);
+
+                        }
+                    }
+                }
+
                 removeFromList(nextDirections, next);
 
                 testPassings(); // Follower anhängen

@@ -324,13 +324,15 @@ var Game = (function () {
     cls.isFreePosition = function(del) {
         var isFree = true;
 
-        if( snake.isInside(del) || (powerUp != null && Game.hitTest(del, powerUp)) ) {
+        if( snake.isInside(del)) {
+            isFree = false;
+        } else if (powerUp != null && Game.hitTest(del, powerUp)) {
             isFree = false;
         } else {
             var i = hitList.length;
             while(i--) {
                 if(Game.hitTest(del, hitList[i])) {
-                    isFree = false;
+                    return false;
                 }
             }
         }
@@ -345,7 +347,7 @@ var Game = (function () {
         // plaziert element an zufaelliger stelle wenn da kein hit ist.
         var x, y;
 
-        do{
+        do {
             x = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().width - gridSize-1);
             y = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().height - gridSize-1);
             x -= x%gridSize;
@@ -353,7 +355,7 @@ var Game = (function () {
             del.setX(x+gridSize/2);
             del.setY(y+gridSize/2);
 
-        }while(Game.isFreePosition(del) != false);
+        } while(Game.isFreePosition(del));
 
 
         if(rotate === true) {

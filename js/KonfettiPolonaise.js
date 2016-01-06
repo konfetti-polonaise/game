@@ -84,7 +84,6 @@ function roundXdecimal(floatnumber, decimals) {
 
 
 
-// TODO: Bugix: Dancer muss sich zur Kopfrichtung drehen                David, ???
 // TODO: city.png aufpimpen ( Strassenlampen, Sand, Wellblechdach)      Hendrik
 // TODO: DOKU                                                           Hendrik, Morice, Anja
 // TODO: Sollte der Z-Index der Filter nicht immer ganz oben sein?      ???
