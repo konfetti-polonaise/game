@@ -20,17 +20,16 @@ var Game = (function () {
     var keyS;
     var keyD;
 
-    var music;
+    var backgroundSound;
+    var startSound;
 
     // constructor
     var cls = function() {};
 
 
     cls.prototype.preload = function() {
-        //KonfettiPolonaise.getPhaser().load.audio('music', ['assets/sound/laCucaracha.ogg', 'assets/sound/laCucaracha.mp3']);
         cls.loadSpritesheets(Dancer);
         cls.loadSpritesheets(Head, 40);
-        cls.loadSpritesheets(Wall);
         cls.loadSpritesheets(JeTaime);
         cls.loadSpritesheets(Chilli);
         cls.loadSpritesheets(Beer);
@@ -42,11 +41,6 @@ var Game = (function () {
         var playground = KonfettiPolonaise.getPhaser().add.image(0, 0, 'playground');
 
         Score.reset();
-
-        //music = KonfettiPolonaise.getPhaser().add.audio('music');
-        //KonfettiPolonaise.getPhaser().sound.setDecodedCallback(music, music.play , this);
-        //music.loop = true;
-        //music.play();
 
         wholeScreen = KonfettiPolonaise.getPhaser().add.sprite(20, 20);
         wholeScreen.texture.baseTexture.skipRender = false;         //workaround, da phaser immer die letzte texture rendert
@@ -75,8 +69,12 @@ var Game = (function () {
         keyD = KonfettiPolonaise.registerKey('D');
 
         allPowerUps = [
-            Chilli, JeTaime, Beer
-        ];  // Welche PowerUps erscheinen koennen.
+            Chilli,
+            JeTaime,
+            Beer
+        ];  // Welche PowerUps erscheinen koennen.;
+
+        startSound.play();
     };
 
     cls.prototype.update = function() {
@@ -87,6 +85,59 @@ var Game = (function () {
         updatePowerUp();
 
         filterManager.update();
+    };
+
+
+    // Initialisiert alle Sounds von Game. muss von KonfettiPolonaise ausgefuehrt werden wegen gegenseitigen Ladeabheangigkeiten.
+    cls.createSounds = function() {
+
+        // TODO: 8-bit Version. (moeglichst nicht wahrnehmbarer Loop!)                         LAURIN
+        backgroundSound = KonfettiPolonaise.createSound('assets/sound/laCucaracha.mp3');
+        backgroundSound.loop = true;
+
+        // TODO: Mexican Music (Mariachi)  sollte fließend in Hauptmusik uebergehen             LAURIN
+        startSound = KonfettiPolonaise.createSound('assets/sound/bottlePop.mp3');
+        startSound.onended = function () {
+            backgroundSound.play()
+        };
+    };
+
+    cls.playBackgroundSound = function() {
+        backgroundSound.play();
+    };
+
+    cls.pauseBackgroundSound = function() {
+        backgroundSound.pause();
+    };
+
+    cls.setBackgrundSoundSpeed = function(_speed) {
+        backgroundSound.playbackRate = _speed;
+    };
+
+
+    cls.playStartSound = function() {
+        startSound.play();
+    };
+
+    cls.pauseStartSound = function() {
+        startSound.pause();
+    };
+
+    cls.startSoundIsPlaying = function() {
+        return (!startSound.paused && startSound.currentTime > 0 && !startSound.ended);
+    };
+
+
+    var resetSounds = function() {
+        backgroundSound.pause();
+        backgroundSound.load();
+        startSound.pause();
+        startSound.load();
+
+        var i = allPowerUps.length;
+        while(i--) {
+            allPowerUps[i].resetSound();
+        }
     };
 
 
@@ -155,9 +206,9 @@ var Game = (function () {
         } else if (key3.isDown) {
             filterManager.removeActiveFilters(wholeScreen);
             filterManager.addPlasmaFilter(wholeScreen);
+
         } else if (key4.isDown) {
-            // filterManager.removeActiveFilters(wholeScreen);
-            //filterManager.addDrunkFilter(wholeScreen);
+            KonfettiPolonaise.mute();
         }
         // DEBUG END
 
@@ -250,7 +301,7 @@ var Game = (function () {
 
         // Collision von Schlangenkopf mit den AussenWaenden
         if (isOutsideRoom(snake)) {
-            KonfettiPolonaise.gameOver();
+            Game.gameOver();
         }
     };
 
@@ -279,7 +330,8 @@ var Game = (function () {
         snake.increaseSpeed();
     };
 
-    cls.gameOver = function(obj) {
+    cls.gameOver = function() {
+        resetSounds();
         KonfettiPolonaise.gameOver();
     };
 
@@ -299,7 +351,7 @@ var Game = (function () {
 
         if(powerUp == null) {
 
-            if( getRandomFloat(1,1801) > 1800 ) {  // Geringe Warscheinlichkeit
+            if( getRandomFloat(1,1701) > 1700 ) {  // Geringe Warscheinlichkeit
 
                 powerUp = new allPowerUps[getRandomValue(0, allPowerUps.length - 1)](0, 0);  // Ein zufaelliges PowerUp erstellen
 
@@ -341,8 +393,6 @@ var Game = (function () {
     };
 
 
-    //TODO: beim testen ist ein Dancer in der rechten Aussenwand aufgetaucht.   WARSCHEINLICH BEHOBEN
-    //TODO: objekte spawnen noch innerhalb der Follower der Schlange.
     cls.placeRandomDisplayElement = function(del, rotate) {
         // plaziert element an zufaelliger stelle wenn da kein hit ist.
         var x, y;

@@ -8,6 +8,10 @@ var KonfettiPolonaise = (function () {
         'game'
     );
 
+    var allSounds = [];
+
+    var isMuted = false;
+
     // Gamestates hinzufügen
     phaser.state.add('Menu', Menu);
     phaser.state.add('Game', Game);
@@ -43,6 +47,36 @@ var KonfettiPolonaise = (function () {
      */
     cls.registerKey = function(phaserKeyName) {
         return phaser.input.keyboard.addKey(Phaser.Keyboard[phaserKeyName]);
+    };
+
+    /** Ueber diese Funktion muessen alle Sounds erstellt werden, damit sie durch den muteButton lautlos werden koennen.
+     */
+    cls.createSound = function(src) {
+
+        var newSound = new Audio(src);
+        addToList(allSounds, newSound);
+        return newSound;
+    };
+
+    /** Macht alle Sounds des Spiels lautlos.
+     */
+    cls.mute = function() {
+        if (isMuted == false) {
+            isMuted = true;
+
+            var i = allSounds.length;
+            while(i--) {
+                allSounds[i].muted = true;
+            }
+        }
+        else{
+            isMuted = false;
+
+            var i = allSounds.length;
+            while(i--) {
+                allSounds[i].muted = false;
+            }
+        }
     };
 
 
@@ -82,6 +116,10 @@ function roundXdecimal(floatnumber, decimals) {
     return (Math.round(floatnumber * temp) / temp);
 }
 
+// Wichtig wegen gegenseitigen Ladeabheangigkeiten mit Game.
+Game.createSounds();
+
+
 
 
 // TODO: city.png aufpimpen ( Strassenlampen, Sand, Wellblechdach)      Hendrik
@@ -89,8 +127,8 @@ function roundXdecimal(floatnumber, decimals) {
 // TODO: Sollte der Z-Index der Filter nicht immer ganz oben sein?      ???
 // TODO: beer fitler programmieren                                      Laurin
 // TODO: rosa Filter programmieren                                      Laurin
-// TODO: Sounds einfuegen                                               Marius
-// TODO: Mute-Button                                                    Marius
-// TODO: Farbe Highscoreumrandung anpassen                              Hendrik
-// TODO: Scoreanzeige Gameover-Screen                                   Morice
+// TODO: Musikschlampe Feuer unterm Arsch machen                        Laurin
+// TODO: Mute-Button in HTML erstellen                                  Hendrik
 // TODO: Spawn-Problem fixen                                            David, Laurin, Morice
+// TODO: Powerups movedown                                              Marius
+
