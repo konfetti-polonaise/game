@@ -125,6 +125,8 @@ var Dancer = (function () {
 
                 this.turnTowards(Game.getSnake());
 
+                this.startShaking();
+
                 Game.increaseSpeed();
 
                 Score.increaseScore();

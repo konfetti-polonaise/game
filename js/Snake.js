@@ -3,6 +3,7 @@ var Snake = (function () {
     // constructor
     var cls = function () {
         var speed = 7;      // Initialgeschwindigkeit
+        var animationSpeed = speed;
         var buff = null;    // Powerup-Effekt
         var head = new Head(16 + 32, 16 + 224);  // Startposition.
         var passingList = [];   //Dancer die nach hinten durchgereicht werden bis sie das Ende der Schlange erreichen.
@@ -57,14 +58,17 @@ var Snake = (function () {
          */
         this.increaseSpeed = function() {
             speed++;
-            updateAnimationSpeed();
+            if(speed % 3 == 0) {
+                animationSpeed++;
+                updateAnimationSpeed();
+            }
         };
 
         var updateAnimationSpeed = function() {
             // Animationsgeschwindigkeit aktualisieren
             var i = followers.length;
             while(i--) {
-                followers[i].setAnimationSpeed(speed);
+                followers[i].setAnimationSpeed(animationSpeed);
             }
         };
 
@@ -117,6 +121,9 @@ var Snake = (function () {
             if(followers.length > 0) {
                 infront = followers[followers.length - 1];
             }
+
+            // Schütteln stoppen
+            dancer.stopShaking();
 
             // Zum Vorgänger drehen
             dancer.turnTowards(infront);
@@ -255,12 +262,14 @@ var Snake = (function () {
                     // Hochgehobene Tänzer bei Bewegung drehen
                     for(var i = 0; i < passingList.length; i++) {
                         if(Game.hitTest(head, passingList[i])) {
-
                             var direction = head.getDirection();
                             direction = new Direction(direction.getXDistance(), direction.getYDistance());
                             direction.inverse(); // Sprite ist "falsch"rum
-                            passingList[i].setDirection(direction);
 
+                            var dancer = passingList[i];
+                            dancer.stopShaking();
+                            dancer.setDirection(direction);
+                            dancer.startShaking();
                         }
                     }
                 }

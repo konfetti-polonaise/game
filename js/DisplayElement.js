@@ -4,6 +4,7 @@ var DisplayElement = (function () {
     var cls = function (_x, _y, _sprite, fadeIn) {
         // private
         var sprite;
+        var tween;
 
         if(_sprite instanceof Object) {
             sprite = _sprite;
@@ -74,6 +75,28 @@ var DisplayElement = (function () {
         this.moveUp = function() {
             sprite.moveUp();
         };
+        this.moveDown = function() {
+            sprite.moveDown();
+        };
+        var shake = function(rotation, callBack) {
+            tween = KonfettiPolonaise.getPhaser().add.tween(sprite);
+            tween.to(rotation, 300, Phaser.Easing.Linear.None);
+            tween.onComplete.addOnce(callBack, this);
+            tween.start();
+        };
+        var shakeLeft = function() {
+            shake({rotation: sprite.rotation - 0.6}, shakeRight);
+        };
+        var shakeRight = function() {
+            shake({rotation: sprite.rotation + 0.6}, shakeLeft);
+        };
+        this.startShaking = function() {
+            shake({rotation: sprite.rotation - 0.3}, shakeRight);
+        };
+        this.stopShaking = function() {
+            tween.stop();
+        };
+
 
         /** Entfernt den Sprite des DisplayElements. es wird also unsichbar.
          */
