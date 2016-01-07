@@ -22,7 +22,7 @@ var DisplayElement = (function () {
             sprite.alpha = 0;
             KonfettiPolonaise.getPhaser().add.tween(sprite).to(
                 {alpha: 1},
-                1000,
+                500,
                 Phaser.Easing.Linear.None,
                 true
             );
