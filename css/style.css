@@ -61,7 +61,6 @@ body{
         position: absolute;
         left: -38px;
         top: -69px;
-        z-index: 20;
     }
 
     #menu a {
@@ -91,7 +90,6 @@ body{
         position: absolute;
         left: -38px;
         top: 0px;
-        z-index: 40;
     }
 
     #gameover a {
@@ -126,11 +124,13 @@ body{
 
 
 .display{
-    display: block !important;
+    visibility: visible;
+    z-index: 40;
 }
 
 .hide {
-    display: none !important;
+    visibility: hidden;
+    z-index: 1;
 }
 
 .chilliRed{

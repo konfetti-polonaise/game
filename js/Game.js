@@ -3,6 +3,7 @@ var Game = (function () {
     var cursor;
     var gridSize = 32;
     var hitList;   // Liste mit beruehrbaren Elementen
+    var delList;
 
     var powerUp;
     var allPowerUps;
@@ -50,6 +51,7 @@ var Game = (function () {
         filterManager = new FilterManager();
 
         hitList = [];
+        delList = [];
 
         snake = new Snake();
 
@@ -140,19 +142,22 @@ var Game = (function () {
         }
     };
 
-
-    cls.hitTest = function(_obj1, _obj2) {
-        var dx = Math.abs(_obj1.getX() - _obj2.getX()); // deltaX
-        var dy = Math.abs(_obj1.getY() - _obj2.getY()); // deltaY
+    cls.hitTestPos = function(_obj, _x, _y, _hitboxWidth, _hitBoxHeight) {
+        var dx = Math.abs(_obj.getX() - _x); // deltaX
+        var dy = Math.abs(_obj.getY() - _y); // deltaY
 
         dx = roundXdecimal(dx, 2); // mathematisches Runden, weil
         dy = roundXdecimal(dy, 2); // JS nicht vernuenftig mit Fliesskommazahlen umgehen kann.
 
         if(dx >= dy) {
-            return dx < (_obj1.getHitboxWidth() / 2 + _obj2.getHitboxWidth() / 2);
+            return dx < (_obj.getHitboxWidth() / 2 + _hitboxWidth / 2);
         } else {
-            return dy < (_obj1.getHitboxHeight() / 2 + _obj2.getHitboxHeight() / 2);
+            return dy < (_obj.getHitboxHeight() / 2 + _hitBoxHeight / 2);
         }
+    };
+
+    cls.hitTest = function(_obj1, _obj2) {
+        return cls.hitTestPos(_obj1, _obj2.getX(), _obj2.getY(), _obj2.getHitboxWidth(), _obj2.getHitboxHeight());
     };
 
     cls.loadSpritesheets = function(_cls, _height, _width) {
@@ -370,47 +375,50 @@ var Game = (function () {
 
     /**
      * Prüft ob sich das übergebene Objekt an einer freien Stelle befindet
-     * @param del
+     * @param _x
+     * @param _y
      * @returns boolean true, wenn Position frei ist
      */
-    cls.isFreePosition = function(del) {
-        var isFree = true;
+    cls.isFreePosition = function(_x, _y) {
+        var i = delList.length;
+        var halfGrid = gridSize / 2;
 
-        if( snake.isInside(del)) {
-            isFree = false;
-        } else if (powerUp != null && Game.hitTest(del, powerUp)) {
-            isFree = false;
-        } else {
-            var i = hitList.length;
-            while(i--) {
-                if(Game.hitTest(del, hitList[i])) {
-                    return false;
-                }
+        while(i--) {
+            if(cls.hitTestPos(delList[i], _x, _y, halfGrid, halfGrid)) {
+                return false;
             }
         }
 
-        return isFree;
-    };
+        if (powerUp != null && Game.hitTestPos(powerUp, _x, _y, halfGrid, halfGrid)) {
+            return false;
+        }
 
+        return true;
+    };
 
     cls.placeRandomDisplayElement = function(del, rotate) {
         // plaziert element an zufaelliger stelle wenn da kein hit ist.
         var x, y;
 
         do {
-            x = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().width - gridSize-1);
-            y = getRandomValue(gridSize, KonfettiPolonaise.getPhaser().height - gridSize-1);
-            x -= x%gridSize;
-            y -= y%gridSize;
-            del.setX(x+gridSize/2);
-            del.setY(y+gridSize/2);
+            x = getRandomValue(1, (KonfettiPolonaise.getPhaser().width / gridSize) - 2);
+            y = getRandomValue(1, (KonfettiPolonaise.getPhaser().height / gridSize) - 2);
 
-        } while(Game.isFreePosition(del));
+            x = x * gridSize + gridSize / 2;
+            y = y * gridSize + gridSize / 2;
 
+        } while(Game.isFreePosition(x, y) == false);
+
+        del.setX(x);
+        del.setY(y);
 
         if(rotate === true) {
             del.setRotation(getRandomValue(1, 5) * 90);
         }
+    };
+
+    cls.addToDisplayList = function(del) {
+        addToList(delList, del);
     };
 
 
