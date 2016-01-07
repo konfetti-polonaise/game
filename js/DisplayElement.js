@@ -72,12 +72,7 @@ var DisplayElement = (function () {
         this.playAnimation = function(_name) {
             sprite.animations.play(_name);
         };
-        this.moveUp = function() {
-            sprite.moveUp();
-        };
-        this.moveDown = function() {
-            sprite.moveDown();
-        };
+
         var shake = function(rotation, callBack) {
             tween = KonfettiPolonaise.getPhaser().add.tween(sprite);
             tween.to(rotation, 300, Phaser.Easing.Linear.None);
@@ -97,6 +92,23 @@ var DisplayElement = (function () {
             tween.stop();
         };
 
+        this.moveUp = function() {
+            sprite.moveUp();
+        };
+
+        this.moveDown = function() {
+            sprite.moveDown();
+        };
+
+        // Ganz nach vorne
+        this.bringToTop = function() {
+            sprite.bringToTop();
+        };
+
+        // Ganz nach hinten
+        this.sendToBack = function() {
+            sprite.sendToBack();
+        };
 
         /** Entfernt den Sprite des DisplayElements. es wird also unsichbar.
          */

@@ -9,6 +9,9 @@ var JeTaime = (function () {
         this.constructor.super.call(this, _x, _y, spriteName, true);
         Game.addToHitList(this);
 
+        this.sendToBack();
+        this.moveUp();
+
         var veryEarly = false;  // Sonderfall: wenn this eingesammelt wurde bevor der startSound von Game zuende ist.
 
         var buffTimer;  // Wirkungszeit

@@ -130,5 +130,3 @@ Game.createSounds();
 // TODO: Musikschlampe Feuer unterm Arsch machen                        Laurin
 // TODO: Mute-Button in HTML erstellen                                  Hendrik
 // TODO: Spawn-Problem fixen                                            David, Laurin, Morice
-// TODO: Powerups movedown                                              Marius
-

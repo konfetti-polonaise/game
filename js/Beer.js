@@ -8,6 +8,9 @@ var Beer = (function () {
         this.constructor.super.call(this, _x, _y, spriteName, true);
         Game.addToHitList(this);
 
+        this.sendToBack();
+        this.moveUp();
+
         var buffTimer;  // Wirkungszeit
 
         // Wie lange das PowerUp auf dem Feld bleibt bevor es unaufgesammelt verschwindet
