@@ -16,6 +16,7 @@ var Game = (function () {
     var key2;
     var key3;
     var key4;
+    var key5;
     var keyW;
     var keyA;
     var keyS;
@@ -35,6 +36,8 @@ var Game = (function () {
         cls.loadSpritesheets(Chilli);
         cls.loadSpritesheets(Beer);
         KonfettiPolonaise.getPhaser().load.image('playground', 'assets/img/playground.png');
+        //TODO debug test, wird von laurin gelöscht
+        KonfettiPolonaise.getPhaser().load.script('filter', 'https://cdn.rawgit.com/photonstorm/phaser/master/filters/CheckerWave.js');
     };
 
     cls.prototype.create = function() {
@@ -65,6 +68,7 @@ var Game = (function () {
         key2 = KonfettiPolonaise.registerKey('TWO');
         key3 = KonfettiPolonaise.registerKey('THREE');
         key4 = KonfettiPolonaise.registerKey('FOUR');
+        key5 = KonfettiPolonaise.registerKey('FIVE');
         keyW = KonfettiPolonaise.registerKey('W');
         keyA = KonfettiPolonaise.registerKey('A');
         keyS = KonfettiPolonaise.registerKey('S');
@@ -202,6 +206,7 @@ var Game = (function () {
         } else if (cursor.down.isDown || keyS.isDown) {
             cursorDirection.setDown();
             return cursorDirection;
+
         }
 
         // DEBUG
@@ -218,6 +223,9 @@ var Game = (function () {
 
         } else if (key4.isDown) {
             KonfettiPolonaise.mute();
+        } else if (key5.isDown) {
+            filterManager.removeActiveFilters(wholeScreen);
+            filterManager.addHeartFilter(wholeScreen);
         }
         // DEBUG END
 

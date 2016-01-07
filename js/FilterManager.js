@@ -2,29 +2,31 @@
  * Created by Laurin on 28.11.2015.
  */
 var FilterManager = (function () {
-   // var spriteName = 'snake-head';
-
-
     // constructor
     var cls = function () {
-        // Call super constructor on this instance (any arguments
-        // to the constructor would go after "this" in call(?)).
-        //this.constructor.super.call(this, _x, _y, spriteName);
-
         var activeFilter = [];
 
         var fireFilter;
         var plasmaFilter;
-        var drunkFilter;
+        var heartFilter;
+      //  var drunkFilter;
+        var blurXFilter;
+        var testFilter;
 
-        //TODO methode create nutzen?
-        fireFilter =   KonfettiPolonaise.getPhaser().add.filter('Fire',  KonfettiPolonaise.getPhaser().width,  KonfettiPolonaise.getPhaser().height);
+        fireFilter = KonfettiPolonaise.getPhaser().add.filter('Fire',  KonfettiPolonaise.getPhaser().width,  KonfettiPolonaise.getPhaser().height);
         fireFilter.alpha = 0.0;
-        plasmaFilter = KonfettiPolonaise.getPhaser().add.filter('Plasma', KonfettiPolonaise.getPhaser.width, KonfettiPolonaise.getPhaser().height);
+        plasmaFilter = KonfettiPolonaise.getPhaser().add.filter('Plasma', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
         plasmaFilter.alpha = 0.0;
-        //drunkFilter = KonfettiPolonaise.getPhaser().add.filter('Drunk', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
-        //drunkFilter.alpha = 0.0;
+       // drunkFilter = KonfettiPolonaise.getPhaser().add.filter('Drunk', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
+       // drunkFilter.alpha = 0.0;
+       // blurXFilter = KonfettiPolonaise.getPhaser().add.filter('BlurX');
+        //blurXFilter.alpha = 0.0;
 
+       // heartFilter = KonfettiPolonaise.getPhaser().add.filter('Heart',  KonfettiPolonaise.getPhaser().width,  KonfettiPolonaise.getPhaser().height);
+       // heartFilter.alpha = 0.0;
+
+        testFilter = KonfettiPolonaise.getPhaser().add.filter('CheckerWave', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
+        testFilter.alpha = 0.2;
 
 
         /** PUBLIC
@@ -45,6 +47,17 @@ var FilterManager = (function () {
             Game.bringToTopWholeScreen();   // WICHTIG
             _sprite.filters = [plasmaFilter];
             activeFilter.push(plasmaFilter);
+        };
+
+        this.addBlurXFilter = function (_sprite) {
+            _sprite.filters = [blurXFilter];
+            activeFilter.push(blurXFilter);
+        };
+
+        //TODO evtl löschen
+        this.test = function (_sprite) {
+            _sprite.filters = [testFilter];
+            activeFilter.push(testFilter);
         };
 /*
         this.addDrunkFilter = function (_sprite) {
