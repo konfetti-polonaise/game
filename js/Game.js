@@ -89,6 +89,10 @@ var Game = (function () {
         filterManager.update();
     };
 
+    // Muss jedesmal ausgefuehrt werden wenn ein PowerUp aktiviert wird!
+    cls.bringToTopWholeScreen= function() {
+        wholeScreen.bringToTop();
+    };
 
     // Initialisiert alle Sounds von Game. muss von KonfettiPolonaise ausgefuehrt werden wegen gegenseitigen Ladeabheangigkeiten.
     cls.createSounds = function() {

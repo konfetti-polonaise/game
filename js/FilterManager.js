@@ -36,16 +36,19 @@ var FilterManager = (function () {
 
         //TODO alle funktionen erweitern -> filter für arrays von sprite möglich
         this.addFireFilter = function (_sprite) {
+            Game.bringToTopWholeScreen();   // WICHTIG
             _sprite.filters = [fireFilter];
             activeFilter.push(fireFilter);
         };
 
         this.addPlasmaFilter = function (_sprite) {
+            Game.bringToTopWholeScreen();   // WICHTIG
             _sprite.filters = [plasmaFilter];
             activeFilter.push(plasmaFilter);
         };
 /*
         this.addDrunkFilter = function (_sprite) {
+            Game.bringToTopWholeScreen();   // WICHTIG
             _sprite.filters = [drunkFilter];
             activeFilter.push(drunkFilter);
         };

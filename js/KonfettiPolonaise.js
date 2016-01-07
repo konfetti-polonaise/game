@@ -124,7 +124,6 @@ Game.createSounds();
 
 // TODO: city.png aufpimpen ( Strassenlampen, Sand, Wellblechdach)      Hendrik
 // TODO: DOKU                                                           Hendrik, Morice, Anja
-// TODO: Sollte der Z-Index der Filter nicht immer ganz oben sein?      ???
 // TODO: beer fitler programmieren                                      Laurin
 // TODO: rosa Filter programmieren                                      Laurin
 // TODO: Musikschlampe Feuer unterm Arsch machen                        Laurin
