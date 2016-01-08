@@ -76,30 +76,30 @@ var DisplayElement = (function () {
 
         var shake = function(rotation, callBack) {
             shakeTween = KonfettiPolonaise.getPhaser().add.tween(sprite);
-            shakeTween.to(rotation, 800, Phaser.Easing.Linear.None);
+            shakeTween.to(rotation, 500, Phaser.Easing.Linear.None, false, 200);
             shakeTween.onComplete.addOnce(callBack, this);
             shakeTween.start();
         };
         var zoom = function(scale, callBack) {
             scaleTween = KonfettiPolonaise.getPhaser().add.tween(sprite.scale);
-            scaleTween.to(scale, 1000, Phaser.Easing.Linear.None);
+            scaleTween.to(scale, 150, Phaser.Easing.Linear.None, false, 150);
             scaleTween.onComplete.addOnce(callBack, this);
             scaleTween.start()
         };
         var shakeLeft = function() {
-            shake({rotation: sprite.rotation - 0.4}, shakeRight);
+            shake({rotation: sprite.rotation - 0.2}, shakeRight);
         };
         var shakeRight = function() {
-            shake({rotation: sprite.rotation + 0.4}, shakeLeft);
+            shake({rotation: sprite.rotation + 0.2}, shakeLeft);
         };
         var zoomIn = function() {
-            zoom({x: 1.2, y: 1.2}, zoomOut);
+            zoom({x: 1.15, y: 1.15}, zoomOut);
         };
         var zoomOut = function() {
             zoom({x: 1.1, y: 1.1}, zoomIn);
         };
         this.startShaking = function() {
-            shake({rotation: sprite.rotation - 0.2}, shakeRight);
+            shake({rotation: sprite.rotation - 0.1}, shakeRight);
             zoomIn();
         };
         this.stopShaking = function() {
