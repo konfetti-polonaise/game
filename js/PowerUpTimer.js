@@ -3,7 +3,7 @@ var PowerUpTimer = (function () {
     // constructor
     var cls = function (_time) {
 
-        var time;
+        var time = 0;
 
         if(_time > 0) {time = _time;}
 
@@ -14,12 +14,6 @@ var PowerUpTimer = (function () {
         this.decrease = function() {
             time--;
         };
-
-
-        //DEBUG
-        this.getTime = function() {
-            return time;
-        }
 
     };
 

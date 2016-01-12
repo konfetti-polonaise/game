@@ -19,10 +19,9 @@ var Chilli = (function () {
         var onFieldTimer = new PowerUpTimer(1000);
 
         var speedBoost = 15;
-        var numberOfChillis = 1; // Die wie vielte Chilli in Folge THIS ist, ohne dass der Buff zwischendurch nachgelassen hat.
+        var numberOfChillis = 1; // Die wie vielte Chilli in Folge THIS ist, ohne dass der Buff unterbrochen wurde.
 
-        this.setHitboxHeight(20);
-        this.setHitboxWidth(20);
+        this.setHitbox(20,20);
 
         var snake = Game.getSnake();
         var filterManager = Game.getFilterManager();

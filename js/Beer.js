@@ -18,8 +18,7 @@ var Beer = (function () {
 
         var multiplierFactor = 2;
 
-        this.setHitboxHeight(20);
-        this.setHitboxWidth(20);
+        this.setHitbox(20,20);
 
         var snake = Game.getSnake();
         var filterManager = Game.getFilterManager();
