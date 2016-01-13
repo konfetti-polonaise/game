@@ -50,7 +50,7 @@ var Snake = (function () {
 
         this.setSpeed = function (_speed) {
             speed = _speed;
-            updateAnimationSpeed();
+            this.updateAnimationSpeed();
         };
 
 
@@ -58,13 +58,12 @@ var Snake = (function () {
          */
         this.increaseSpeed = function() {
             speed++;
-            if(speed % 3 == 0) {
-                animationSpeed++;
-                updateAnimationSpeed();
-            }
+            this.updateAnimationSpeed();
         };
 
-        var updateAnimationSpeed = function() {
+        this.updateAnimationSpeed = function() {
+            animationSpeed = speed/3 + 4;
+
             // Animationsgeschwindigkeit aktualisieren
             var i = followers.length;
             while(i--) {
@@ -136,6 +135,9 @@ var Snake = (function () {
 
             // Der Schlange hinzufügen
             followers.push(dancer);
+
+            // Animationsgeschwindigkeit anpassen
+            dancer.setAnimationSpeed(animationSpeed);
         };
 
         /** PUBLIC. Prüft, ob sich ein Element innerhalb der Schlange (Head + Follower) befindet.
