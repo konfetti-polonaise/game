@@ -25,8 +25,8 @@ var FilterManager = (function () {
        // heartFilter = KonfettiPolonaise.getPhaser().add.filter('Heart',  KonfettiPolonaise.getPhaser().width,  KonfettiPolonaise.getPhaser().height);
        // heartFilter.alpha = 0.0;
 
-        testFilter = KonfettiPolonaise.getPhaser().add.filter('CheckerWave', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
-        testFilter.alpha = 0.2;
+        //testFilter = KonfettiPolonaise.getPhaser().add.filter('CheckerWave', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
+        //testFilter.alpha = 0.2;
 
 
         /** PUBLIC

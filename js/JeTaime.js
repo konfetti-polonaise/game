@@ -24,8 +24,7 @@ var JeTaime = (function () {
 
         var multiplierDivident = 2;
 
-        this.setHitboxHeight(20);
-        this.setHitboxWidth(20);
+        this.setHitbox(20,20);
 
         var snake = Game.getSnake();
         var filterManager = Game.getFilterManager();
@@ -33,7 +32,7 @@ var JeTaime = (function () {
 
         this.action = function() {
 
-            buffTimer = new PowerUpTimer(1013);
+            buffTimer = new PowerUpTimer(1015);
 
             Game.removePowerUp();
 

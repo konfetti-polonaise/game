@@ -37,7 +37,7 @@ var Game = (function () {
         cls.loadSpritesheets(Beer);
         KonfettiPolonaise.getPhaser().load.image('playground', 'assets/img/playground.png');
         //TODO debug test, wird von laurin gelöscht
-        KonfettiPolonaise.getPhaser().load.script('filter', 'https://cdn.rawgit.com/photonstorm/phaser/master/filters/CheckerWave.js');
+        //KonfettiPolonaise.getPhaser().load.script('filter', '');
     };
 
     cls.prototype.create = function() {
@@ -78,7 +78,7 @@ var Game = (function () {
             Chilli,
             JeTaime,
             Beer
-        ];  // Welche PowerUps erscheinen koennen.;
+        ];  // Welche PowerUps erscheinen koennen.
 
         startSound.play();
     };
@@ -93,7 +93,7 @@ var Game = (function () {
         filterManager.update();
     };
 
-    // Muss jedesmal ausgefuehrt werden wenn ein PowerUp aktiviert wird!
+    // Muss jedesmal ausgefuehrt werden wenn ein DisplayElement erstellt wird!
     cls.bringToTopWholeScreen= function() {
         wholeScreen.bringToTop();
     };
@@ -368,7 +368,7 @@ var Game = (function () {
 
         if(powerUp == null) {
 
-            if( getRandomFloat(1,1701) > 1700 ) {  // Geringe Warscheinlichkeit
+            if( getRandomFloat(1,1601) > 1600 ) {  // Geringe Warscheinlichkeit
 
                 powerUp = new allPowerUps[getRandomValue(0, allPowerUps.length - 1)](0, 0);  // Ein zufaelliges PowerUp erstellen
 
