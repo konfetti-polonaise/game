@@ -36,13 +36,28 @@ var Game = (function () {
         cls.loadSpritesheets(Chilli);
         cls.loadSpritesheets(Beer);
         KonfettiPolonaise.getPhaser().load.image('playground', 'assets/img/playground.png');
+        KonfettiPolonaise.getPhaser().load.image('grid', 'assets/img/grid.png');
+
         //TODO debug test, wird von laurin gelöscht
         //KonfettiPolonaise.getPhaser().load.script('filter', '');
     };
 
     cls.prototype.create = function() {
 
+        // Hintergrundbild
         var playground = KonfettiPolonaise.getPhaser().add.image(0, 0, 'playground');
+
+        // Rasterlinien, die ausfaden
+        var gridLines = KonfettiPolonaise.getPhaser().add.image(0, 0, 'grid');
+        gridLines.alpha = 1;
+        KonfettiPolonaise.getPhaser().add.tween(gridLines).to(
+            {alpha: 0},
+            15000,
+            Phaser.Easing.Linear.None,
+            true
+        );
+
+
 
         Score.reset();
 
@@ -234,7 +249,7 @@ var Game = (function () {
 
 
     /** PRIVATE. Fuehrt eine komplette Schlangenbewegung durch.
-     * Checkt dannach ob es Collisionen oder Verschwindene Objekte gibt und behandelt diese.
+     * Testet dabei ob es Kollisionen gibt und behandelt diese.
      */
     var updateSnake = function() {
 
@@ -242,7 +257,6 @@ var Game = (function () {
         while(i--) {
             snake.step();
             snake.addNextDirection(checkInput());
-
             testCollisions();
         }
     };

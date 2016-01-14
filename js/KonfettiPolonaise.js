@@ -61,11 +61,10 @@ var KonfettiPolonaise = (function () {
     /** Macht alle Sounds des Spiels lautlos.
      */
     cls.mute = function() {
-        var i = allSounds.length;
-
         if (isMuted == false) {
             isMuted = true;
 
+            var i = allSounds.length;
             while(i--) {
                 allSounds[i].muted = true;
             }
@@ -73,6 +72,7 @@ var KonfettiPolonaise = (function () {
         else{
             isMuted = false;
 
+            var i = allSounds.length;
             while(i--) {
                 allSounds[i].muted = false;
             }
