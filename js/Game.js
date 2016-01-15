@@ -19,10 +19,7 @@ var Game = (function () {
     var key3;
     var key4;
     var key5;
-    var keyW;
-    var keyA;
-    var keyS;
-    var keyD;
+    var wasd;
 
     var backgroundSound;
     var startSound;
@@ -86,10 +83,12 @@ var Game = (function () {
         key3 = KonfettiPolonaise.registerKey('THREE');
         key4 = KonfettiPolonaise.registerKey('FOUR');
         key5 = KonfettiPolonaise.registerKey('FIVE');
-        keyW = KonfettiPolonaise.registerKey('W');
-        keyA = KonfettiPolonaise.registerKey('A');
-        keyS = KonfettiPolonaise.registerKey('S');
-        keyD = KonfettiPolonaise.registerKey('D');
+        wasd = {
+            up: KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.W),
+            down: KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.S),
+            left: KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.A),
+            right: KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.D)
+        };
 
         allPowerUps = [
             Chilli,
@@ -211,19 +210,19 @@ var Game = (function () {
     var checkInput = function () {
         var cursorDirection = new Direction();
 
-        if (cursor.right.isDown || keyD.isDown) {
+        if (cursor.right.isDown || wasd.right.isDown) {
             cursorDirection.setRight();
             return cursorDirection;
 
-        } else if (cursor.left.isDown || keyA.isDown) {
+        } else if (cursor.left.isDown || wasd.left.isDown) {
             cursorDirection.setLeft();
             return cursorDirection;
 
-        } else if (cursor.up.isDown || keyW.isDown) {
+        } else if (cursor.up.isDown || wasd.up.isDown) {
             cursorDirection.setUp();
             return cursorDirection;
 
-        } else if (cursor.down.isDown || keyS.isDown) {
+        } else if (cursor.down.isDown || wasd.down.isDown) {
             cursorDirection.setDown();
             return cursorDirection;
 
