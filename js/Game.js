@@ -451,7 +451,6 @@ var Game = (function () {
         addToList(delList, del);
     };
 
-
     return cls;
 })();
 
