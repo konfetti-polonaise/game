@@ -1,7 +1,5 @@
 var KonfettiPolonaise = (function () {
 
-    var score; // Punktestand
-
     // private static
     var phaser = new Phaser.Game(
         800,
@@ -10,9 +8,15 @@ var KonfettiPolonaise = (function () {
         'game'
     );
 
+    var allSounds = [];
+
+    var isMuted = false;
+
+    // Gamestates hinzuf√ºgen
     phaser.state.add('Menu', Menu);
     phaser.state.add('Game', Game);
     phaser.state.add('GameOver', GameOver);
+
     // constructor
     var cls = function () {
 
@@ -34,6 +38,10 @@ var KonfettiPolonaise = (function () {
         startState('GameOver');
     };
 
+    cls.displayMenu = function() {
+        startState('Menu');
+    };
+
 
     /** Meldet in Phaser einen neuen Key an und gibt diesen zurueck.
      */
@@ -41,24 +49,38 @@ var KonfettiPolonaise = (function () {
         return phaser.input.keyboard.addKey(Phaser.Keyboard[phaserKeyName]);
     };
 
+    /** Ueber diese Funktion muessen alle Sounds erstellt werden, damit sie durch den muteButton lautlos werden koennen.
+     */
+    cls.createSound = function(src) {
 
-    cls.displayScore = function(_score) {
-        document.getElementById("score").innerHTML = _score;
+        var newSound = new Audio(src);
+        addToList(allSounds, newSound);
+        return newSound;
+    };
+
+    /** Macht alle Sounds des Spiels lautlos.
+     */
+    cls.mute = function() {
+        if (isMuted == false) {
+            isMuted = true;
+
+            var i = allSounds.length;
+            while(i--) {
+                allSounds[i].muted = true;
+            }
+        }
+        else{
+            isMuted = false;
+
+            var i = allSounds.length;
+            while(i--) {
+                allSounds[i].muted = false;
+            }
+        }
     };
 
 
-    cls.setScore = function(_score) {
-        score = _score;
-        KonfettiPolonaise.displayScore(_score);
-    };
-
-
-    cls.addScore = function(_add) {
-        KonfettiPolonaise.setScore(score + _add);
-    };
-
-
-    cls.startGame();
+    cls.displayMenu();
 
     return cls;
 })();
@@ -87,10 +109,22 @@ function removeFromList(list, element) {
     }
 }
 
-/** Rundet eine Flieﬂkommazahl mathematisch auf X Dezimalstellen nach dem Komma ab.
+/** Rundet eine Fliesskommazahl mathematisch auf X Dezimalstellen nach dem Komma ab.
  */
 function roundXdecimal(floatnumber, decimals) {
     var temp = Math.pow(10, decimals);
     return (Math.round(floatnumber * temp) / temp);
 }
 
+// Wichtig wegen gegenseitigen Ladeabheangigkeiten mit Game.
+Game.createSounds();
+
+
+
+
+// TODO: city.png aufpimpen ( Strassenlampen, Sand, Wellblechdach)      Hendrik
+// TODO: DOKU                                                           Hendrik, Morice, Anja
+// TODO: beer fitler programmieren                                      Laurin
+// TODO: rosa Filter programmieren                                      Laurin
+// TODO: Musikschlampe Feuer unterm Arsch machen                        Laurin
+// TODO: Mute-Button in HTML erstellen                                  Hendrik

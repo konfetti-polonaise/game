@@ -20,27 +20,37 @@
     <script type="text/javascript" src="js/JeTaime.js"></script>
     <script type="text/javascript" src="js/Chilli.js"></script>
     <script type="text/javascript" src="js/Beer.js"></script>
-    <script type="text/javascript" src="js/Wall.js"></script>
     <script type="text/javascript" src="js/FireFilter.js"></script>
-    <script type="text/javascript" src="js/PlasmaFilter.js"></script>
-    <script type="text/javascript" src="js/DrunkFilter.js"></script>
+    <script type="text/javascript" src="js/HeartFilter.js"></script>
+    <script type="text/javascript" src="js/DrunkFilterX.js"></script>
     <script type="text/javascript" src="js/FilterManager.js"></script>
 </head>
 <body>
-    <div id="game">
-        <div id="highscore">
-            <h1>Punkte</h1>
-            <p id="score">0</p>
-            <h1>Multiplikator</h1>
-            <p id="multiplier">1</p>
-        </div>
+<div id="game">
+
+    <div id="highscore">
+        <h1>Points</h1>
+        <p id="score">0</p>
+        <span id="multiplierFull">
+            <h1>Multiplicator</h1>
+            <p id="multiplier">1x</p>
+        </span>
     </div>
-    <pre id="infront"></pre>
-    <pre id="dancer"></pre>
-    <script type="text/javascript">
-        window.onload = function() {
-            var game = new KonfettiPolonaise();
-        };
-    </script>
+
+    <div id="menu">
+        <a id="start" href="">Start Game</a>
+    </div>
+
+    <div id="gameover" class="hide">
+        <p>Your Score: <span id="final-score"></span></p>
+        <a id="restart" href="">Restart Game</a>
+    </div>
+
+</div>
+<script type="text/javascript">
+    window.onload = function() {
+        var game = new KonfettiPolonaise();
+    };
+</script>
 </body>
 </html>

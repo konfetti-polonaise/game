@@ -4,6 +4,8 @@ var DisplayElement = (function () {
     var cls = function (_x, _y, _sprite, fadeIn) {
         // private
         var sprite;
+        var shakeTween;
+        var scaleTween;
 
         if(_sprite instanceof Object) {
             sprite = _sprite;
@@ -20,7 +22,7 @@ var DisplayElement = (function () {
             sprite.alpha = 0;
             KonfettiPolonaise.getPhaser().add.tween(sprite).to(
                 {alpha: 1},
-                1000,
+                500,
                 Phaser.Easing.Linear.None,
                 true
             );
@@ -49,12 +51,6 @@ var DisplayElement = (function () {
         this.setY = function (_y) {
             sprite.y = _y;
         };
-        this.increaseX = function (_x) {
-            sprite.x += _x;
-        };
-        this.increaseY = function (_y) {
-            sprite.y += _y;
-        };
         this.setRotation = function (_rotation) {
             sprite.angle = _rotation;
         };
@@ -78,12 +74,73 @@ var DisplayElement = (function () {
             sprite.animations.play(_name);
         };
 
+        var shake = function(rotation, callBack) {
+            shakeTween = KonfettiPolonaise.getPhaser().add.tween(sprite);
+            shakeTween.to(rotation, 500, Phaser.Easing.Linear.None, false, 200);
+            shakeTween.onComplete.addOnce(callBack, this);
+            shakeTween.start();
+        };
+        var zoom = function(scale, callBack) {
+            scaleTween = KonfettiPolonaise.getPhaser().add.tween(sprite.scale);
+            scaleTween.to(scale, 150, Phaser.Easing.Linear.None, false, 150);
+            scaleTween.onComplete.addOnce(callBack, this);
+            scaleTween.start()
+        };
+        var shakeLeft = function() {
+            shake({rotation: sprite.rotation - 0.2}, shakeRight);
+        };
+        var shakeRight = function() {
+            shake({rotation: sprite.rotation + 0.2}, shakeLeft);
+        };
+        var zoomIn = function() {
+            zoom({x: 1.15, y: 1.15}, zoomOut);
+        };
+        var zoomOut = function() {
+            zoom({x: 1.1, y: 1.1}, zoomIn);
+        };
+        this.startShaking = function() {
+            shake({rotation: sprite.rotation - 0.1}, shakeRight);
+            zoomIn();
+        };
+        this.stopShaking = function() {
+            scaleTween.stop();
+            sprite.scale.setTo(1, 1);
+            shakeTween.stop();
+        };
+
+        this.moveUp = function() {
+            sprite.moveUp();
+        };
+
+        this.moveDown = function() {
+            sprite.moveDown();
+        };
+
+        // Ganz nach vorne
+        this.bringToTop = function() {
+            sprite.bringToTop();
+        };
+
+        // Ganz nach hinten
+        this.sendToBack = function() {
+            sprite.sendToBack();
+        };
+
         /** Entfernt den Sprite des DisplayElements. es wird also unsichbar.
          */
         this.destroySprite = function() {
             sprite.destroy();
-        }
+        };
 
+        this.getSprite = function() {
+            return sprite;
+        };
+
+
+
+
+        Game.addToDisplayList(this);
+        Game.bringToTopWholeScreen();
     };
 
     // public (shared across instances)

@@ -18,6 +18,10 @@ var Score = (function () {
         displayScore();
     };
 
+    cls.getScore = function() {
+        return score;
+    };
+
     var displayScore = function() {
         document.getElementById("score").innerHTML = score;
     };
@@ -42,9 +46,15 @@ var Score = (function () {
     };
 
 
+    cls.resetMultiplierColor = function() {
+        document.getElementById("multiplierFull").className = "";
+    };
+
+
     cls.reset = function() {
         Score.resetScore();
         Score.resetMultiplier();
+        Score.resetMultiplierColor();
     };
 
     return cls;

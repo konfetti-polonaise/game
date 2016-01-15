@@ -4,7 +4,7 @@ var Direction = (function () {
 
     /** Konstruktor: Initialisiert wenn _x und _y angegeben sind die Richtung manuell.
      * So kann auch eine Direction erzeugt werden,
-     * die eine distance unabhängig vom Standardwert hat. Dies ist allerdings sehr fehleranfällig!
+     * die eine distance unabhï¿½ngig vom Standardwert hat. Dies ist allerdings sehr fehleranfï¿½llig!
      * @param _x xDistanz
      * @param _y yDistanz
      */
@@ -61,6 +61,8 @@ var Direction = (function () {
                 return 270;
             }
         };
+
+
         this.equals = function(_direction) {
 
             //console.log(xDistance == _direction.getXDistance()
@@ -68,6 +70,38 @@ var Direction = (function () {
 
             return xDistance == _direction.getXDistance()
                 && yDistance == _direction.getYDistance();
+        };
+
+        this.isOpposite = function(_direction) {
+
+            var opposite = false;
+
+            if(_direction.isRight() && this.isLeft()) {
+                opposite = true;
+            }
+            else if(_direction.isLeft() && this.isRight()) {
+                opposite = true;
+            }
+            else if(_direction.isDown() && this.isUp()) {
+                opposite = true;
+            }
+            else if(_direction.isUp() && this.isDown()) {
+                opposite = true;
+            }
+
+            return opposite;
+        };
+
+        this.inverse = function() {
+            if(this.isLeft()) {
+                this.setRight();
+            } else if(this.isRight()) {
+                this.setLeft();
+            } else if(this.isUp()) {
+                this.setDown();
+            } else if(this.isDown()) {
+                this.setUp();
+            }
         };
 
         // Wenn Richtung nicht schon gesetzt wurde

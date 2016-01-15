@@ -15,33 +15,16 @@ var Head = (function () {
         this.setRotation(direction.getRotation());
 
         this.changeDirection = function(_direction) {
-            var changed = false;
 
-            if(_direction.isRight() && !direction.isLeft()) {
-                direction.setRight();
-                changed = true;
-            }
-            else if(_direction.isLeft() && !direction.isRight()) {
-                direction.setLeft();
-                changed = true;
-            }
-            else if(_direction.isDown() && !direction.isUp()) {
-                direction.setDown();
-                changed = true;
-            }
-            else if(_direction.isUp() && !direction.isDown()) {
-                direction.setUp();
-                changed = true;
-            }
-
-            if(changed) {
+            if(direction.equals(_direction) === false) {
+                direction = _direction;
                 this.setRotation(direction.getRotation());
             }
         };
 
         this.getDirection = function() {
             return direction;
-        }
+        };
     };
 
     cls.getSpritesheets = function() {

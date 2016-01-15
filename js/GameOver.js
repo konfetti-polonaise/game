@@ -1,4 +1,5 @@
 var GameOver = (function () {
+    var spacebar;
 
     // constructor
     var cls = function () {
@@ -9,17 +10,27 @@ var GameOver = (function () {
     };
 
     cls.prototype.create = function () {
-        var gameover = KonfettiPolonaise.getPhaser().add.text(400, 200, 'GAME OVER', { font: 'bold 50px Courier, monospace', fill: '#fff'});
-        gameover.anchor.set(0.5);
+        // HTML anpassung
+        document.getElementById("gameover").className = "display";
+        document.getElementById("final-score").innerHTML = Score.getScore();
+        document.getElementById("restart").onclick = function() {
+            GameOver.restartGame();
+            return false;
+        };
 
-        var text = KonfettiPolonaise.getPhaser().add.text(400, 300, 'RESTART', { font: 'bold 40px Courier, monospace', fill: '#fff'});
-        text.anchor.set(0.5);
-        text.inputEnabled = true;
+        spacebar = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    };
 
-        text.events.onInputDown.add(cls.restartGame, this);
+    cls.prototype.update = function () {
+        if (spacebar.isDown) {
+            GameOver.restartGame();
+        }
     };
 
     cls.restartGame = function() {
+        // HTML anpassung
+        document.getElementById("gameover").className = "hide";
+
         KonfettiPolonaise.startGame();
     };
 

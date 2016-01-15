@@ -9,7 +9,7 @@ body{
          url('../assets/font/pixel-webfont.woff2') format('woff2'),
          url('../assets/font/pixel-webfont.woff') format('woff'),
          url('../assets/font/pixel-webfont.ttf') format('truetype'),
-         url('../assets/font/pixel-webfont.svg#04b25regular') format('svg');
+         url('../assets/font/pixel-webfont.svg#pixel') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -29,7 +29,7 @@ body{
     position: absolute;
     top: 0;
     right: 0;
-    background:url("../assets/img/highscore.jpg") no-repeat 0 0;
+    background:url("../assets/img/highscore.png") no-repeat 0 0;
     z-index: 2;
 }
 
@@ -38,7 +38,7 @@ body{
         width: 168px;
         margin-bottom: -30px;
         text-align: center;
-        font-family: pixel;
+        font-family: pixel, "Courier New", Courier, monospace;
     }
 
     #highscore h1{
@@ -51,10 +51,116 @@ body{
         font-size: 2em;
     }
 
+
+
+    #menu {
+        background: url('../assets/img/startscreen.png') no-repeat;
+        height: 583px;
+        width: 1099px;
+
+        position: absolute;
+        left: -38px;
+        top: -69px;
+    }
+
+    #menu a {
+        display: block;
+        background: url('../assets/img/startgame.png') no-repeat;
+        height: 83px;
+        width: 383px;
+
+        position: relative;
+        top: 360px;
+        left: 80px;
+
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    #menu a:hover {
+        background-position: center -83px;
+    }
+
+
+    #gameover {
+        background: url('../assets/img/hangover.png') no-repeat;
+        height: 516px;
+        width: 1080px;
+
+        position: absolute;
+        left: -38px;
+        top: 0px;
+    }
+
+    #gameover a {
+        display: block;
+        background: url('../assets/img/restart.png') no-repeat;
+        height: 83px;
+        width: 313px;
+
+        position: absolute;
+        top: 230px;
+        left: 562px;
+
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    #gameover a:hover {
+        background-position: center -83px;
+    }
+    #gameover p {
+        position: absolute;
+        top: 156px;
+        left: 430px;
+        width: 580px;
+
+        color: #fff;
+        font-family: pixel, "Courier New", Courier, monospace;
+        font-size: 2em;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+
+.display{
+    visibility: visible;
+    z-index: 40;
+}
+
+.hide {
+    visibility: hidden;
+    z-index: 1;
+}
+
+.chilliRed{
+    color: #940000;
+}
+.beerGreen{
+    color: #022C03;
+}
+.jeTaimePink{
+    color: #BF358C;
+}
+
+
 canvas{
     position: absolute;
-    /*margin: -256px 0 0 -400px;*/
     top: 0;
     left: 0;
     z-index: 10;
+}
+
+/* MediaQuerys */
+
+@media screen and (max-width: 1220px) {
+
+    body{
+        background-position: calc(50% - 100px) center;
+    }
+
+    #game{
+        margin-left: -500px;
+    }
+
 }

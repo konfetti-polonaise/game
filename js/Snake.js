@@ -3,24 +3,46 @@ var Snake = (function () {
     // constructor
     var cls = function () {
         var speed = 7;      // Initialgeschwindigkeit
-        var buff = null;    // Powerupeffekt
-        var head = new Head(16 + 32, 16 + 32);  // Startposition. TODO: Zufällig platzieren ???
-        var passingList = [];   //Dancer die nach hinten durchgereicht werden.
+        var animationSpeed = speed;
+        var buff = null;    // Powerup-Effekt
+        var head = new Head(16 + 32, 16 + 224);  // Startposition.
+        var passingList = [];   //Dancer die nach hinten durchgereicht werden bis sie das Ende der Schlange erreichen.
+
 
         // Richtung in die sich die Richtung des Heads ändern wird, sobald Schlange im Grid ist.
-        var nextDirection;
+        var nextDirections = [];
 
         var followers = [];
 
-        this.getNextDirection = function() {
-            return nextDirection;
-        };
 
-        this.setNextDirection = function(_nextDirection) {
-            if( _nextDirection instanceof Direction) {      // Wenn gültige Richtung.
-                nextDirection = _nextDirection;
+        // Fuellt den Richtungsbuffer mit neuen Eingaben. Maximalgroesse des Buffers ist 2.
+        this.addNextDirection = function(_nextDirection) {
+
+            // Wenn Eingabe gültige Richtung ist & Buffer nicht schon zu voll ist.
+            if(_nextDirection instanceof Direction && nextDirections.length < 2) {
+
+                // Sonderfall: Wenn An erster Stelle im Buffer bereits eine Direction ist,
+                // pruefen ob Eingabe nicht identisch ist mit erster Stelle oder gegenueber.
+                var first = nextDirections[0];
+
+                if(first instanceof Direction) {
+
+                    if( first.equals(_nextDirection) === false && first.isOpposite(_nextDirection) === false) {
+                        addToList(nextDirections, _nextDirection);
+                    }
+                }
+
+                // Sonderfall: Wenn der Buffer leer ist,
+                // pruefen ob Eingabe nicht identisch ist oder genau gegenueber von aktueller Laufrichtung der Schlange.
+                else{
+                    if(_nextDirection.equals(head.getDirection()) === false
+                        && _nextDirection.isOpposite(head.getDirection()) === false) {
+                        addToList(nextDirections, _nextDirection);
+                    }
+                }
             }
         };
+
 
         this.getSpeed = function () {
             return speed;
@@ -28,6 +50,7 @@ var Snake = (function () {
 
         this.setSpeed = function (_speed) {
             speed = _speed;
+            updateAnimationSpeed();
         };
 
 
@@ -35,11 +58,16 @@ var Snake = (function () {
          */
         this.increaseSpeed = function() {
             speed++;
+            updateAnimationSpeed();
+        };
 
-            // Animationsgeschwindigkeit erhöhen
+        var updateAnimationSpeed = function() {
+            animationSpeed = speed/3 + 4;
+
+            // Animationsgeschwindigkeit aktualisieren
             var i = followers.length;
             while(i--) {
-                followers[i].setAnimationSpeed(speed);
+                followers[i].setAnimationSpeed(animationSpeed);
             }
         };
 
@@ -93,44 +121,27 @@ var Snake = (function () {
                 infront = followers[followers.length - 1];
             }
 
-            // Distanz zwischen beiden Objekten
-            var dx = roundXdecimal(infront.getX(), 2) - roundXdecimal(dancer.getX(), 2); // deltaX
-            var dy = roundXdecimal(infront.getY(), 2) - roundXdecimal(dancer.getY(), 2); // deltaY
+            // Schütteln stoppen
+            dancer.stopShaking();
 
-            // Neuen Tänzer zum Vorgänger drehen
-            var direction = new Direction();
-            if(Math.abs(dx) > Math.abs(dy)) {
-                dancer.setX(infront.getX() - dx);
-
-                if(dx > 0) {
-                    direction.setRight();
-                } else {
-                    direction.setLeft();
-                }
-            } else {
-                dancer.setY(infront.getY() - dy);
-
-                if(dy < 0) {
-                    direction.setUp();
-                } else {
-                    direction.setDown();
-                }
-            }
-            dancer.setDirection(direction);
+            // Zum Vorgänger drehen
+            dancer.turnTowards(infront);
 
             // Laufanimation abspielen
             dancer.playAnimation('walk');
 
+            // Z-Index des Kopfs erhöhen
+            head.moveUp();
+
             // Der Schlange hinzufügen
             followers.push(dancer);
+
+            // Animationsgeschwindigkeit anpassen
+            dancer.setAnimationSpeed(animationSpeed);
         };
 
-        /** PUBLIC. Prüft, ob sich ein Element innerhalb der Schlange (Head + Follower) befindet.
-         */
-        this.isInside = function(obj) {
-            return isInside(obj);
-        };
-        // Workaround: Public Methoden innerhalb cls
+
+        // Prüft, ob sich ein Element innerhalb der Schlange (Head + Follower) befindet.
         var isInside = function(obj) {
             var i = followers.length;
 
@@ -198,10 +209,14 @@ var Snake = (function () {
          * @param _direction Richtung in die geändert werden soll
          */
         var changeHeadDirection = function(_direction) {
+            var changed = false;
 
             if(_direction instanceof Direction) {
                 head.changeDirection(_direction);
+                changed = true;
             }
+
+            return changed;
         };
 
 
@@ -235,7 +250,28 @@ var Snake = (function () {
             if(isSnakeInGrid()) {
 
                 changeFollowersDirection(); // Follower drehen sich
-                changeHeadDirection(nextDirection); // Head dreht sich gegebenenfalls
+
+                var next = nextDirections[0];
+
+                // Wenn Kopf sich gedreht hat
+                if(changeHeadDirection(next)) {
+
+                    // Hochgehobene Tänzer bei Bewegung drehen
+                    for(var i = 0; i < passingList.length; i++) {
+                        if(Game.hitTest(head, passingList[i])) {
+                            var direction = head.getDirection();
+                            direction = new Direction(direction.getXDistance(), direction.getYDistance());
+                            direction.inverse(); // Sprite ist "falsch"rum
+
+                            var dancer = passingList[i];
+                            dancer.stopShaking();
+                            dancer.setDirection(direction);
+                            dancer.startShaking();
+                        }
+                    }
+                }
+
+                removeFromList(nextDirections, next);
 
                 testPassings(); // Follower anhängen
             }

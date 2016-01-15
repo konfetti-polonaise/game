@@ -2,14 +2,16 @@ var Chilli = (function () {
 
     var spriteName = 'chilli';
 
+    var actionSound = KonfettiPolonaise.createSound('assets/sound/bottlePop.mp3');  //TODO: Stichflammen-Geraeusch     Laurin
+
+    var soundSpeeds = [1.15, 1.45, 1.7];
+
     var cls = function (_x, _y) {
         this.constructor.super.call(this, _x, _y, spriteName, true);
         Game.addToHitList(this);
 
-        /*DEBUG
-         var nr = Chilli.getInstanceNr();
-         console.log("Create ChilliNr:" + nr);
-         */
+        this.sendToBack();
+        this.moveUp();
 
         var buffTimer;  // Wirkungszeit
 
@@ -17,10 +19,9 @@ var Chilli = (function () {
         var onFieldTimer = new PowerUpTimer(1000);
 
         var speedBoost = 15;
-        var numberOfChillis = 1; // Die wie vielte Chilli in Folge THIS ist, ohne dass der Buff zwischendurch nachgelassen hat.
+        var numberOfChillis = 1; // Die wie vielte Chilli in Folge THIS ist, ohne dass der Buff unterbrochen wurde.
 
-        this.setHitboxHeight(20);
-        this.setHitboxWidth(20);
+        this.setHitbox(20,20);
 
         var snake = Game.getSnake();
         var filterManager = Game.getFilterManager();
@@ -28,23 +29,11 @@ var Chilli = (function () {
 
         this.action = function() {
 
-            //DEBUG
-            //console.log("action() ChilliNr:" + nr);
-
-            buffTimer = new PowerUpTimer(1000); // TODO: Muss noch genau auf 10s gemacht werden
+            buffTimer = new PowerUpTimer(1000);
 
             Game.removePowerUp();
 
             var oldBuff = snake.getBuff();
-
-            /*DEBUG
-             if (null != oldBuff) {
-             console.log("oldBuff ChilliNr:" + nr + " = ChilliNr " + oldBuff.getNr());
-             }
-             else{
-             console.log("oldBuff ChilliNr:" + nr + " = ChilliNr NICHTS");
-             }
-             */
 
             if(null != oldBuff) {   // wenn es noch einen aktiven buff gibt
 
@@ -69,9 +58,6 @@ var Chilli = (function () {
         /** Macht alle auswirkungen dieses Powerups wieder rueckgaengig.
          */
         this.undo = function() {
-
-            //DEBUG
-            //console.log("Undo() ChilliNr:" + nr);
 
             snake.removeBuff();
 
@@ -98,19 +84,24 @@ var Chilli = (function () {
         };
 
         var startSound = function() {
-            //  Einsammel-Soundeffekt abspielen, und eventuell Musik verändern
+            actionSound.play();
+            Game.setBackgrundSoundSpeed( soundSpeeds[numberOfChillis-1] );
         };
 
         var stopSound = function() {
-            // eventuell veraenderte Musik wieder auf normal setzen.
+            Chilli.resetSound();
         };
 
         var startFilter = function() {
             filterManager.addFireFilter(wholeScreen);
+
+            document.getElementById("multiplierFull").className = "chilliRed";
         };
 
         var stopFilter = function() {
             filterManager.removeActiveFilters(wholeScreen);
+
+            Score.resetMultiplierColor();
         };
 
         var startBuff = function() {
@@ -127,26 +118,19 @@ var Chilli = (function () {
             return numberOfChillis;
         };
 
-        /*DEBUG
-        this.getNr = function() {
-            return nr;
-        }
-        */
-
     };
 
-    /* DEBUG
-     var instanceNr = 0;
-     cls.getInstanceNr = function() {
-     instanceNr++;
-     return instanceNr;
-     };
-     */
 
     cls.getSpritesheets = function() {
         return [
             spriteName
         ];
+    };
+
+    cls.resetSound = function() {
+        actionSound.pause();
+        actionSound.load();
+        Game.setBackgrundSoundSpeed(1);
     };
 
     inherit(cls, DisplayElement); // <-- important!
