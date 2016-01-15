@@ -1,53 +1,123 @@
 /**
- * Created by Laurin on 04.01.2016.
+ * Created by Laurin on 15.01.2016.
  */
 
 Phaser.Filter.HeartFilter = function (game) {
 
     Phaser.Filter.call(this, game);
 
+    this.uniforms.alpha = { type: '1f', value: 1.0 };
+    this.uniforms.size = { type: '1f', value: 0.03 };
+    this.uniforms.redShift = { type: '1f', value: 0.5 };
+    this.uniforms.greenShift = { type: '1f', value: 0.5 };
+    this.uniforms.blueShift = { type: '1f', value: 0.9 };
+
     this.fragmentSrc = [
+
         "precision mediump float;",
-
         "uniform float     time;",
-        "uniform vec2      resolution;",
-        "uniform vec2      mouse;",
+        "uniform float     alpha;",
+        "uniform float     size;",
+        "uniform float     redShift;",
+        "uniform float     greenShift;",
+        "uniform float     blueShift;",
 
-        "//MrOMGWTF",
+        "const float PI = 3.14159265;",
 
-        "float line(vec2 a, float rot, float height, float width, vec2 p)",
-        "{",
-        "p = vec2(p.x * cos(rot) + p.y * -sin(rot), p.x * sin(rot) + p.y * cos(rot));",
-        "vec2 pos = p-a;",
-        "float radius = width * 0.5 * (2.5+sin(atan(pos.y, pos.x)*5.0));",
-        "float v = max(0.0, min(1.0, (radius-length(p-a))*40.0));",
-        "return v;",
-        "}",
+        "float ptime = time * 0.03;",
 
-        "void main( void )",
-        "{",
-        "vec2 position = ( gl_FragCoord.xy / resolution.xy * 2.0 - 1.0 );",
-        "position.x *= resolution.x / resolution.y;",
-        "position*=3.0;",
-        "vec2 origin = vec2(mouse)*2.0 - 1.0;",
-        "origin *= 5.0;",
-        "float rot = 0.0;",
-        "float height = 0.5;",
-        "float width = 0.1;",
-        "vec3 color = vec3(0.0, 0.0, 0.0);",
-        "for(float i = 0.; i < 80.; i++)",
-        "{",
-        "float lit = line(origin, rot, height, width, position * (7.0/(1.0+i*.12)))*(.95-i*.004)*1.5;",
-        "float ang = i/50.0*3.14+time;",
-        "color.r += max(0.0, sin(ang)+0.5)*lit;",
-        "color.g += max(0.0, sin(ang+2.09)+0.5)*lit;",
-        "color.b += max(0.0, sin(ang-2.09)+0.5)*lit;",
-        "width += 0.01;",
-        "height += 0.05;",
-        "rot += time*0.1;",
-        "}",
-        "color*=0.3;",
-        "gl_FragColor = vec4( color , 1.0 );",
+        "void main(void) {",
+
+        "float color1, color2, color;",
+
+        "color1 = (sin(dot(gl_FragCoord.xy, vec2(sin(ptime * 3.0), cos(ptime * 3.0))) * 0.02 + ptime * 3.0) + 1.0) / 2.0;",
+        "vec2 center = vec2(640.0 / 2.0, 360.0 / 2.0) + vec2(640.0 / 2.0 * sin(-ptime * 3.0), 360.0 / 2.0 * cos(-ptime * 3.0));",
+        "color2 = (cos(length(gl_FragCoord.xy - center) * size) + 1.0) / 2.0;",
+        "color = (color1 + color2) / 2.0;",
+
+        "float red = (cos(PI * color / redShift + ptime * 3.0) + 1.0) / 2.0;",
+        "float green = (sin(PI * color / greenShift + ptime * 3.0) + 1.0) / 2.0;",
+        "float blue = (sin(PI * color / blueShift + ptime * 3.0) + 1.0) / 2.0;",
+
+        "gl_FragColor = vec4(0.8, 0.1, blue, alpha);",
         "}"
     ];
-}
+
+};
+
+Phaser.Filter.HeartFilter.prototype = Object.create(Phaser.Filter.prototype);
+Phaser.Filter.HeartFilter.prototype.constructor = Phaser.Filter.HeartFilter;
+
+Phaser.Filter.HeartFilter.prototype.init = function (width, height, alpha, size) {
+
+    this.setResolution(width, height);
+
+    if (typeof alpha !== 'undefined') {
+        this.uniforms.alpha.value = alpha;
+    }
+
+    if (typeof size !== 'undefined') {
+        this.uniforms.size.value = size;
+    }
+
+};
+
+Object.defineProperty(Phaser.Filter.HeartFilter.prototype, 'alpha', {
+
+    get: function() {
+        return this.uniforms.alpha.value;
+    },
+
+    set: function(value) {
+        this.uniforms.alpha.value = value;
+    }
+
+});
+
+Object.defineProperty(Phaser.Filter.HeartFilter.prototype, 'size', {
+
+    get: function() {
+        return this.uniforms.size.value;
+    },
+
+    set: function(value) {
+        this.uniforms.size.value = value;
+    }
+
+});
+
+Object.defineProperty(Phaser.Filter.HeartFilter.prototype, 'redShift', {
+
+    get: function() {
+        return this.uniforms.redShift.value;
+    },
+
+    set: function(value) {
+        this.uniforms.redShift.value = value;
+    }
+
+});
+
+Object.defineProperty(Phaser.Filter.HeartFilter.prototype, 'greenShift', {
+
+    get: function() {
+        return this.uniforms.greenShift.value;
+    },
+
+    set: function(value) {
+        this.uniforms.greenShift.value = value;
+    }
+
+});
+
+Object.defineProperty(Phaser.Filter.HeartFilter.prototype, 'blueShift', {
+
+    get: function() {
+        return this.uniforms.blueShift.value;
+    },
+
+    set: function(value) {
+        this.uniforms.blueShift.value = value;
+    }
+
+});

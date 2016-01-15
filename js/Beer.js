@@ -82,14 +82,14 @@ var Beer = (function () {
         };
 
         var startFilter = function() {
-            filterManager.addPlasmaFilter(wholeScreen);
+            filterManager.addDrunkFilter(Game.getDelList());
 
             //Score.setMultiplierColor("F24DD1");
             document.getElementById("multiplierFull").className = "beerGreen";
         };
 
         var stopFilter = function() {
-            filterManager.removeActiveFilters(wholeScreen);
+            filterManager.removeActiveFilters(Game.getDelList());
 
             Score.resetMultiplierColor();
         };

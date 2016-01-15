@@ -70,7 +70,6 @@ var Game = (function () {
         wholeScreen.height = KonfettiPolonaise.getPhaser().height-40;
 
         filterManager = new FilterManager();
-
         hitList = [];
         delList = [];
 
@@ -119,8 +118,6 @@ var Game = (function () {
 
     // Initialisiert alle Sounds von Game. muss von KonfettiPolonaise ausgefuehrt werden wegen gegenseitigen Ladeabheangigkeiten.
     cls.createSounds = function() {
-
-        // TODO: 8-bit Version. (moeglichst nicht wahrnehmbarer Loop!)                         LAURIN
         backgroundSound = KonfettiPolonaise.createSound('assets/sound/laCucaracha.mp3');
         backgroundSound.loop = true;
 
@@ -206,6 +203,10 @@ var Game = (function () {
         }
     };
 
+    cls.getDelList = function () {
+        return delList;
+    };
+
 
     var checkInput = function () {
         var cursorDirection = new Direction();
@@ -231,25 +232,25 @@ var Game = (function () {
         // DEBUG
         else if (key1.isDown) {
             filterManager.removeActiveFilters(wholeScreen);
-
         } else if (key2.isDown) {
             filterManager.removeActiveFilters(wholeScreen);
             filterManager.addFireFilter(wholeScreen);
 
         } else if (key3.isDown) {
             filterManager.removeActiveFilters(wholeScreen);
-            filterManager.addPlasmaFilter(wholeScreen);
-
+            filterManager.addHeartFilter(wholeScreen);
         } else if (key4.isDown) {
             KonfettiPolonaise.mute();
         } else if (key5.isDown) {
             filterManager.removeActiveFilters(wholeScreen);
-            filterManager.addHeartFilter(wholeScreen);
+            filterManager.addDrunkFilter(delList);
         }
         // DEBUG END
 
         return null;   // Falls keine Taste gedrueckt ist.
     };
+
+
 
 
     /** PRIVATE. Fuehrt eine komplette Schlangenbewegung durch.

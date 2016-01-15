@@ -132,8 +132,15 @@ var DisplayElement = (function () {
             sprite.destroy();
         };
 
+        this.getSprite = function() {
+            return sprite;
+        };
+
+
+
 
         Game.addToDisplayList(this);
+        Game.bringToTopWholeScreen();
     };
 
     // public (shared across instances)

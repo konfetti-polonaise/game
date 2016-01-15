@@ -7,26 +7,16 @@ var FilterManager = (function () {
         var activeFilter = [];
 
         var fireFilter;
-        var plasmaFilter;
         var heartFilter;
-      //  var drunkFilter;
-        var blurXFilter;
-        var testFilter;
+        var drunkFilterX;
 
         fireFilter = KonfettiPolonaise.getPhaser().add.filter('Fire',  KonfettiPolonaise.getPhaser().width,  KonfettiPolonaise.getPhaser().height);
         fireFilter.alpha = 0.0;
-        plasmaFilter = KonfettiPolonaise.getPhaser().add.filter('Plasma', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
-        plasmaFilter.alpha = 0.0;
-       // drunkFilter = KonfettiPolonaise.getPhaser().add.filter('Drunk', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
-       // drunkFilter.alpha = 0.0;
-       // blurXFilter = KonfettiPolonaise.getPhaser().add.filter('BlurX');
-        //blurXFilter.alpha = 0.0;
+        heartFilter = KonfettiPolonaise.getPhaser().add.filter('HeartFilter', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
+        heartFilter.alpha = 0.0;
 
-       // heartFilter = KonfettiPolonaise.getPhaser().add.filter('Heart',  KonfettiPolonaise.getPhaser().width,  KonfettiPolonaise.getPhaser().height);
-       // heartFilter.alpha = 0.0;
+        drunkFilterX = KonfettiPolonaise.getPhaser().add.filter('DrunkFilterX');
 
-        //testFilter = KonfettiPolonaise.getPhaser().add.filter('CheckerWave', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
-        //testFilter.alpha = 0.2;
 
 
         /** PUBLIC
@@ -36,42 +26,32 @@ var FilterManager = (function () {
             updateActiveFilter();
         };
 
-        //TODO alle funktionen erweitern -> filter für arrays von sprite möglich
         this.addFireFilter = function (_sprite) {
-            Game.bringToTopWholeScreen();   // WICHTIG
             _sprite.filters = [fireFilter];
             activeFilter.push(fireFilter);
         };
 
-        this.addPlasmaFilter = function (_sprite) {
-            Game.bringToTopWholeScreen();   // WICHTIG
-            _sprite.filters = [plasmaFilter];
-            activeFilter.push(plasmaFilter);
+
+        this.addDrunkFilter = function (_delList) {
+            for (var i  = 0; i < _delList.length; i++) {
+                _delList[i].getSprite().filters = [drunkFilterX];
+            }
+            activeFilter.push(drunkFilterX);
+
         };
 
-        this.addBlurXFilter = function (_sprite) {
-            _sprite.filters = [blurXFilter];
-            activeFilter.push(blurXFilter);
+        this.addHeartFilter = function (_sprite) {
+            _sprite.filters = [heartFilter];
+            activeFilter.push(heartFilter);
         };
 
-        //TODO evtl löschen
-        this.test = function (_sprite) {
-            _sprite.filters = [testFilter];
-            activeFilter.push(testFilter);
-        };
-/*
-        this.addDrunkFilter = function (_sprite) {
-            Game.bringToTopWholeScreen();   // WICHTIG
-            _sprite.filters = [drunkFilter];
-            activeFilter.push(drunkFilter);
-        };
-*/
         this.removeActiveFilters = function (_sprite) {
-            for(var i = 0; i < _sprite.length; i++) {
-                _sprite.filters[i].destroy();
+            if (activeFilterContains(drunkFilterX)) {
+                for (var i = 0; i < Game.getDelList().length; i++) {
+                    Game.getDelList()[i].getSprite().filters = null;
+                }
             }
             _sprite.filters = null;
-
             activeFilter = [];
         };
 
@@ -82,10 +62,20 @@ var FilterManager = (function () {
             for (var i = 0; i < activeFilter.length; i++) {
                 activeFilter[i].update();
             }
+            if (activeFilterContains(drunkFilterX) && Game.getDelList()[Game.getDelList().length -1].getSprite().filters == null) {
+                Game.getDelList()[Game.getDelList().length -1].getSprite().filters = [drunkFilterX];
+            }
+        };
+
+        var activeFilterContains = function (_filter) {
+            var lastFilterUsedDelList = false;
+            for (var i = 0; i < activeFilter.length; i++) {
+                if (activeFilter[i] == _filter) {
+                    lastFilterUsedDelList = true;
+                }
+            }
+            return lastFilterUsedDelList;
         };
     };
-
-    //inherit(cls, DisplayElement); // <-- important!
-
     return cls;
 })();
