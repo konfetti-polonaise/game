@@ -50,7 +50,7 @@ var Snake = (function () {
 
         this.setSpeed = function (_speed) {
             speed = _speed;
-            this.updateAnimationSpeed();
+            updateAnimationSpeed();
         };
 
 
@@ -58,10 +58,10 @@ var Snake = (function () {
          */
         this.increaseSpeed = function() {
             speed++;
-            this.updateAnimationSpeed();
+            updateAnimationSpeed();
         };
 
-        this.updateAnimationSpeed = function() {
+        var updateAnimationSpeed = function() {
             animationSpeed = speed/3 + 4;
 
             // Animationsgeschwindigkeit aktualisieren
@@ -140,13 +140,8 @@ var Snake = (function () {
             dancer.setAnimationSpeed(animationSpeed);
         };
 
-        /** PUBLIC. Prüft, ob sich ein Element innerhalb der Schlange (Head + Follower) befindet.
-         */
-        this.isInside = function(obj) {
-            return isInside(obj);
-        };
 
-        // Workaround: Public Methoden innerhalb cls
+        // Prüft, ob sich ein Element innerhalb der Schlange (Head + Follower) befindet.
         var isInside = function(obj) {
             var i = followers.length;
 

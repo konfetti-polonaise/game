@@ -3,13 +3,15 @@ var Game = (function () {
     var cursor;
     var gridSize = 32;
     var hitList;   // Liste mit beruehrbaren Elementen
-    var delList;
+    var delList;   // Liste aller DisplayElemente des Spiels
 
-    var powerUp;
-    var allPowerUps;
+    var powerUp;   // aktuelles PowerUp auf dem Spielfeld
+    var allPowerUps; // Liste mit allen im Spiel erscheinbaren PowerUp-Klassen
 
     var filterManager;
     var wholeScreen;
+
+    var firstGame = true; // Zeahlt die Anzahl der angefangenen Spiele
 
     // test für tastatureingabe
     var key1;
@@ -47,17 +49,18 @@ var Game = (function () {
         // Hintergrundbild
         var playground = KonfettiPolonaise.getPhaser().add.image(0, 0, 'playground');
 
-        // Rasterlinien, die ausfaden
-        var gridLines = KonfettiPolonaise.getPhaser().add.image(0, 0, 'grid');
-        gridLines.alpha = 1;
-        KonfettiPolonaise.getPhaser().add.tween(gridLines).to(
-            {alpha: 0},
-            15000,
-            Phaser.Easing.Linear.None,
-            true
-        );
-
-
+        // Rasterlinien, die ausfaden, Wenn dieses Spiel das aller erste ist.
+        if(firstGame) {
+            var gridLines = KonfettiPolonaise.getPhaser().add.image(0, 0, 'grid');
+            gridLines.alpha = 1;
+            KonfettiPolonaise.getPhaser().add.tween(gridLines).to(
+                {alpha: 0},
+                15000,
+                Phaser.Easing.Linear.None,
+                true
+            );
+            firstGame = false;
+        }
 
         Score.reset();
 
@@ -101,6 +104,7 @@ var Game = (function () {
     cls.prototype.update = function() {
 
         updateSnake();
+
         snake.decreaseBuffTimer();
 
         updatePowerUp();
