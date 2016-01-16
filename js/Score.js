@@ -35,14 +35,14 @@ var Score = (function () {
     };
 
     cls.setMultiplier = function(_multiplier) {
-        multiplier = _multiplier * initialMulti;
+        if(cls.setMultiplier.caller != null) {
+            multiplier = _multiplier * initialMulti;
+        }
         displayMultiplier();
     };
 
     cls.resetMultiplier = function() {
-        if(cls.increaseScore.caller != null) {
-            multiplier = initialMulti;
-        }
+        multiplier = initialMulti;
         displayMultiplier();
     };
 
