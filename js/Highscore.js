@@ -184,7 +184,7 @@ var Highscore = (function () {
         var position = 0;
 
         var response = ajax.get({'points': _points},  function(data) {return data}, false);
-        if (response.readyState == 4) {
+        if (response.readyState == 4 && response.responseText.length > 2) {
             position = JSON.parse(response.responseText)[0].position;
         }
 
