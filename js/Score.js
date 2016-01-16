@@ -9,7 +9,10 @@ var Score = (function () {
 
 
     cls.increaseScore = function() {
-        score = score + multiplier;
+        if(cls.increaseScore.caller != null) {
+            score = score + multiplier;
+        }
+
         displayScore();
     };
 
@@ -37,7 +40,9 @@ var Score = (function () {
     };
 
     cls.resetMultiplier = function() {
-        multiplier = initialMulti;
+        if(cls.increaseScore.caller != null) {
+            multiplier = initialMulti;
+        }
         displayMultiplier();
     };
 
