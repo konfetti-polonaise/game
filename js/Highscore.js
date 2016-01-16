@@ -100,9 +100,6 @@ var Highscore = (function () {
 
         var html = '<li style="color: ' + colors[_position - 1] + ';">';
 
-        //console.log(colors[_position - 1].substr(1));
-        console.log(parseInt(('' + colors[_position - 1].substr(1)), 16));
-
         if(_position <= 9) {
             html += '&nbsp;';
         }
