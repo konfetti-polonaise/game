@@ -7,13 +7,13 @@ var FilterManager = (function () {
         var activeFilter = [];
 
         var fireFilter;
-        var heartFilter;
+        var jeTaimeFilter;
         var drunkFilterX;
 
         fireFilter = KonfettiPolonaise.getPhaser().add.filter('Fire',  KonfettiPolonaise.getPhaser().width,  KonfettiPolonaise.getPhaser().height);
         fireFilter.alpha = 0.0;
-        heartFilter = KonfettiPolonaise.getPhaser().add.filter('HeartFilter', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
-        heartFilter.alpha = 0.0;
+        jeTaimeFilter = KonfettiPolonaise.getPhaser().add.filter('JeTaimFilter', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
+        jeTaimeFilter.alpha = 0.0;
 
         drunkFilterX = KonfettiPolonaise.getPhaser().add.filter('DrunkFilterX');
 
@@ -40,9 +40,9 @@ var FilterManager = (function () {
 
         };
 
-        this.addHeartFilter = function (_sprite) {
-            _sprite.filters = [heartFilter];
-            activeFilter.push(heartFilter);
+        this.addJeTaimeFilter = function (_sprite) {
+            _sprite.filters = [jeTaimeFilter];
+            activeFilter.push(jeTaimeFilter);
         };
 
         this.removeActiveFilters = function (_sprite) {

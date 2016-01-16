@@ -2,7 +2,7 @@
  * Created by Laurin on 15.01.2016.
  */
 
-Phaser.Filter.HeartFilter = function (game) {
+Phaser.Filter.JeTaimFilter = function (game) {
 
     Phaser.Filter.call(this, game);
 
@@ -45,10 +45,10 @@ Phaser.Filter.HeartFilter = function (game) {
 
 };
 
-Phaser.Filter.HeartFilter.prototype = Object.create(Phaser.Filter.prototype);
-Phaser.Filter.HeartFilter.prototype.constructor = Phaser.Filter.HeartFilter;
+Phaser.Filter.JeTaimFilter.prototype = Object.create(Phaser.Filter.prototype);
+Phaser.Filter.JeTaimFilter.prototype.constructor = Phaser.Filter.JeTaimFilter;
 
-Phaser.Filter.HeartFilter.prototype.init = function (width, height, alpha, size) {
+Phaser.Filter.JeTaimFilter.prototype.init = function (width, height, alpha, size) {
 
     this.setResolution(width, height);
 
@@ -62,7 +62,7 @@ Phaser.Filter.HeartFilter.prototype.init = function (width, height, alpha, size)
 
 };
 
-Object.defineProperty(Phaser.Filter.HeartFilter.prototype, 'alpha', {
+Object.defineProperty(Phaser.Filter.JeTaimFilter.prototype, 'alpha', {
 
     get: function() {
         return this.uniforms.alpha.value;
@@ -74,7 +74,7 @@ Object.defineProperty(Phaser.Filter.HeartFilter.prototype, 'alpha', {
 
 });
 
-Object.defineProperty(Phaser.Filter.HeartFilter.prototype, 'size', {
+Object.defineProperty(Phaser.Filter.JeTaimFilter.prototype, 'size', {
 
     get: function() {
         return this.uniforms.size.value;
@@ -86,7 +86,7 @@ Object.defineProperty(Phaser.Filter.HeartFilter.prototype, 'size', {
 
 });
 
-Object.defineProperty(Phaser.Filter.HeartFilter.prototype, 'redShift', {
+Object.defineProperty(Phaser.Filter.JeTaimFilter.prototype, 'redShift', {
 
     get: function() {
         return this.uniforms.redShift.value;
@@ -98,7 +98,7 @@ Object.defineProperty(Phaser.Filter.HeartFilter.prototype, 'redShift', {
 
 });
 
-Object.defineProperty(Phaser.Filter.HeartFilter.prototype, 'greenShift', {
+Object.defineProperty(Phaser.Filter.JeTaimFilter.prototype, 'greenShift', {
 
     get: function() {
         return this.uniforms.greenShift.value;
@@ -110,7 +110,7 @@ Object.defineProperty(Phaser.Filter.HeartFilter.prototype, 'greenShift', {
 
 });
 
-Object.defineProperty(Phaser.Filter.HeartFilter.prototype, 'blueShift', {
+Object.defineProperty(Phaser.Filter.JeTaimFilter.prototype, 'blueShift', {
 
     get: function() {
         return this.uniforms.blueShift.value;

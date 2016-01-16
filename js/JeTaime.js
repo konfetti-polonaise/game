@@ -108,7 +108,7 @@ var JeTaime = (function () {
 
         var startFilter = function() {
             // Pinker effekt startet
-            filterManager.addHeartFilter(wholeScreen);
+            filterManager.addJeTaimeFilter(wholeScreen);
             document.getElementById("multiplierFull").className = "jeTaimePink";
         };
 

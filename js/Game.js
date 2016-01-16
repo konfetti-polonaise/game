@@ -36,9 +36,6 @@ var Game = (function () {
         cls.loadSpritesheets(Beer);
         KonfettiPolonaise.getPhaser().load.image('playground', 'assets/img/playground.png');
         KonfettiPolonaise.getPhaser().load.image('grid', 'assets/img/grid.png');
-
-        //TODO debug test, wird von laurin gelöscht
-        //KonfettiPolonaise.getPhaser().load.script('filter', '');
     };
 
     cls.prototype.create = function() {
@@ -237,7 +234,7 @@ var Game = (function () {
 
         } else if (key3.isDown) {
             filterManager.removeActiveFilters(wholeScreen);
-            filterManager.addHeartFilter(wholeScreen);
+            filterManager.addJeTaimeFilter(wholeScreen);
         } else if (key4.isDown) {
             KonfettiPolonaise.mute();
         } else if (key5.isDown) {
