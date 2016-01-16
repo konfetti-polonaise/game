@@ -9,6 +9,7 @@
     <script type="text/javascript" src="js/Menu.js"></script>
     <script type="text/javascript" src="js/Game.js"></script>
     <script type="text/javascript" src="js/GameOver.js"></script>
+    <script type="text/javascript" src="js/Highscore.js"></script>
     <script type="text/javascript" src="js/KonfettiPolonaise.js"></script>
     <script type="text/javascript" src="js/Direction.js"></script>
     <script type="text/javascript" src="js/DisplayElement.js"></script>
@@ -26,6 +27,8 @@
     <script type="text/javascript" src="js/FilterManager.js"></script>
 </head>
 <body>
+<div id="overlay" class="none"></div>
+
 <div id="game">
 
     <div id="highscore">
@@ -39,17 +42,51 @@
 
     <div id="menu">
         <a id="start" href="">Start Game</a>
+        <a id="showranking" href="">Top 20</a>
+        <a id="showcredits" href="">Credits</a>
     </div>
 
     <div id="gameover" class="hide">
         <p>Your Score: <span id="final-score"></span></p>
+
+        <form id="highscoreform" class="none">
+            <h2 class="blink">New Highscore:</h2>
+            <span id="position"></span>
+            <input type="text" placeholder="NAME" id="name" maxlength="12" required />
+            <button id="submit" type="submit"></button>
+            <span id="nametag" class="none">David</span>
+        </form>
+
         <a id="restart" href="">Restart Game</a>
+
+        <div id="right">
+            <div id="top5"></div>
+            <a id="displayranking" href="">Top 20</a>
+        </div>
     </div>
 
+    <div id="ranking" class="hide">
+        <a href="" class="close">X</a>
+        <h2>Top 20</h2>
+        <div id="top20"></div>
+    </div>
+
+    <div id="credits" class="hide">
+        <a href="" class="close">X</a>
+        <h2>Credits</h2>
+        <ul>
+            <li>Anja Huelsmans</li>
+            <li>David Nowottnik</li>
+            <li>Hendrik Preu</li>
+            <li>Laurin Gerhardt</li>
+            <li>Marius Lenzing</li>
+            <li>Morice Ebbertz</li>
+        </ul>
+    </div>
 </div>
 <script type="text/javascript">
     window.onload = function() {
-        var game = new KonfettiPolonaise();
+        KonfettiPolonaise.displayMenu();
     };
 </script>
 </body>

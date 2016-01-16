@@ -34,20 +34,20 @@ var Game = (function () {
         cls.loadSpritesheets(JeTaime);
         cls.loadSpritesheets(Chilli);
         cls.loadSpritesheets(Beer);
-        KonfettiPolonaise.getPhaser().load.image('playground', 'assets/img/playground.png');
-        KonfettiPolonaise.getPhaser().load.image('grid', 'assets/img/grid.png');
+        KonfettiPolonaise.load.image('playground', 'assets/img/playground.png');
+        KonfettiPolonaise.load.image('grid', 'assets/img/grid.png');
     };
 
     cls.prototype.create = function() {
 
         // Hintergrundbild
-        var playground = KonfettiPolonaise.getPhaser().add.image(0, 0, 'playground');
+        var playground = KonfettiPolonaise.add.image(0, 0, 'playground');
 
         // Rasterlinien, die ausfaden, Wenn dieses Spiel das aller erste ist.
         if(firstGame) {
-            var gridLines = KonfettiPolonaise.getPhaser().add.image(0, 0, 'grid');
+            var gridLines = KonfettiPolonaise.add.image(0, 0, 'grid');
             gridLines.alpha = 1;
-            KonfettiPolonaise.getPhaser().add.tween(gridLines).to(
+            KonfettiPolonaise.add.tween(gridLines).to(
                 {alpha: 0},
                 15000,
                 Phaser.Easing.Linear.None,
@@ -58,10 +58,10 @@ var Game = (function () {
 
         Score.reset();
 
-        wholeScreen = KonfettiPolonaise.getPhaser().add.sprite(20, 20);
+        wholeScreen = KonfettiPolonaise.add.sprite(20, 20);
         wholeScreen.texture.baseTexture.skipRender = false;         //workaround, da phaser immer die letzte texture rendert
-        wholeScreen.width =  KonfettiPolonaise.getPhaser().width-40;
-        wholeScreen.height = KonfettiPolonaise.getPhaser().height-40;
+        wholeScreen.width =  KonfettiPolonaise.width-40;
+        wholeScreen.height = KonfettiPolonaise.height-40;
 
         filterManager = new FilterManager();
         hitList = [];
@@ -71,7 +71,8 @@ var Game = (function () {
 
         powerUp = null;
 
-        cursor = KonfettiPolonaise.getPhaser().input.keyboard.createCursorKeys();
+        KonfettiPolonaise.input.enabled = true;
+        cursor = KonfettiPolonaise.input.keyboard.createCursorKeys();
         Game.placeRandomDisplayElement(new Dancer(0, 0, false), true);
 
         // Tastatur
@@ -81,10 +82,10 @@ var Game = (function () {
         key4 = KonfettiPolonaise.registerKey('FOUR');
         key5 = KonfettiPolonaise.registerKey('FIVE');
         wasd = {
-            up: KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.W),
-            down: KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.S),
-            left: KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.A),
-            right: KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.D)
+            up: KonfettiPolonaise.input.keyboard.addKey(Phaser.Keyboard.W),
+            down: KonfettiPolonaise.input.keyboard.addKey(Phaser.Keyboard.S),
+            left: KonfettiPolonaise.input.keyboard.addKey(Phaser.Keyboard.A),
+            right: KonfettiPolonaise.input.keyboard.addKey(Phaser.Keyboard.D)
         };
 
         allPowerUps = [
@@ -195,7 +196,7 @@ var Game = (function () {
 
         for(var i = 0; i < spritesheets.length; i++) {
             var sprite = spritesheets[i];
-            KonfettiPolonaise.getPhaser().load.spritesheet(sprite, 'assets/img/' + sprite + '.png', height, width);
+            KonfettiPolonaise.load.spritesheet(sprite, 'assets/img/' + sprite + '.png', height, width);
         }
     };
 
@@ -340,9 +341,9 @@ var Game = (function () {
     var isOutsideRoom = function (_del) {
         var isOutside = false;
 
-        if (_del.getX() > KonfettiPolonaise.getPhaser().width - gridSize ||
+        if (_del.getX() > KonfettiPolonaise.width - gridSize ||
             _del.getX() < gridSize ||
-            _del.getY() > KonfettiPolonaise.getPhaser().height - gridSize ||
+            _del.getY() > KonfettiPolonaise.height - gridSize ||
             _del.getY() < gridSize ) {
             isOutside = true;
         }
@@ -428,8 +429,8 @@ var Game = (function () {
         var x, y;
 
         do {
-            x = getRandomValue(1, (KonfettiPolonaise.getPhaser().width / gridSize) - 2);
-            y = getRandomValue(1, (KonfettiPolonaise.getPhaser().height / gridSize) - 2);
+            x = getRandomValue(1, (KonfettiPolonaise.width / gridSize) - 2);
+            y = getRandomValue(1, (KonfettiPolonaise.height / gridSize) - 2);
 
             x = x * gridSize + gridSize / 2;
             y = y * gridSize + gridSize / 2;

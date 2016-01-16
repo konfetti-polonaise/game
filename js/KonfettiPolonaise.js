@@ -1,33 +1,26 @@
 var KonfettiPolonaise = (function () {
 
     // private static
-    var phaser = new Phaser.Game(
-        800,
-        512,
-        Phaser.AUTO,
-        'game'
-    );
-
     var allSounds = [];
-
     var isMuted = false;
 
-    // Gamestates hinzufügen
-    phaser.state.add('Menu', Menu);
-    phaser.state.add('Game', Game);
-    phaser.state.add('GameOver', GameOver);
-
     // constructor
-    var cls = function () {
+    var cls = function() {
+        return new Phaser.Game(
+            800,
+            512,
+            Phaser.AUTO,
+            'game'
+        );
+    }();
 
-    };
+    // Gamestates hinzufügen
+    cls.state.add('Menu', Menu);
+    cls.state.add('Game', Game);
+    cls.state.add('GameOver', GameOver);
 
     var startState = function(state) {
-        phaser.state.start(state);
-    };
-
-    cls.getPhaser = function() {
-        return phaser;
+        cls.state.start(state);
     };
 
     cls.startGame = function() {
@@ -39,6 +32,7 @@ var KonfettiPolonaise = (function () {
     };
 
     cls.displayMenu = function() {
+        Highscore.refreshTop5();
         startState('Menu');
     };
 
@@ -46,7 +40,7 @@ var KonfettiPolonaise = (function () {
     /** Meldet in Phaser einen neuen Key an und gibt diesen zurueck.
      */
     cls.registerKey = function(phaserKeyName) {
-        return phaser.input.keyboard.addKey(Phaser.Keyboard[phaserKeyName]);
+        return cls.input.keyboard.addKey(Phaser.Keyboard[phaserKeyName]);
     };
 
     /** Ueber diese Funktion muessen alle Sounds erstellt werden, damit sie durch den muteButton lautlos werden koennen.
@@ -79,8 +73,30 @@ var KonfettiPolonaise = (function () {
         }
     };
 
+    cls.showOverlay = function() {
+        document.getElementById('overlay').className = 'block';
+    };
 
-    cls.displayMenu();
+    cls.hideOverlay = function() {
+        document.getElementById('overlay').className = 'none';
+    };
+
+    cls.showCredits = function() {
+        document.getElementById("credits").className = "block";
+
+        document.getElementById("credits").getElementsByTagName('a')[0].onclick = function() {
+            KonfettiPolonaise.hideCredits();
+
+            return false;
+        };
+
+        KonfettiPolonaise.showOverlay();
+    };
+
+    cls.hideCredits = function() {
+        document.getElementById("credits").className = "none";
+        KonfettiPolonaise.hideOverlay();
+    };
 
     return cls;
 })();

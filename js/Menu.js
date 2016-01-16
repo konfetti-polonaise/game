@@ -18,7 +18,17 @@ var Menu = (function () {
             return false;
         };
 
-        spacebar = KonfettiPolonaise.getPhaser().input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        document.getElementById("showranking").onclick = function() {
+            Highscore.displayRanking();
+            return false;
+        };
+
+        document.getElementById("showcredits").onclick = function() {
+            KonfettiPolonaise.showCredits();
+            return false;
+        };
+
+        spacebar = KonfettiPolonaise.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     };
 
     cls.prototype.update = function () {

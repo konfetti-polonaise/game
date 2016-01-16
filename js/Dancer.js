@@ -87,7 +87,7 @@ var Dancer = (function () {
         };
 
         var randomizeDancer = function(_x, _y) {
-            var group = KonfettiPolonaise.getPhaser().add.group();
+            var group = KonfettiPolonaise.add.group();
             group.x = _x;
             group.y = _y;
             group.pivot.x = _x;

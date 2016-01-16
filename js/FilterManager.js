@@ -10,12 +10,12 @@ var FilterManager = (function () {
         var jeTaimeFilter;
         var drunkFilterX;
 
-        fireFilter = KonfettiPolonaise.getPhaser().add.filter('Fire',  KonfettiPolonaise.getPhaser().width,  KonfettiPolonaise.getPhaser().height);
+        fireFilter = KonfettiPolonaise.add.filter('Fire',  KonfettiPolonaise.width,  KonfettiPolonaise.height);
         fireFilter.alpha = 0.0;
-        jeTaimeFilter = KonfettiPolonaise.getPhaser().add.filter('JeTaimFilter', KonfettiPolonaise.getPhaser().width, KonfettiPolonaise.getPhaser().height);
+        jeTaimeFilter = KonfettiPolonaise.add.filter('JeTaimFilter', KonfettiPolonaise.width, KonfettiPolonaise.height);
         jeTaimeFilter.alpha = 0.0;
 
-        drunkFilterX = KonfettiPolonaise.getPhaser().add.filter('DrunkFilterX');
+        drunkFilterX = KonfettiPolonaise.add.filter('DrunkFilterX');
 
 
 

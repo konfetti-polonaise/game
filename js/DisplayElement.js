@@ -10,7 +10,7 @@ var DisplayElement = (function () {
         if(_sprite instanceof Object) {
             sprite = _sprite;
         } else {
-            sprite = KonfettiPolonaise.getPhaser().add.sprite(_x, _y, _sprite);
+            sprite = KonfettiPolonaise.add.sprite(_x, _y, _sprite);
             sprite.pivot.x = sprite.width / 2;
             sprite.pivot.y = sprite.height / 2;
         }
@@ -20,7 +20,7 @@ var DisplayElement = (function () {
 
         if(fadeIn == true) {
             sprite.alpha = 0;
-            KonfettiPolonaise.getPhaser().add.tween(sprite).to(
+            KonfettiPolonaise.add.tween(sprite).to(
                 {alpha: 1},
                 500,
                 Phaser.Easing.Linear.None,
@@ -75,13 +75,13 @@ var DisplayElement = (function () {
         };
 
         var shake = function(rotation, callBack) {
-            shakeTween = KonfettiPolonaise.getPhaser().add.tween(sprite);
+            shakeTween = KonfettiPolonaise.add.tween(sprite);
             shakeTween.to(rotation, 500, Phaser.Easing.Linear.None, false, 200);
             shakeTween.onComplete.addOnce(callBack, this);
             shakeTween.start();
         };
         var zoom = function(scale, callBack) {
-            scaleTween = KonfettiPolonaise.getPhaser().add.tween(sprite.scale);
+            scaleTween = KonfettiPolonaise.add.tween(sprite.scale);
             scaleTween.to(scale, 150, Phaser.Easing.Linear.None, false, 150);
             scaleTween.onComplete.addOnce(callBack, this);
             scaleTween.start()

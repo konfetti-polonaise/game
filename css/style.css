@@ -6,12 +6,55 @@ body{
     font-family: 'pixel';
     src: url('../assets/font/pixel-webfont.eot');
     src: url('../assets/font/pixel-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../assets/font/pixel-webfont.woff2') format('woff2'),
-         url('../assets/font/pixel-webfont.woff') format('woff'),
-         url('../assets/font/pixel-webfont.ttf') format('truetype'),
-         url('../assets/font/pixel-webfont.svg#pixel') format('svg');
+    url('../assets/font/pixel-webfont.woff2') format('woff2'),
+    url('../assets/font/pixel-webfont.woff') format('woff'),
+    url('../assets/font/pixel-webfont.ttf') format('truetype'),
+    url('../assets/font/pixel-webfont.svg#pixel') format('svg');
     font-weight: normal;
     font-style: normal;
+}
+
+@-webkit-keyframes color-change {
+    0% { color: #E8142C; }
+    50% { color: #efc853; }
+    100% { color: #E8142C; }
+}
+@-moz-keyframes color-change {
+    0% { color: #E8142C; }
+    50% { color: #efc853; }
+    100% { color: #E8142C; }
+}
+@-ms-keyframes color-change {
+    0% { color: #E8142C; }
+    50% { color: #efc853; }
+    100% { color: #E8142C; }
+}
+@-o-keyframes color-change {
+    0% { color: #E8142C; }
+    50% { color: #efc853; }
+    100% { color: #E8142C; }
+}
+@keyframes color-change {
+    0% { color: #E8142C; }
+    50% { color: #efc853; }
+    100% { color: #E8142C; }
+}
+
+.blink {
+    -webkit-animation: color-change 2s infinite;
+    -moz-animation: color-change 2s infinite;
+    -o-animation: color-change 2s infinite;
+    -ms-animation: color-change 2s infinite;
+    animation: color-change 2s infinite;
+}
+
+#overlay {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: .6;
+    position: absolute;
+    z-index: 50;
 }
 
 #game{
@@ -33,99 +76,316 @@ body{
     z-index: 2;
 }
 
-    #highscore h1, p{
-        position: relative;
-        width: 168px;
-        margin-bottom: -30px;
-        text-align: center;
-        font-family: pixel, "Courier New", Courier, monospace;
-    }
+#highscore h1,
+#highscore p {
+    position: relative;
+    width: 168px;
+    margin-bottom: -30px;
+    text-align: center;
+    font-family: pixel, "Courier New", Courier, monospace;
+}
 
-    #highscore h1{
-        margin-top: 50px;
-        font-size: 1.4em;
-    }
+#highscore h1 {
+    margin-top: 50px;
+    font-size: 1.4em;
+}
 
-    #highscore p{
-        margin-top: 40px;
-        font-size: 2em;
-    }
-
-
-
-    #menu {
-        background: url('../assets/img/startscreen.png') no-repeat;
-        height: 583px;
-        width: 1099px;
-
-        position: absolute;
-        left: -38px;
-        top: -69px;
-    }
-
-    #menu a {
-        display: block;
-        background: url('../assets/img/startgame.png') no-repeat;
-        height: 83px;
-        width: 383px;
-
-        position: relative;
-        top: 360px;
-        left: 80px;
-
-        text-indent: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-    #menu a:hover {
-        background-position: center -83px;
-    }
+#highscore p {
+    margin-top: 40px;
+    font-size: 2em;
+}
 
 
-    #gameover {
-        background: url('../assets/img/hangover.png') no-repeat;
-        height: 516px;
-        width: 1080px;
+#menu {
+    background: url('../assets/img/startscreen.png') no-repeat;
+    height: 583px;
+    width: 1099px;
 
-        position: absolute;
-        left: -38px;
-        top: 0px;
-    }
+    position: absolute;
+    left: -38px;
+    top: -69px;
+}
+#menu a {
+    display: block;
+    width: 213px;
+    height: 63px;
+    top: 358px;
 
-    #gameover a {
-        display: block;
-        background: url('../assets/img/restart.png') no-repeat;
-        height: 83px;
-        width: 313px;
+    position: relative;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+#menu #start {
+    background: url('../assets/img/startgame.png') no-repeat;
+    float: none;
+    height: 83px;
+    width: 456px;
+    margin: 0;
 
-        position: absolute;
-        top: 230px;
-        left: 562px;
+    left: 80px;
+}
+#menu #showranking {
+    background: url('../assets/img/top20.png') no-repeat;
+    float: left;
+    margin: 20px 30px 0 80px;
 
-        text-indent: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-    #gameover a:hover {
-        background-position: center -83px;
-    }
-    #gameover p {
-        position: absolute;
-        top: 156px;
-        left: 430px;
-        width: 580px;
+}
+#menu #showcredits {
+    background: url('../assets/img/credits.png') no-repeat;
+    margin-top: 20px;
+}
+#menu a:hover {
+    background-position: center -63px !important;
+}
+#menu #start:hover {
+    background-position: center -83px !important;
 
-        color: #fff;
-        font-family: pixel, "Courier New", Courier, monospace;
-        font-size: 2em;
-        text-align: center;
-        white-space: nowrap;
-    }
+}
 
+#gameover {
+    background: url('../assets/img/hangover.png') no-repeat;
+    height: 516px;
+    width: 1080px;
 
-.display{
+    font-family: pixel, "Courier New", Courier, monospace;
+    font-size: 2em;
+    color: #fff;
+
+    position: absolute;
+    left: -38px;
+    top: 0px;
+}
+
+#gameover a,
+#gameover p,
+#gameover form {
+    left: 340px;
+    position: relative;
+
+    text-align: left;
+    white-space: nowrap;
+}
+
+#gameover a {
+    clear: both;
+    display: block;
+    background: url('../assets/img/restart.png') no-repeat;
+    height: 63px;
+    width: 340px;
+    top: 250px;
+
+    text-indent: -9999px;
+}
+
+#gameover #displayranking {
+    background: url('../assets/img/top20.png') no-repeat;
+    width: 213px;
+    top: 18px;
+    left: 72px;
+}
+
+#gameover a:hover {
+    background-position: center -63px !important;
+}
+
+#gameover p {
+    position: absolute;
+    top: 156px;
+    line-height: 2;
+    width: 580px;
+    text-transform: uppercase;
+}
+
+.ranking li {
+    position: relative;
+    width: 100%;
+}
+
+.ranking li span {
+    color: inherit;
+    position: absolute;
+    right: 0;
+    text-align: right;
+}
+
+#gameover form {
+    top: 210px;
+    width: 400px;
+}
+
+#gameover h2 {
+    line-height: 2;
+    color: #E8142C;
+    text-transform: uppercase;
+}
+
+#gameover span {
+    color: inherit;
+    line-height: 1.2;
+}
+
+#position,
+#nametag {
+    padding: 6px 0 8px 0;
+    float: left;
+}
+
+#position {
+    width: 50px;
+}
+
+::-webkit-input-placeholder {
+    color:    #C5C1C2;
+}
+:-moz-placeholder {
+    color:    #C5C1C2;
+    opacity:  1;
+}
+::-moz-placeholder {
+    color:    #C5C1C2;
+    opacity:  1;
+}
+:-ms-input-placeholder {
+    color:    #C5C1C2;
+}
+:placeholder-shown {
+    color:    #C5C1C2;
+}
+
+#gameover input {
+    float: left;
+
+    background: #000;
+    color: #FFF;
+    font-family: pixel, "Courier New", Courier, monospace;
+    font-size: 2rem;
+    line-height: 1.2;
+
+    border: 3px solid #efc853;
+    border-right: none;
+    padding-left: .4em;
+    width: 261px;
+    height: 43px;
+}
+
+#gameover button {
+    float: left;
+    position: relative;
+    left: -37px;
+    height: 51px;
+    width: 49px;
+    background: transparent url('../assets/img/arrow.png') no-repeat;
+
+    border: none;
+    cursor: pointer;
+}
+
+#gameover button.active {
+    background-position: center -51px;
+}
+
+#gameover input.active {
+    border: 3px solid #E3A522;
+}
+
+#gameover #right {
+    position: absolute;
+    width: 358px;
+    height: 400px;
+    right: 10px;
+    top: 140px;
+}
+
+#top5 {
+    padding: 0 40px 0 35px;
+}
+
+#top5 li {
+    line-height: 1.3;
+}
+
+#credits,
+#ranking {
+    background: #141A10;
+    border: 8px solid #0D4393;
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    margin-left: -228px;
+    width: 360px;
+    height: 500px;
+    padding: 0 40px;
+
+    color: #FFF;
+    font-family: pixel, "Courier New", Courier, monospace;
+    font-size: 2rem;
+    line-height: 1.2;
+
+    z-index: 60;
+}
+
+#ranking {
+    width: 700px;
+    margin-left: -398px;
+}
+
+#credits h2,
+#ranking h2 {
+    color: #BD326D;
+    font-size: 3rem;
+    line-height: 2em;
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    right: 40px;
+    top: 30px;
+    display: block;
+    background: url('../assets/img/close.png') no-repeat;
+    height: 20px;
+    width: 20px;
+    text-indent: -9999px;
+}
+.close:hover {
+    background-position: center -20px;
+}
+#top20 {
+    height: 24rem;
+}
+
+#top20 ul {
+    width: 310px;
+    float: left;
+}
+#top20 ul:first-child {
+    padding-right: 80px;
+}
+
+#credits ul {
+    text-align: center;
+    font-size: 2.5rem;
+    line-height: 1.5;
+}
+
+ul:first-child li:first-child {
+    color: #EF5B9A;
+}
+
+.display {
     visibility: visible;
     z-index: 40;
+}
+
+.block {
+    display: block;
+    z-index: 40;
+}
+
+.none {
+    display: none;
+    z-index: 1;
 }
 
 .hide {
