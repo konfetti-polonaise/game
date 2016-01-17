@@ -11,7 +11,7 @@ var Game = (function () {
     var filterManager;
     var wholeScreen;
 
-    var firstGame = true; // Zeahlt die Anzahl der angefangenen Spiele
+    var firstGame = true;
 
     // test für tastatureingabe
     var key1;
@@ -64,6 +64,7 @@ var Game = (function () {
         wholeScreen.height = KonfettiPolonaise.height-40;
 
         filterManager = new FilterManager();
+
         hitList = [];
         delList = [];
 
@@ -89,8 +90,8 @@ var Game = (function () {
         };
 
         allPowerUps = [
-            Chilli,
             JeTaime,
+            Chilli,
             Beer
         ];  // Welche PowerUps erscheinen koennen.
 
@@ -448,6 +449,7 @@ var Game = (function () {
     cls.addToDisplayList = function(del) {
         addToList(delList, del);
     };
+
 
     return cls;
 })();
