@@ -9,7 +9,7 @@ var Score = (function () {
 
 
     cls.increaseScore = function() {
-        if(cls.increaseScore.caller != null) {
+        if(cls.increaseScore.caller != null) { // Cheatschutz
             score = score + multiplier;
         }
 
@@ -35,7 +35,7 @@ var Score = (function () {
     };
 
     cls.setMultiplier = function(_multiplier) {
-        if(cls.setMultiplier.caller != null) {
+        if(cls.setMultiplier.caller != null) { // Cheatschutz
             multiplier = _multiplier * initialMulti;
         }
         displayMultiplier();

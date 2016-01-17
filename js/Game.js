@@ -7,6 +7,8 @@ var Game = (function () {
 
     var powerUp;   // aktuelles PowerUp auf dem Spielfeld
     var allPowerUps; // Liste mit allen im Spiel erscheinbaren PowerUp-Klassen
+    var powerUpChance;
+    var powerUpChanceInit = 10;
 
     var filterManager;
     var wholeScreen;
@@ -88,6 +90,8 @@ var Game = (function () {
             left: KonfettiPolonaise.input.keyboard.addKey(Phaser.Keyboard.A),
             right: KonfettiPolonaise.input.keyboard.addKey(Phaser.Keyboard.D)
         };
+
+        resetPowerUpChance();
 
         allPowerUps = [
             JeTaime,
@@ -382,23 +386,41 @@ var Game = (function () {
      * Wenn dieser 0 ist, verschwindet das PowerUp wieder vom Feld ohne dass es eingesammelt wurde.
      */
     var updatePowerUp = function() {
-
-        if(powerUp == null) {
-
-            if( getRandomFloat(1,1601) > 1600 ) {  // Geringe Warscheinlichkeit
-
-                powerUp = new allPowerUps[getRandomValue(0, allPowerUps.length - 1)](0, 0);  // Ein zufaelliges PowerUp erstellen
-
-                Game.placeRandomDisplayElement(powerUp);
-            }
-        }
-        else{
+        if(powerUp != null) {
             if(powerUp.onFieldIsOver()) {
                 Game.removePowerUp();
             }
             else {
                 powerUp.decreaseOnFieldTimer();
             }
+        }
+    };
+
+    var resetPowerUpChance = function() {
+        powerUpChance = powerUpChanceInit;
+    };
+
+    var increasePowerUpChance = function() {
+        if(powerUpChance > 1) {
+            powerUpChance--;
+        }
+    };
+
+    cls.spawnPowerUp = function() {
+        if(cls.spawnPowerUp.caller == null) { // Cheatschutz
+            return false;
+
+        }
+
+        if(powerUp == null) {
+            // 1 aus 1 bis PowerUpChance
+            if(getRandomValue(1, powerUpChance) == 1) {
+                powerUp = new allPowerUps[getRandomValue(0, allPowerUps.length - 1)](0, 0);  // Ein zufaelliges PowerUp erstellen
+                Game.placeRandomDisplayElement(powerUp);
+                resetPowerUpChance();
+            }
+
+            increasePowerUpChance();
         }
     };
 

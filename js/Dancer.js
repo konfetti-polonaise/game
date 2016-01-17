@@ -34,6 +34,10 @@ var Dancer = (function () {
 
     // constructor
     var cls = function (_x, _y, _fadeIn) {
+        if(cls.caller == null) { // Cheatschutz
+            return false;
+        }
+
         var head, body, legs;
 
         var fadeIn = true;
@@ -128,6 +132,8 @@ var Dancer = (function () {
                 this.startShaking();
 
                 Game.increaseSpeed();
+
+                Game.spawnPowerUp();
 
                 Score.increaseScore();
 
