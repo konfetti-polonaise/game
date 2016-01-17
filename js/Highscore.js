@@ -1,6 +1,6 @@
 var Highscore = (function () {
     var apiUrl = 'http://nowottnik.com/konfetti-polonaise/highscore.php';
-    var maxPosition = 50;
+    var maxPosition = 20;
     var score;
 
     var colors = [
