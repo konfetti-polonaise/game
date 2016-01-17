@@ -1,5 +1,11 @@
-body{
+body, html {
+    height: 100%;
+}
+
+#city {
     background:url("../assets/img/city.jpg") no-repeat center center fixed;
+    width: 100%;
+    height: 100%;
 }
 
 @font-face {
@@ -15,29 +21,62 @@ body{
 }
 
 @-webkit-keyframes color-change {
-    0% { color: #E8142C; }
+    0%, 100%  { color: #E8142C; }
     50% { color: #efc853; }
-    100% { color: #E8142C; }
 }
 @-moz-keyframes color-change {
-    0% { color: #E8142C; }
+    0%, 100% { color: #E8142C; }
     50% { color: #efc853; }
-    100% { color: #E8142C; }
 }
 @-ms-keyframes color-change {
-    0% { color: #E8142C; }
+    0%, 100% { color: #E8142C; }
     50% { color: #efc853; }
-    100% { color: #E8142C; }
 }
 @-o-keyframes color-change {
-    0% { color: #E8142C; }
+    0%, 100% { color: #E8142C; }
     50% { color: #efc853; }
-    100% { color: #E8142C; }
 }
 @keyframes color-change {
-    0% { color: #E8142C; }
+    0%, 100% { color: #E8142C; }
     50% { color: #efc853; }
-    100% { color: #E8142C; }
+}
+
+@-webkit-keyframes drunk {
+    0%, 100%  {
+        -webkit-filter: blur(1px) grayscale(40%);
+        -moz-filter: blur(1px) grayscale(40%);
+        -o-filter: blur(1px) grayscale(40%);
+        -ms-filter: blur(1px);
+        filter: blur(1px) grayscale(40%);
+    }
+}
+@-moz-keyframes drunk {
+    0%, 100% { color: #E8142C; }
+    50% { color: #efc853; }
+}
+@-ms-keyframes drunk {
+    0%, 100% { color: #E8142C; }
+    50% { color: #efc853; }
+}
+@-o-keyframes drunk {
+    0%, 100% { color: #E8142C; }
+    50% { color: #efc853; }
+}
+@keyframes drunk {
+    0%, 100%  {
+        -webkit-filter: blur(2px) grayscale(40%);
+        -moz-filter: blur(2px) grayscale(40%);
+        -o-filter: blur(2px) grayscale(40%);
+        -ms-filter: blur(2px);
+        filter: blur(2px) grayscale(40%);
+    }
+    50% {
+        -webkit-filter: blur(4px) grayscale(60%);
+        -moz-filter: blur(4px) grayscale(60%);
+        -o-filter: blur(4px) grayscale(60%);
+        -ms-filter: blur(4px);
+        filter: blur(4px) grayscale(60%);
+    }
 }
 
 .blink {
@@ -46,6 +85,14 @@ body{
     -o-animation: color-change 2s infinite;
     -ms-animation: color-change 2s infinite;
     animation: color-change 2s infinite;
+}
+
+.drunk {
+    -webkit-animation: drunk 3s infinite;
+    -moz-animation: drunk 3s infinite;
+    -o-animation: drunk 3s infinite;
+    -ms-animation: drunk 3s infinite;
+    animation: drunk 3s infinite;
 }
 
 #overlay {

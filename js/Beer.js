@@ -86,12 +86,14 @@ var Beer = (function () {
 
             //Score.setMultiplierColor("F24DD1");
             document.getElementById("multiplierFull").className = "beerGreen";
+            document.getElementsByTagName('html')[0].className = "drunk";
         };
 
         var stopFilter = function() {
             filterManager.removeActiveFilters(Game.getDelList());
 
             Score.resetMultiplierColor();
+            document.getElementsByTagName('html')[0].className = "";
         };
 
         var startBuff = function() {

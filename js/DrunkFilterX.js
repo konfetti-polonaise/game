@@ -5,7 +5,7 @@
 Phaser.Filter.DrunkFilterX = function (game) {
 
     Phaser.Filter.call(this, game);
-    this.uniforms.blur = { type: '1f', value: 1 / 256 };
+    this.uniforms.blur = { type: '1f', value: 1 / 128 };
 
     this.fragmentSrc = [
 
@@ -16,7 +16,7 @@ Phaser.Filter.DrunkFilterX = function (game) {
         "uniform sampler2D uSampler;",
         "uniform float time;",
 
-        "float xBlur = blur + 0.01 * sin(time);",
+        "float xBlur = blur + 0.02 * sin(time);",
 
 
         "void main(void) {",
