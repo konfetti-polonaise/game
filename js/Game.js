@@ -8,7 +8,7 @@ var Game = (function () {
     var powerUp;   // aktuelles PowerUp auf dem Spielfeld
     var allPowerUps; // Liste mit allen im Spiel erscheinbaren PowerUp-Klassen
     var powerUpChance;
-    var powerUpChanceInit = 10;
+    var powerUpChanceInit = 16;
 
     var filterManager;
     var wholeScreen;
