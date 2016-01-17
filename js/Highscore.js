@@ -1,6 +1,6 @@
 var Highscore = (function () {
     var apiUrl = 'http://nowottnik.com/konfetti-polonaise/highscore.php';
-    var maxPosition = 20;
+    var maxPosition = 50;
     var score;
 
     var colors = [
@@ -31,13 +31,29 @@ var Highscore = (function () {
     var cls = function (_score) {
         score = _score;
 
+        // Form reset
+        document.getElementById('name').className = '';
+        document.getElementById('submit').className = '';
+        document.getElementById('position').className = '';
+        document.getElementById('nametag').className = 'none';
+
+        // Top 5 aktualisieren
         cls.refreshTop5();
 
-        var position = cls.getPosition(score);
-        if(position != 0 && position <= maxPosition) {
-            document.getElementById('position').innerHTML = position + '.';
-            cls.displayForm();
-        }
+        // Positionierung
+        ajax.get({'points': score, 'time': new Date().getTime()},  function(data) {
+            var json = JSON.parse(data);
+
+            if(json.length > 0) {
+                var position = json[0].position;
+
+                // Formular einblenden
+                if(position != 0 && position <= maxPosition) {
+                    document.getElementById('position').innerHTML = position + '.';
+                    cls.displayForm();
+                }
+            }
+        });
     };
 
     var ajax = {};
@@ -180,17 +196,6 @@ var Highscore = (function () {
         requestHighscore(5, function(data) {writeHighscore(data)});
     };
 
-    cls.getPosition = function(_points) {
-        var position = 0;
-
-        var response = ajax.get({'points': _points},  function(data) {return data}, false);
-        if (response.readyState == 4 && response.responseText.length > 2) {
-            position = JSON.parse(response.responseText)[0].position;
-        }
-
-        return position;
-    };
-
     cls.displayRanking = function() {
         document.getElementById("ranking").getElementsByTagName('a')[0].onclick = function() {
             Highscore.hideRanking();
@@ -199,6 +204,12 @@ var Highscore = (function () {
         };
 
         KonfettiPolonaise.showOverlay();
+
+        document.getElementById("overlay").onclick = function() {
+            Highscore.hideRanking();
+
+            return false;
+        };
 
         requestHighscore(maxPosition, function(data) {
             writeRanking(data);

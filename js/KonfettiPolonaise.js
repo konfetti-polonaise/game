@@ -91,6 +91,12 @@ var KonfettiPolonaise = (function () {
         };
 
         KonfettiPolonaise.showOverlay();
+
+        document.getElementById("overlay").onclick = function() {
+            KonfettiPolonaise.hideCredits();
+
+            return false;
+        };
     };
 
     cls.hideCredits = function() {
