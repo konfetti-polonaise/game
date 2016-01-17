@@ -8,12 +8,10 @@ var Game = (function () {
     var powerUp;   // aktuelles PowerUp auf dem Spielfeld
     var allPowerUps; // Liste mit allen im Spiel erscheinbaren PowerUp-Klassen
     var powerUpChance;
-    var powerUpChanceInit = 16;
+    var powerUpChanceInit = 14;
 
     var filterManager;
     var wholeScreen;
-
-    var firstGame = true;
 
     // test für tastatureingabe
     var key1;
@@ -45,18 +43,15 @@ var Game = (function () {
         // Hintergrundbild
         var playground = KonfettiPolonaise.add.image(0, 0, 'playground');
 
-        // Rasterlinien, die ausfaden, Wenn dieses Spiel das aller erste ist.
-        if(firstGame) {
-            var gridLines = KonfettiPolonaise.add.image(0, 0, 'grid');
-            gridLines.alpha = 1;
-            KonfettiPolonaise.add.tween(gridLines).to(
-                {alpha: 0},
-                15000,
-                Phaser.Easing.Linear.None,
-                true
-            );
-            firstGame = false;
-        }
+        // Rasterlinien, die ausfaden
+        var gridLines = KonfettiPolonaise.add.image(0, 0, 'grid');
+        gridLines.alpha = 1;
+        KonfettiPolonaise.add.tween(gridLines).to(
+            {alpha: 0},
+            15000,
+            Phaser.Easing.Linear.None,
+            true
+        );
 
         Score.reset();
 

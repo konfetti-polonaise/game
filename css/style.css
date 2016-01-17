@@ -43,39 +43,75 @@ body, html {
 
 @-webkit-keyframes drunk {
     0%, 100%  {
-        -webkit-filter: blur(1px) grayscale(40%);
-        -moz-filter: blur(1px) grayscale(40%);
-        -o-filter: blur(1px) grayscale(40%);
+        -webkit-filter: blur(1px);
+        -moz-filter: blur(1px);
+        -o-filter: blur(1px);
         -ms-filter: blur(1px);
-        filter: blur(1px) grayscale(40%);
+        filter: blur(1px);
     }
 }
 @-moz-keyframes drunk {
-    0%, 100% { color: #E8142C; }
-    50% { color: #efc853; }
+    0%, 100%  {
+        -webkit-filter: blur(2px);
+        -moz-filter: blur(2px);
+        -o-filter: blur(2px);
+        -ms-filter: blur(2px);
+        filter: blur(2px);
+    }
+    50% {
+        -webkit-filter: blur(4px);
+        -moz-filter: blur(4px);
+        -o-filter: blur(4px);
+        -ms-filter: blur(4px);
+        filter: blur(4px);
+    }
 }
 @-ms-keyframes drunk {
-    0%, 100% { color: #E8142C; }
-    50% { color: #efc853; }
+    0%, 100%  {
+        -webkit-filter: blur(2px);
+        -moz-filter: blur(2px);
+        -o-filter: blur(2px);
+        -ms-filter: blur(2px);
+        filter: blur(2px);
+    }
+    50% {
+        -webkit-filter: blur(4px);
+        -moz-filter: blur(4px);
+        -o-filter: blur(4px);
+        -ms-filter: blur(4px);
+        filter: blur(4px);
+    }
 }
 @-o-keyframes drunk {
-    0%, 100% { color: #E8142C; }
-    50% { color: #efc853; }
+    0%, 100%  {
+        -webkit-filter: blur(2px);
+        -moz-filter: blur(2px);
+        -o-filter: blur(2px);
+        -ms-filter: blur(2px);
+        filter: blur(2px);
+    }
+    50% {
+        -webkit-filter: blur(4px);
+        -moz-filter: blur(4px);
+        -o-filter: blur(4px);
+        -ms-filter: blur(4px);
+        filter: blur(4px);
+    }
 }
 @keyframes drunk {
     0%, 100%  {
-        -webkit-filter: blur(2px) grayscale(40%);
-        -moz-filter: blur(2px) grayscale(40%);
-        -o-filter: blur(2px) grayscale(40%);
+        -webkit-filter: blur(2px);
+        -moz-filter: blur(2px);
+        -o-filter: blur(2px);
         -ms-filter: blur(2px);
-        filter: blur(2px) grayscale(40%);
+        filter: blur(2px);
     }
     50% {
-        -webkit-filter: blur(4px) grayscale(60%);
-        -moz-filter: blur(4px) grayscale(60%);
-        -o-filter: blur(4px) grayscale(60%);
+        -webkit-filter: blur(4px);
+        -moz-filter: blur(4px);
+        -o-filter: blur(4px);
         -ms-filter: blur(4px);
-        filter: blur(4px) grayscale(60%);
+        filter: blur(4px);
     }
 }
 

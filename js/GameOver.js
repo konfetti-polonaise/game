@@ -13,6 +13,8 @@ var GameOver = (function () {
         var score = Score.getScore();
         new Highscore(score);
 
+        Score.resetMultiplierColor();
+
         // HTML anpassung
         document.getElementById("gameover").className = "display";
         document.getElementById("final-score").innerHTML = score;

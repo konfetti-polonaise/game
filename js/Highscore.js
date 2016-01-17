@@ -32,10 +32,7 @@ var Highscore = (function () {
         score = _score;
 
         // Form reset
-        document.getElementById('name').className = '';
-        document.getElementById('submit').className = '';
-        document.getElementById('position').className = '';
-        document.getElementById('nametag').className = 'none';
+        cls.hideForm();
 
         // Top 5 aktualisieren
         cls.refreshTop5();
@@ -247,6 +244,14 @@ var Highscore = (function () {
 
             return false;
         };
+    };
+
+    cls.hideForm = function() {
+        document.getElementById('name').className = '';
+        document.getElementById('submit').className = '';
+        document.getElementById('position').className = '';
+        document.getElementById('nametag').className = 'none';
+        document.getElementById("highscoreform").className = "none";
     };
 
     return cls;
