@@ -93,7 +93,6 @@ var Beer = (function () {
             filterManager.removeActiveFilters(Game.getDelList());
 
             Score.resetMultiplierColor();
-            document.getElementsByTagName('html')[0].className = "";
         };
 
         var startBuff = function() {

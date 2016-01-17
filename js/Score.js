@@ -52,6 +52,7 @@ var Score = (function () {
 
 
     cls.resetMultiplierColor = function() {
+        document.getElementsByTagName('html')[0].className = "";
         document.getElementById("multiplierFull").className = "";
     };
 
