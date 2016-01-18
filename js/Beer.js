@@ -16,7 +16,7 @@ var Beer = (function () {
         // Wie lange das PowerUp auf dem Feld bleibt bevor es unaufgesammelt verschwindet
         var onFieldTimer = new PowerUpTimer(1000);
 
-        var multiplierFactor = 2;
+        var multiplierFactor = 1.5;
 
         this.setHitbox(20,20);
 

@@ -54,6 +54,8 @@ var Game = (function () {
         );
 
         Score.reset();
+        Highscore.hideRanking();
+        KonfettiPolonaise.hideCredits();
 
         wholeScreen = KonfettiPolonaise.add.sprite(20, 20);
         wholeScreen.texture.baseTexture.skipRender = false;         //workaround, da phaser immer die letzte texture rendert
