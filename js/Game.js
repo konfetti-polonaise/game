@@ -13,12 +13,6 @@ var Game = (function () {
     var filterManager;
     var wholeScreen;
 
-    // test für tastatureingabe
-    var key1;
-    var key2;
-    var key3;
-    var key4;
-    var key5;
     var wasd;
 
     var backgroundSound;
@@ -76,11 +70,6 @@ var Game = (function () {
         Game.placeRandomDisplayElement(new Dancer(0, 0, false), true);
 
         // Tastatur
-        key1 = KonfettiPolonaise.registerKey('ONE');
-        key2 = KonfettiPolonaise.registerKey('TWO');
-        key3 = KonfettiPolonaise.registerKey('THREE');
-        key4 = KonfettiPolonaise.registerKey('FOUR');
-        key5 = KonfettiPolonaise.registerKey('FIVE');
         wasd = {
             up: KonfettiPolonaise.input.keyboard.addKey(Phaser.Keyboard.W),
             down: KonfettiPolonaise.input.keyboard.addKey(Phaser.Keyboard.S),
@@ -227,25 +216,6 @@ var Game = (function () {
             return cursorDirection;
 
         }
-
-        // DEBUG
-        else if (key1.isDown) {
-            filterManager.removeActiveFilters(wholeScreen);
-        } else if (key2.isDown) {
-            filterManager.removeActiveFilters(wholeScreen);
-            filterManager.addFireFilter(wholeScreen);
-
-        } else if (key3.isDown) {
-            filterManager.removeActiveFilters(wholeScreen);
-            filterManager.addJeTaimeFilter(wholeScreen);
-        } else if (key4.isDown) {
-            KonfettiPolonaise.mute();
-        } else if (key5.isDown) {
-            filterManager.removeActiveFilters(wholeScreen);
-            filterManager.addDrunkFilter(delList);
-        }
-        // DEBUG END
-
         return null;   // Falls keine Taste gedrueckt ist.
     };
 
