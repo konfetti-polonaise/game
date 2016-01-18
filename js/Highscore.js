@@ -80,7 +80,7 @@ var Highscore = (function () {
 
     ajax.send = function(url, callback, method, data, sync) {
         var x = ajax.x();
-        x.open(method, url, sync);
+        x.open(method, url, true);
         x.onreadystatechange = function() {
             if (x.readyState == 4) {
                 callback(x.responseText)
