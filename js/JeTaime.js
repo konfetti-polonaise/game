@@ -19,7 +19,7 @@ var JeTaime = (function () {
         // Wie lange das PowerUp auf dem Feld bleibt bevor es unaufgesammelt verschwindet
         var onFieldTimer = new PowerUpTimer(1000);
 
-        var slowSpeed = 7;
+        var speedDivident = 3;
         var originalSpeed;
 
         var multiplierDivident = 2;
@@ -32,7 +32,7 @@ var JeTaime = (function () {
 
         this.action = function() {
 
-            buffTimer = new PowerUpTimer(1015);
+            buffTimer = new PowerUpTimer(1020);
 
             Game.removePowerUp();
 
@@ -120,7 +120,7 @@ var JeTaime = (function () {
 
         var startBuff = function() {
             Score.setMultiplier( Score.getMultiplier() / multiplierDivident );
-            snake.setSpeed(slowSpeed);
+            snake.setSpeed( roundXdecimal(originalSpeed/speedDivident, 0) );
         };
 
         var stopBuff = function() {
