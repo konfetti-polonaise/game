@@ -165,8 +165,10 @@ body, html {
 
 
 #sound {
+    top: 248px;
+    right: 41px;
     position: absolute;
-    background:url("../assets/img/mute.png") no-repeat 0 0;
+    background:url("../assets/img/mute2.png") no-repeat 0 0;
     width: 31px;
     height: 31px;
     cursor: pointer;
