@@ -42,87 +42,6 @@ body, html {
     50% { color: #efc853; }
 }
 
-@-webkit-keyframes drunk {
-    0%, 100%  {
-        -webkit-filter: blur(4px);
-        -moz-filter: blur(4px);
-        -o-filter: blur(4px);
-        -ms-filter: blur(4px);
-        filter: blur(4px);
-    }
-    50% {
-        -webkit-filter: blur(6px);
-        -moz-filter: blur(6px);
-        -o-filter: blur(6px);
-        -ms-filter: blur(6px);
-        filter: blur(6px);
-    }
-}
-@-moz-keyframes drunk {
-    0%, 100%  {
-        -webkit-filter: blur(4px);
-        -moz-filter: blur(4px);
-        -o-filter: blur(4px);
-        -ms-filter: blur(4px);
-        filter: blur(4px);
-    }
-    50% {
-        -webkit-filter: blur(6px);
-        -moz-filter: blur(6px);
-        -o-filter: blur(6px);
-        -ms-filter: blur(6px);
-        filter: blur(6px);
-    }
-}
-@-ms-keyframes drunk {
-    0%, 100%  {
-        -webkit-filter: blur(4px);
-        -moz-filter: blur(4px);
-        -o-filter: blur(4px);
-        -ms-filter: blur(4px);
-        filter: blur(4px);
-    }
-    50% {
-        -webkit-filter: blur(6px);
-        -moz-filter: blur(6px);
-        -o-filter: blur(6px);
-        -ms-filter: blur(6px);
-        filter: blur(6px);
-    }
-}
-@-o-keyframes drunk {
-    0%, 100%  {
-        -webkit-filter: blur(4px);
-        -moz-filter: blur(4px);
-        -o-filter: blur(4px);
-        -ms-filter: blur(4px);
-        filter: blur(4px);
-    }
-    50% {
-        -webkit-filter: blur(6px);
-        -moz-filter: blur(6px);
-        -o-filter: blur(6px);
-        -ms-filter: blur(6px);
-        filter: blur(6px);
-    }
-}
-@keyframes drunk {
-    0%, 100%  {
-        -webkit-filter: blur(4px);
-        -moz-filter: blur(4px);
-        -o-filter: blur(4px);
-        -ms-filter: blur(4px);
-        filter: blur(4px);
-    }
-    50% {
-        -webkit-filter: blur(6px);
-        -moz-filter: blur(6px);
-        -o-filter: blur(6px);
-        -ms-filter: blur(6px);
-        filter: blur(6px);
-    }
-}
-
 .blink {
     -webkit-animation: color-change 2s infinite;
     -moz-animation: color-change 2s infinite;
@@ -132,11 +51,11 @@ body, html {
 }
 
 .drunk {
-    -webkit-animation: drunk 3s infinite;
-    -moz-animation: drunk 3s infinite;
-    -o-animation: drunk 3s infinite;
-    -ms-animation: drunk 3s infinite;
-    animation: drunk 3s infinite;
+    -webkit-filter: blur(6px);
+    -moz-filter: blur(6px);
+    -o-filter: blur(6px);
+    -ms-filter: blur(6px);
+    filter: blur(6px);
 }
 
 #overlay {
@@ -177,7 +96,7 @@ body, html {
 }
 
 #highscore h1 {
-    margin-top: 50px;
+    margin-top: 52px;
     font-size: 1.4em;
 }
 
@@ -185,7 +104,26 @@ body, html {
     margin-top: 40px;
     font-size: 2em;
 }
+#highscore ul {
+    position: relative;
+    margin-top: 40px;
+    text-align: right;
+    padding-right: 70px;
+    z-index: 10;
+}
 
+
+
+#sound {
+    position: absolute;
+    background:url("../assets/img/mute.png") no-repeat 0 0;
+    width: 31px;
+    height: 31px;
+    cursor: pointer;
+}
+.mute #sound {
+    background-position: center -31px;
+}
 
 #menu {
     background: url('../assets/img/startscreen.png') no-repeat;
@@ -195,6 +133,7 @@ body, html {
     position: absolute;
     left: -38px;
     top: -69px;
+    z-index: 11;
 }
 #menu a {
     display: block;

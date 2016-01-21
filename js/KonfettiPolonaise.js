@@ -33,6 +33,12 @@ var KonfettiPolonaise = (function () {
 
     cls.displayMenu = function() {
         Highscore.refreshTop5();
+
+        document.getElementById('sound').onclick = function() {
+            KonfettiPolonaise.toggleMute();
+            return false;
+        };
+
         startState('Menu');
     };
 
@@ -54,22 +60,24 @@ var KonfettiPolonaise = (function () {
 
     /** Macht alle Sounds des Spiels lautlos.
      */
-    cls.mute = function() {
+    cls.toggleMute = function() {
+        var i = allSounds.length;
+
         if (isMuted == false) {
             isMuted = true;
 
-            var i = allSounds.length;
             while(i--) {
                 allSounds[i].muted = true;
             }
+            document.getElementById('game').className = 'mute';
         }
         else{
             isMuted = false;
 
-            var i = allSounds.length;
             while(i--) {
                 allSounds[i].muted = false;
             }
+            document.getElementById('game').className = '';
         }
     };
 
